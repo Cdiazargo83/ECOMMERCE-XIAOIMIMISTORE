@@ -27,7 +27,7 @@
                 <th>SKU</th>
                 <th>Nombre</th>
                 <th>Stock</th>
-                <th>Precio</th>
+
             </tr>
         </thead>
         <tbody>
