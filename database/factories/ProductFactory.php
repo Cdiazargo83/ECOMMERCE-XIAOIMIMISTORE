@@ -43,9 +43,9 @@ class ProductFactory extends Factory
 
 
         }else{
-            $quantity = 15;
-            $quantity_partner = 55;
-            $stock_flex = 10;
+            $quantity = 2;
+            $quantity_partner = 2;
+            $stock_flex = 2;
 
         }
 
