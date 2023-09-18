@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
 
-    protected $fillable = ['sku', 'name', 'bodega', 'stock_flex','slug','description','price','price_tachado','price_partner','subcategory_id','brand_id',
+    protected $fillable = ['sku','name','bodega','stock_flex','slug','description','price','price_tachado','price_partner','subcategory_id','brand_id',
                             'quantity','quantity_partner','status','destacado'  ];
 
 
@@ -76,8 +76,6 @@ class Product extends Model
           return 'slug';
       }
 
-
-
        public static function saveOrUpdate($data)
         {
               $sku = (string)$data->SKU;
@@ -86,22 +84,26 @@ class Product extends Model
               if ($product) {
                   // Actualizar los campos del producto existente basado en los datos del servicio SOAP
                   $product->update([
-                      'nombre' => (string)$data->Nombre,
-                      'descripcion' => (string)$data->Descripcion,
-                      'precio' => (float)$data->Precio,
+
+                      'sku' => $sku,
+                      'name' => (string)$data->Descripcion,
+                      'price' => (float)$data->Precio,
+                      'description'=> "description",
+
                       // Agrega otros campos según sea necesario
                   ]);
               } else {
                   // El producto no existe, crear uno nuevo
                   self::create([
+
                       'sku' => $sku,
-                      'nombre' => (string)$data->Nombre,
-                      'descripcion' => (string)$data->Descripcion,
-                      'precio' => (float)$data->Precio,
+                      'name' => (string)$data->Descripcion,
+                      'price' => (float)$data->Precio,
+                      'description'=> "description",
+
                       // Agrega otros campos según sea necesario
                   ]);
               }
-          }
+        }
       }
-
 

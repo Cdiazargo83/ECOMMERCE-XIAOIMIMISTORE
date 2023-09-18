@@ -36,8 +36,8 @@
                     <tr>
                         <td>{{ $product->CodProducto }}</td>
                         <td>{{ $product->Descripcion }}</td>
-                        <td>{{ intval($product->Bodega->Cantidad) }}</td>
-                        <td>{{ $product->Precio }}</td>
+                        <td>{{ intval($product->Bodega->Cantidad)}}</td>
+                        <td>{{ $product->Precio}}</td>
                     </tr>
                 @endif
             @endforeach
@@ -48,4 +48,3 @@
 @endif
 </div>
 @endsection
-
