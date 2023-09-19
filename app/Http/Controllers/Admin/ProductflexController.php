@@ -53,7 +53,7 @@ class ProductflexController extends Controller
                 'price_partner' => (float) $productData->Precio,
                 'subcategory_id' => 3,
                 'brand_id' => 1,
-                'slug' => (string) $productData->CodProducto,
+                'slug' => (string) $productData->Descripcion,
                 'stock_flex'=> intval($productData->Bodega->Cantidad),
                 // Actualiza otros campos según sea necesario
             ]);
@@ -68,9 +68,10 @@ class ProductflexController extends Controller
                 'description' => (string) $productData->Descripcion,
                 'price_tachado' => (float) $productData->Precio,
                 'price_partner' => (float) $productData->Precio,
-                'subcategory_id' => 11,
-                'brand_id' => 14,
-                'slug' => (string) $productData->CodProducto,
+                'subcategory_id' => 3,
+                'brand_id' => 1,
+                'slug' => (string) $productData->Descripcion,
+                'stock_flex'=> intval($productData->Bodega->Cantidad),
                 // Agrega otros campos según sea necesario
             ]);
         }
