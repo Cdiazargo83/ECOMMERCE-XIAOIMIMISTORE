@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\ProductflexController;
 use App\Http\Controllers\Admin\ConsultaPrecioController;
 
 
+
 //ruta para PDF
 
 Route::get('orders/{order}/pdf',[OrderController::class, 'pdf'])->name('admin.orders.pdf');
@@ -60,9 +61,6 @@ Route::get('promocions/{promocion}', ShowPromocion::class)->name('admin.promocio
 
 
 
-//Route::get('/consulta-productos', [ProductflexController::class, 'consultaProductosView'])->name('admin.consulta-productos');
-
-
 Route::middleware(['auth'])->group(function () {
     // Otras rutas de administración
 
@@ -71,8 +69,11 @@ Route::middleware(['auth'])->group(function () {
 
     //Route::post('/consulta-productos', [ProductflexController::class, 'consultaProductos'])->name('livewire.admin.consulta-productos');
     Route::match(['get', 'post'], '/consulta-productos', [ProductflexController::class, 'consultaProductos'])->name('livewire.admin.consulta-productos');
-
     Route::match(['get', 'post'], '/consulta-precio', [ConsultaPrecioController::class, 'consultaPrecio'])->name('livewire.admin.consulta-precio');
+
+
+
+
 
 
     //Route::get('/consulta-productosview', [ProductflexController::class, 'consultaProductosView'])->name('livewire.admin.consultaproductosview');

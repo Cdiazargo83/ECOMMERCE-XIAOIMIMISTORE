@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -38,6 +39,8 @@ class ProductflexController extends Controller
             $xmlResponse = $response->ConsultaStock_BodegaLPreciosResult;
         $responseData = simplexml_load_string($xmlResponse);
 
+       // dd($xmlResponse);
+
     foreach ($responseData->Producto as $productData) {
         $sku = (string) $productData->CodProducto;
         $existingProduct = Product::where('sku', $sku)->first();
@@ -47,14 +50,9 @@ class ProductflexController extends Controller
             $existingProduct->update([
                 'name' => (string) $productData->Descripcion,
                 'quantity' => intval($productData->Bodega->Cantidad),
-                'price' => (float) $productData->Precio,
                 'description' => (string) $productData->Descripcion,
-                'price_tachado' => (float) $productData->Precio,
-                'price_partner' => (float) $productData->Precio,
-                'subcategory_id' => 3,
-                'brand_id' => 1,
-                'slug' => (string) $productData->Descripcion,
-                'stock_flex'=> intval($productData->Bodega->Cantidad),
+
+
                 // Actualiza otros campos según sea necesario
             ]);
 
@@ -64,22 +62,19 @@ class ProductflexController extends Controller
                 'sku' => $sku,
                 'name' => (string) $productData->Descripcion,
                 'quantity' => intval($productData->Bodega->Cantidad),
-                'price' => (float) $productData->Precio,
                 'description' => (string) $productData->Descripcion,
-                'price_tachado' => (float) $productData->Precio,
-                'price_partner' => (float) $productData->Precio,
                 'subcategory_id' => 3,
                 'brand_id' => 1,
                 'slug' => (string) $productData->Descripcion,
                 'stock_flex'=> intval($productData->Bodega->Cantidad),
+                'price' => 0,
+                'price_tachado'=> 0,
+                'price_partner'=> 0,
+                'quantity_partner' => 0
                 // Agrega otros campos según sea necesario
             ]);
         }
     }
-
-
-
-           // dd($xmlResponse);
 
             // Devolver la vista con los datos obtenidos del servicio web
             return view('livewire.admin.consulta-productos', ['responseData' => $responseData]);

@@ -1,68 +1,119 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use SoapClient;
-
+use App\Models\Product;
 
 class ConsultaPrecioController extends Controller
 {
     public function consultaPrecio(Request $request)
     {
         try {
-            $wsdlUrl = "https://ws-erp.manager.cl/Flexline/Saco/Ws%20ConsultaProducto/WSConsultaProducto.asmx?WSDL";
+            // Validar y obtener parámetros del request
+            $this->validarParametros($request);
 
-            $soapClient = new SoapClient($wsdlUrl, [
-                'trace' => true,
-                'exceptions' => true,
-            ]);
+            // Realizar la llamada SOAP y obtener la respuesta
+            $responseData = $this->realizarConsultaSOAP($request->input('empresa'), $request->input('listaprecio'), $request->input('nombreprecio'));
 
-            // Obtener los valores de los campos del formulario
-            $empresaParameter = $request->input('empresa', '003');
-            $idListaPreciosParameter = $request->input('id_lista_precios', '80');
-            //$nombreListaPreciosParameter = $request->input('nombre_lista_precios','LP-USUARIO FINAL-TIENDA WEB-VISUAL');
+            // Guardar los datos en la base de datos
+            $this->guardarDatosEnDB($responseData);
 
-            // Realizar la llamada SOAP a un método del servicio web
-            $response = $soapClient->ConsultaListaPrecios([
-                '__Empresa' => $empresaParameter,
-                '__IdListaPrecios' => $idListaPreciosParameter,
-               // '__NombreListaPrecios'=> $nombreListaPreciosParameter,
-            ]);
+            // Registro exitoso en el archivo de registro
+            Log::info('Consulta SOAP exitosa y datos guardados en la base de datos.');
 
-            // Obtener y procesar la respuesta en formato XML
-            $xmlResponse = $response->ConsultaListaPreciosResult;
-            $responseData = simplexml_load_string($xmlResponse);
+            // Devolver la vista con los datos obtenidos del servicio web
+            return view('livewire.admin.consulta-precio', ['responseData' => $responseData]);
 
-            foreach ($responseData->Precio as $precioData) {
-                Product::updateOrCreate(
-                    ['sku' => $precioData->CodProducto],
-                    [
-                        'name' => $precioData->Descripcion,
-                        'precio' => $precioData->Precio,
-                        // Add other fields you want to save
-                    ]
-                );
-            }
-
-            return view('livewire.admin.consulta-precio', [
-                'responseData' => $responseData,
-                'empresa' => $empresaParameter,
-                'idListaPrecios' => $idListaPreciosParameter,
-              //  'nombreListaPrecios'=> $nombreListaPreciosParameter,
-            ]);
+        } catch (\SoapFault $soapException) {
+            // Manejo de error SOAP
+            dd($soapException->getMessage());
 
         } catch (\Exception $e) {
-            return view('livewire.error', ['error' => $e->getMessage()]);
+            // Manejo de error general
+            dd($e->getMessage());
+        }
+    }
+
+    private function validarParametros(Request $request)
+    {
+        $this->validate($request, [
+            'empresa' => 'required',
+            'listaprecio' => 'required',
+            'nombreprecio' => 'required'
+        ]);
+    }
+
+    private function manejarError($errorMessage)
+    {
+        // Registro de error en el archivo de registro
+        Log::error($errorMessage);
+
+        // Mostrar una vista de error con el mensaje de excepción
+        return view('livewire.error', ['error' => $errorMessage]);
+    }
+
+    private function realizarConsultaSOAP($empresa, $listaprecio, $nombreprecio)
+    {
+        // URL del WSDL del servicio web SOAP
+        $wsdlUrl = "https://ws-erp.manager.cl/Flexline/Saco/Ws%20ConsultaProducto/WSConsultaProducto.asmx?WSDL";
+
+        // Crear un cliente SOAP
+        $soapClient = new \SoapClient($wsdlUrl, [
+            'trace' => true,       // Habilitar el seguimiento de llamadas SOAP
+            'exceptions' => true,  // Habilitar excepciones en caso de errores
+        ]);
+
+        // Realizar la llamada SOAP al método "ConsultaProductos"
+        $response = $soapClient->ConsultaListaPrecios([
+            '__Empresa' => $empresa,
+            '__IdListaPrecios' => $listaprecio,
+            '__NombreListaPrecios' => $nombreprecio,
+        ]);
+
+        // Obtener y procesar la respuesta en formato XML
+        $xmlResponse = $response->ConsultaListaPreciosResult;
+        $responseData = simplexml_load_string($xmlResponse);
+
+        return $responseData;
+    }
+
+    private function guardarDatosEnDB($responseData)
+    {
+        foreach ($responseData->PRODUCTO as $producto) {
+            // Buscar el producto por SKU en la base de datos
+            $existingProduct = Product::where('sku', (string)$producto->PRODUCTO)->first();
+
+            if (!$existingProduct) {
+                // Si el producto no existe, créalo
+                Product::create([
+                    'sku' => (string)$producto->PRODUCTO,
+                    'name' => (string)$producto->GLOSA,
+                    'quantity'=> 0,
+                    'description'=> $producto->GLOSA,
+                    'subcategory_id' => 3,
+                    'brand_id' => 1,
+                    'slug' => (string)$producto->GLOSA,
+                    'stock_flex'=> 0,
+                    'price' => (float)$producto->PRECIOLISTA,
+                    'price_tachado' => (float)$producto->PRECIOLISTA,
+                    'price_partner' => (float)$producto->PRECIOLISTA,
+                    'quantity_partner' => 0
+                    // Añadir otros campos y asignar los valores correctos aquí
+                ]);
+            } else {
+                // Si el producto ya existe, actualiza sus datos si es necesario
+                $existingProduct->name = (string)$producto->GLOSA;
+                $existingProduct->price = (float)$producto->PRECIOLISTA;
+                $existingProduct->price_tachado = (float)$producto->PRECIOLISTA;
+                $existingProduct->price_partner = (float)$producto->PRECIOLISTA;
+                // Actualiza otros campos si es necesario
+
+                $existingProduct->save(); // Guarda los cambios en la base de datos
+            }
         }
     }
 }
-
-
-
-
-
-
-

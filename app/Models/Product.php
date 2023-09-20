@@ -41,7 +41,6 @@ class Product extends Model
         }
 
 
-
     }
          //Relacion uno a muchos
 
