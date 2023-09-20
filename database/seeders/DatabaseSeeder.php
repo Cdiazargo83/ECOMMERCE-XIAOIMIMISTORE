@@ -53,11 +53,5 @@ class DatabaseSeeder extends Seeder
         $this->call(PromocionSeeder::class);
 
 
-
-
-
-
-
-
     }
 }
