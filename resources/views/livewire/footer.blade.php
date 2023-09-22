@@ -1,75 +1,42 @@
-<footer class="bg-white h-full overflow-y-auto">
-        <section>
-            <table class="container bg-orange-200 sticky top-0 z-50 min-w-full divide-y">
-                    <thead class="text-center h-full overflow-y-auto">
-                        <tr>
-                            <th class="uppercase">
-                                    <center><img class="navbar-brand-full app-header-logo" src="{{ asset('img/central.png') }}" width="60"></center>
-                                Central Teléfonica
-                            </th>
-                            <th class="uppercase">
-                                    <center><img class="navbar-brand-full app-header-logo" src="{{ asset('img/whats.png') }}" width="60"></center>
-                                Ventas por Whatsapp
-                                </th>
-                                <th class="uppercase">
-                                    <center><img class="navbar-brand-full app-header-logo" src="{{ asset('img/mail.png') }}" width="60"></center>
-                                Ventas Online
-                            </th>
-                            <th class="uppercase">
-                                    <center><img class="navbar-brand-full app-header-logo" src="{{ asset('img/tienda.png') }}" width="60"></center>
-                                Nuestras Tiendas
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class=" text-center h-full overflow-y-auto">
-                        <tr>
-                            <td>
-                                <div>+51 983815823</div>
-                                <div class="text-red-500">libro de reclamaciones
-                                    <a href="https://snap-electronics.com/libro-de-reclamaciones/"><center><img class="navbar-brand-full app-header-logo" src="{{ asset('img/libro.png') }}" width="80"></center></a>
-                                </div>
-                            </td>
-                            <td>
-                               <div> <a href="https://api.whatsapp.com/send?phone=51958970964">+51 958970964</a></div>
-                               <div> <a href="https://api.whatsapp.com/send?phone=51958970964">+51 958970964</a></div>
-                               <div> <a href="https://api.whatsapp.com/send?phone=51958970964">+51 958970964</a></div>
-                            </td>
-                            <td>
-                                <div>comercial.peru@snap-electronics.com</div>
-                                <div>comercial.peru@snap-electronics.com</div>
-                                <div>comercial.peru@snap-electronics.com</div>
-                            </td>
-                            <td>
-                                <div>DIRECCION TIENDA1</div>
-                                <div>DIRECCION TIENDA2</div>
-                                <div>DIRECCION TIENDA3</div>
-                            </td>
-                        </tr>
-                    </tbody>
-            </table>
-        </section>
+<footer class="bg-orange-400 py-8 overflow-y-auto">
+    <div class="container mx-auto px-4 md:px-0">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="text-center">
+                <img class="mx-auto mb-2" src="{{ asset('img/central.png') }}" alt="Central Teléfonica" width="80">
+                <p class="text-white text-base font-semibold">Central Teléfonica</p>
 
-        <section>
-            <table class="container">
-                <thead>
-                    <tr>
-                        <td> &copy; Soluciones & Comunicaciones | All rights reserved  {{ date('Y') }}</td>
-                        <td>@livewire('wsp')</td>
+                <div class="mt-2 text-white">+51 983815823</div>
+                <div class="text-red-200 text-lx py-8">Libro de reclamaciones <a href="https://snap-electronics.com/libro-de-reclamaciones/"><img src="{{ asset('img/libro.png') }}" width="100" class="mx-auto"></a></div>
+            </div>
+            <div class="text-center">
+                <img class="mx-auto mb-2" src="{{ asset('img/whats.png') }}" alt="Ventas por Whatsapp" width="80">
+                <p class="text-white text-base font-semibold">Ventas por Whatsapp</p>
+                <div class="mt-2"><a class="text-red-200" href="https://api.whatsapp.com/send?phone=51958970964">+51 958970964</a></div>
+            </div>
+            <div class="text-center">
+                <img class="mx-auto mb-2" src="{{ asset('img/mail.png') }}" alt="Ventas Online" width="80">
+                <p class="text-white text-base font-semibold">Ventas Online</p>
+                <div class="mt-2 text-red-200">comercial.peru@snap-electronics.com</div>
+            </div>
+            <div class="text-center">
+                <img class="mx-auto mb-2" src="{{ asset('img/tienda.png') }}" alt="Nuestras Tiendas" width="80">
+                <p class="text-white text-base font-semibold">Nuestras Tiendas</p>
+                <div class="mt-2 text-red-200">DIRECCION TIENDA1</div>
+            </div>
+        </div>
+    </div>
 
-                        <td>
-                            <td><center><img class="navbar-brand-full app-header-logo" src="{{ asset('img/pagos_footer.png') }}" width="350"></center></td>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-
-
+    <div class="container mx-auto px-4 py-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="text-center">
+                @livewire('wsp')
+            </div>
+            <div class="text-center">
+                <img class="mx-auto" src="{{ asset('img/pagos_footer.png') }}" alt="Accepted Payment Methods" width="300">
+            </div>
+            <div class="text-center">
+                <p class="text-white text-base">&copy; Soluciones & Comunicaciones | All rights reserved {{ date('Y') }}</p>
+            </div>
+        </div>
+    </div>
 </footer>
-
-

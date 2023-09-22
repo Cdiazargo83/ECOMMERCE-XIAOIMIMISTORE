@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use SoapClient;
 use App\Models\Product;
+use App\Models\Image;
+use Faker\Factory as Faker;
 
 class ProductflexController extends Controller
 {
-
     public function consultaProductos(Request $request)
     {
         try {
@@ -20,8 +20,8 @@ class ProductflexController extends Controller
 
             // Crear un cliente SOAP
             $soapClient = new \SoapClient($wsdlUrl, [
-                'trace' => true,       // Habilitar el seguimiento de llamadas SOAP
-                'exceptions' => true,  // Habilitar excepciones en caso de errores
+                'trace' => true,
+                'exceptions' => true,
             ]);
 
             // Parámetros para la llamada SOAP
@@ -34,60 +34,70 @@ class ProductflexController extends Controller
                 '__Bodega' => $bodegaParameter,
             ]);
 
-
             // Obtener y procesar la respuesta en formato XML
             $xmlResponse = $response->ConsultaStock_BodegaLPreciosResult;
-        $responseData = simplexml_load_string($xmlResponse);
+            $responseData = simplexml_load_string($xmlResponse);
 
-       // dd($xmlResponse);
+            // Crear una instancia de Faker
+            $faker = Faker::create();
 
-    foreach ($responseData->Producto as $productData) {
-        $sku = (string) $productData->CodProducto;
-        $existingProduct = Product::where('sku', $sku)->first();
+            foreach ($responseData->Producto as $productData) {
+                $sku = (string) $productData->CodProducto;
+                $existingProduct = Product::where('sku', $sku)->first();
 
-        if ($existingProduct) {
-            // Actualizar los campos del producto existente
-            $existingProduct->update([
-                'name' => (string) $productData->Descripcion,
-                'quantity' => intval($productData->Bodega->Cantidad),
-                'description' => (string) $productData->Descripcion,
+                if ($existingProduct) {
+                    // Actualizar los campos del producto existente
+                    $existingProduct->update([
+                        'name' => (string) $productData->Descripcion,
+                        'quantity' => intval($productData->Bodega->Cantidad),
+                        'description' => (string) $productData->Descripcion,
+                        // Actualiza otros campos según sea necesario
+                    ]);
+                } else {
+                    // El producto no existe, crea uno nuevo
+                    $newProduct = Product::create([
+                        'sku' => $sku,
+                        'name' => (string) $productData->Descripcion,
+                        'quantity' => intval($productData->Bodega->Cantidad),
+                        'description' => (string) $productData->Descripcion,
+                        'subcategory_id' => 3,
+                        'brand_id' => 3,
+                        'slug' => (string) $productData->Descripcion,
+                        'stock_flex' => intval($productData->Bodega->Cantidad),
+                        'price' => 0,
+                        'price_tachado' => 0,
+                        'price_partner' => 0,
+                        'quantity_partner' => 0,
+                        // Agrega otros campos según sea necesario
+                    ]);
 
-
-                // Actualiza otros campos según sea necesario
-            ]);
-
-        } else {
-            // El producto no existe, crea uno nuevo
-            Product::create([
-                'sku' => $sku,
-                'name' => (string) $productData->Descripcion,
-                'quantity' => intval($productData->Bodega->Cantidad),
-                'description' => (string) $productData->Descripcion,
-                'subcategory_id' => 3,
-                'brand_id' => 1,
-                'slug' => (string) $productData->Descripcion,
-                'stock_flex'=> intval($productData->Bodega->Cantidad),
-                'price' => 0,
-                'price_tachado'=> 0,
-                'price_partner'=> 0,
-                'quantity_partner' => 0
-                // Agrega otros campos según sea necesario
-            ]);
-        }
-    }
+                    // Agregar lógica para asociar una imagen con datos falsos a los productos aquí
+                    $this->associateImageWithFakerData($newProduct, $faker);
+                }
+            }
 
             // Devolver la vista con los datos obtenidos del servicio web
             return view('livewire.admin.consulta-productos', ['responseData' => $responseData]);
 
         } catch (\Exception $e) {
-            dd($e->getMessage()); // Imprimir el mensaje de excepción
-            // En caso de error, mostrar una vista de error con el mensaje de excepción
+            dd($e->getMessage());
             return view('livewire.error', ['error' => $e->getMessage()]);
-        }
-
         }
     }
 
+    // Función para asociar una imagen con datos predeterminados a un producto
+    private function associateImageWithFakerData($product, $faker)
+    {
+        // Establecer un valor predeterminado para el campo 'url'
+        $defaultImageUrl = 'default_image_url.jpg';
 
+        // Crear un registro de imagen asociado al producto con el valor predeterminado
+        $image = new Image([
+            'url' => $defaultImageUrl,
+            'imageable_id' => $product->id,
+            'imageable_type' => Product::class,
+        ]);
 
-
+        $image->save();
+    }
+}

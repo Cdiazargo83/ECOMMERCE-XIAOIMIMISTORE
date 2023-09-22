@@ -14,10 +14,7 @@
             <label for="listaprecio">ID Lista de Precios:</label>
             <input type="text" name="listaprecio" class="form-control" value="{{ old('listaprecio') }}">
         </div>
-        <div class="form-group">
-            <label for="nombreprecio">Nombre Lista de Precios:</label>
-            <input type="text" name="nombreprecio" class="form-control" value="{{ old('nombreprecio') }}" required>
-        </div>
+
         <button type="submit" class="btn btn-primary">Consultar</button>
     </form>
 

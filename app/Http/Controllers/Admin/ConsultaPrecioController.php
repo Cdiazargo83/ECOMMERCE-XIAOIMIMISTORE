@@ -13,11 +13,8 @@ class ConsultaPrecioController extends Controller
     public function consultaPrecio(Request $request)
     {
         try {
-            // Validar y obtener parámetros del request
-            $this->validarParametros($request);
-
             // Realizar la llamada SOAP y obtener la respuesta
-            $responseData = $this->realizarConsultaSOAP($request->input('empresa'), $request->input('listaprecio'), $request->input('nombreprecio'));
+            $responseData = $this->realizarConsultaSOAP($request->input('empresa'), $request->input('listaprecio'));
 
             // Guardar los datos en la base de datos
             $this->guardarDatosEnDB($responseData);
@@ -38,25 +35,7 @@ class ConsultaPrecioController extends Controller
         }
     }
 
-    private function validarParametros(Request $request)
-    {
-        $this->validate($request, [
-            'empresa' => 'required',
-            'listaprecio' => 'required',
-            'nombreprecio' => 'required'
-        ]);
-    }
-
-    private function manejarError($errorMessage)
-    {
-        // Registro de error en el archivo de registro
-        Log::error($errorMessage);
-
-        // Mostrar una vista de error con el mensaje de excepción
-        return view('livewire.error', ['error' => $errorMessage]);
-    }
-
-    private function realizarConsultaSOAP($empresa, $listaprecio, $nombreprecio)
+    private function realizarConsultaSOAP($empresa, $listaprecio)
     {
         // URL del WSDL del servicio web SOAP
         $wsdlUrl = "https://ws-erp.manager.cl/Flexline/Saco/Ws%20ConsultaProducto/WSConsultaProducto.asmx?WSDL";
@@ -71,7 +50,6 @@ class ConsultaPrecioController extends Controller
         $response = $soapClient->ConsultaListaPrecios([
             '__Empresa' => $empresa,
             '__IdListaPrecios' => $listaprecio,
-            '__NombreListaPrecios' => $nombreprecio,
         ]);
 
         // Obtener y procesar la respuesta en formato XML
@@ -85,19 +63,20 @@ class ConsultaPrecioController extends Controller
     {
         foreach ($responseData->PRODUCTO as $producto) {
             // Buscar el producto por SKU en la base de datos
-            $existingProduct = Product::where('sku', (string)$producto->PRODUCTO)->first();
+            $sku = (string)$producto->PRODUCTO;
+            $existingProduct = Product::where('sku', $sku)->first();
 
             if (!$existingProduct) {
                 // Si el producto no existe, créalo
                 Product::create([
                     'sku' => (string)$producto->PRODUCTO,
                     'name' => (string)$producto->GLOSA,
-                    'quantity'=> 0,
-                    'description'=> $producto->GLOSA,
+                    'quantity' => 0,
+                    'description' => $producto->GLOSA,
                     'subcategory_id' => 3,
                     'brand_id' => 1,
                     'slug' => (string)$producto->GLOSA,
-                    'stock_flex'=> 0,
+                    'stock_flex' => 0,
                     'price' => (float)$producto->PRECIOLISTA,
                     'price_tachado' => (float)$producto->PRECIOLISTA,
                     'price_partner' => (float)$producto->PRECIOLISTA,
