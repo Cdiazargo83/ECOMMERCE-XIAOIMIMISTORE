@@ -66,24 +66,7 @@ class ConsultaPrecioController extends Controller
             $sku = (string)$producto->PRODUCTO;
             $existingProduct = Product::where('sku', $sku)->first();
 
-            if (!$existingProduct) {
-                // Si el producto no existe, créalo
-                Product::create([
-                    'sku' => (string)$producto->PRODUCTO,
-                    'name' => (string)$producto->GLOSA,
-                    'quantity' => 0,
-                    'description' => $producto->GLOSA,
-                    'subcategory_id' => 3,
-                    'brand_id' => 1,
-                    'slug' => (string)$producto->GLOSA,
-                    'stock_flex' => 0,
-                    'price' => (float)$producto->PRECIOLISTA,
-                    'price_tachado' => (float)$producto->PRECIOLISTA,
-                    'price_partner' => (float)$producto->PRECIOLISTA,
-                    'quantity_partner' => 0
-                    // Añadir otros campos y asignar los valores correctos aquí
-                ]);
-            } else {
+            if ($existingProduct) {
                 // Si el producto ya existe, actualiza sus datos si es necesario
                 $existingProduct->name = (string)$producto->GLOSA;
                 $existingProduct->price = (float)$producto->PRECIOLISTA;

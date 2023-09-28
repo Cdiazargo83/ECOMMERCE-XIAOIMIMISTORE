@@ -4,120 +4,252 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PEDIDO N° 000{{$order->id}}</title>
-
+    <title>PEDIDO N° 000{{ $order->id }}</title>
     <style>
+
         .table {
-                width: 100%;
-                border: 2px solid #161510;
-            }
-    </style>
-    <style>
-        .centrado{
-                text-align:center; padding:8px;
-            }
-    </style>
+            width: 95%;
+            border: 5px solid #da8815;
+        }
 
+        .table2 {
+
+            border: 5px solid #da8815;
+        }
+
+        .centrado {
+            text-align: center;
+            padding: 8px;
+        }
+
+        .centrado2 {
+        margin-left: auto;
+        margin-right: 0;
+        }
+
+        .bg-white {
+            background-color: #fff;
+        }
+
+        .rounded-lg {
+            border-radius: 8px;
+        }
+
+        .shadow-lg {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .px-6 {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .py-4 {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .text-gray-700 {
+            color: #4a4a4a;
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .font-extrabold {
+            font-weight: 800;
+        }
+
+        .text-5xl {
+            font-size: 3rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .grid {
+            display: grid;
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .text-gray-800 {
+            color: #333;
+        }
+
+        .divide-y {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .table td,
+        .table th {
+            border: 1px solid #161510;
+            padding: 8px;
+        }
+
+        .table th {
+            background-color: #161510;
+            color: #fff;
+        }
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Ajusta la altura para centrar verticalmente */
+        }
+
+        /* Estilo para centrar el primer cuadro */
+        .first-box {
+            margin: 0 auto; /* Esto centrará el primer cuadro horizontalmente */
+        }
+    </style>
 </head>
 <body>
-    <div  class="table max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-<div>
-        </div>
-        <div class="bg-white rounded-lg shadow-lg px-6 py-4 mb-6 items-center table">
-            <h1 class="text-gray-700 uppercase centrado text-5xl font-extrabold">PEDIDO N° 000{{$order->id}}</h1>
-            <p class=" centrado">Fecha de Emicion: {{$order->created_at}}</p>
-        </div>
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-6 table">
-            <h2 class="text-gray-700 content-center">PERSONA AUTORIZADA PARA LA RECEPCION:</h2>
+    <div class="center-content">
+        <div class="table max-w-5xl mx-auto px-6 py-12 first-box">
+            <div class="bg-white rounded-lg shadow-lg px-6 py-4 mb-6">
+                <h1 class="text-gray-700 uppercase centrado text-5xl font-extrabold">PEDIDO N° 000{{ $order->id }}</h1>
+                <p class="centrado">Fecha de Emisión: {{ $order->created_at }}</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-gray-700 mb-6">
+                <h2 class="text-lg font-semibold mb-4 centrado">DATOS DE ENVIO</h2>
+                <div class="grid grid-cols-2 gap-4 text-gray-800">
+                    <!-- Add a new table for "Envío" -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Campo</th>
+                            <th class="text-left">Información</th>
+                        </tr>
+                                </thead>
+                    <tbody class="divide-y divide-gray-200 centrado2">
+                        <tr>
+                            <td class="font-semibold">Envío</td>
+                            <td>
+                                @if ($order->envio_type == 1)
+                                    <p class="text-sm">Los productos deben ser recogidos en tienda</p>
+                                    <p class="text-sm">Calle falsa</p>
+                                @else
+                                    <p class="text-sm font-semibold">Los productos serán enviados a:</p>
+                                    <p class="text-sm">{{ $order->address }}</p>
+                                   <p>{{ $order->department->name }} - {{ $order->city->name }} - {{ $order->district->name }}</p>
+                                    <p class="text-sm">Ubigeo: {{ $order->district_id }}</p>
+                                @endif
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <div class="grid grid-cols-2 gap-4 text-gray-800">
-                    <div>
-                        <h2 class="text-lg fond-semibold uppercase font-semibold">Envio</h2>
-                        @if ($order->envio_type == 1)
-                            <p  class="text-sm">Los productos deben ser recogidos en tienda</p>
-                            <p  class="text-sm">Calle falsa</p>
-                        @else
-                            <p  class="text-sm font-semibold">Los productos seran enviados a: </p>
-                            <p  class="text-sm">{{$order->address}}</p>
-                            <p>{{$order->department->name}} - {{$order->city->name}} - {{$order->district->name}}</p>
-                            <p  class="text-sm ">Ubigeo: {{$order->district_id}}</p>
-                        @endif
-                    </div>
-                    <div>
-                        <h2 class="text-lg fond-bold uppercase ">Datos de Contacto</h2>
-                        <p class="text-sm">Persona que recibira el pedido: {{$order->contact}}</p>
-                        <p class="text-sm">Telefono de contacto: {{$order->phone}}</p>
-                        <p class="text-sm">Documento de Identidad: {{$order->dni}}</p>
-                    </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 text-gray-700 mb-6">
+                    <h2 class="text-lg font-semibold mb-4 centrado">DATOS DE CONTACTO</h2>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-left">Campo</th>
+                                <th class="text-left">Información</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 centrado2">
+                            <tr>
+                                <td class="font-semibold">Persona que recibirá el pedido:</td>
+                                <td>{{ $order->contact }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Teléfono de contacto:</td>
+                                <td>{{ $order->phone }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Documento de Identidad:</td>
+                                <td>{{ $order->dni }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-gray-700 mb-6">
+                <h2 class="text-lg font-semibold mb-4 centrado">DETALLES DEL PEDIDO</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 centrado2">
+                        @foreach ($items as $item)
+                            <tr>
+                                <td>
+                                    <div class="flex">
+                                        <article>
+
+                                            <div class="flex text-xs">{{ $item->name }}</div>
+
+                                        </article>
+                                    </div>
+                                </td>
+                                <td class="text-center">S/ {{ $item->price }}</td>
+                                <td class="text-center">{{ $item->qty }}</td>
+                                <td class="text-center">S/ {{ $item->price * $item->qty }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <br>
+                <table class="divide-y centrado2 table2">
+                    <thead>
+                        <tr>
+                            <th>Envío</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ $order->shipping_cost }}</td>
+                            <td>S/ {{ $order->total }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-
-        <div class="bg-white rounded-lg shadow-lg p-6 text-gray-700 mb-6 table">
-            <h2 class="text-lg font-semibold mb-4 centrado">DETALLES DEL PEDIDO</h2>
-
-            <table class="table">
-                <thead>
-                    <tr>
-
-                        <th>Producto</th>
-                        <th>Precio</th>
-                        <th>Cantidad</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-
-                <tbody class="divide-y divide-gray-200 centrado">
-                       @foreach ($items as $item )
-                    <tr>
-                        <td>
-                            <div class="flex">
-                                <article>
-
-                                    <div class="flex text-xs">{{$item->name}}</div>
-
-                                    <div class="flex text-xs">
-                                            @isset ($item->options->color)
-                                               Color: {{__($item->options->color)}}
-                                            @endisset
-
-                                            @isset ($item->options->size)
-                                               Color: {{__($item->options->size)}}
-                                            @endisset
-
-                                    </div>
-                                </article>
-                            </div>
-                        </td>
-                        <td class="text-center">
-                               S/ {{$item->price}}
-                        </td>
-                        <td class="text-center">
-                                {{$item->qty}}
-                        </td>
-                        <td class="text-center">
-                            S/ {{$item->price * $item->qty}}
-                        </td>
-                    </tr>
-                       @endforeach
-                </tbody>
-            </table>
-            <br>
-
-            <table class="centrado">
-                <thead>
-                        <th>Envio</th>
-                        <th>Total</th>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>{{$order->shipping_cost}}</td>
-                        <td>S/ {{$order->total}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
     </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

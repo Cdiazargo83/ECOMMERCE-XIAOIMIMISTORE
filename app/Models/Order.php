@@ -14,8 +14,6 @@ class Order extends Model
     protected $fillable = ['total'];
 
 
-
-
                                 //PARA BITEL
     const RESERVADO     = 1; //21 VERIFICAR
     const PAGADO        = 2; //41 VERIFICAR PAGO

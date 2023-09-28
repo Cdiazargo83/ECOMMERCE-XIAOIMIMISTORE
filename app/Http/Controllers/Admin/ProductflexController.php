@@ -45,12 +45,27 @@ class ProductflexController extends Controller
                 $sku = (string) $productData->CodProducto;
                 $existingProduct = Product::where('sku', $sku)->first();
 
+                // Crear un arreglo con los datos que deseas almacenar en 'bodega'
+                $bodegaData = [
+                    '03-LIM-ATOCONG-MISTR' => (string) $productData->Bodega->Cantidad,
+                    '03-LIM-JOCKEYPZ-MIST' => (string) $productData->Bodega->Cantidad,
+                    '03-LIM-MEGAPLZ-MISTR' => (string) $productData->Bodega->Cantidad,
+                    '03-LIM-HUAYLAS-MISTR' => (string) $productData->Bodega->Cantidad,
+                    '03-LIM-PURUCHU-MISTR' => (string) $productData->Bodega->Cantidad,
+
+                    // Agrega más campos según sea necesario
+                ];
+
+                // Convertir el arreglo a formato JSON
+                $bodegaDataJSON = json_encode($bodegaData);
+
                 if ($existingProduct) {
                     // Actualizar los campos del producto existente
                     $existingProduct->update([
                         'name' => (string) $productData->Descripcion,
                         'quantity' => intval($productData->Bodega->Cantidad),
                         'description' => (string) $productData->Descripcion,
+                        'bodega' => $bodegaDataJSON, // Asignar el valor JSON
                         // Actualiza otros campos según sea necesario
                     ]);
                 } else {
@@ -60,6 +75,7 @@ class ProductflexController extends Controller
                         'name' => (string) $productData->Descripcion,
                         'quantity' => intval($productData->Bodega->Cantidad),
                         'description' => (string) $productData->Descripcion,
+                        'bodega' => $bodegaDataJSON, // Asignar el valor JSON
                         'subcategory_id' => 3,
                         'brand_id' => 3,
                         'slug' => (string) $productData->Descripcion,

@@ -1,25 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <!-- Head content here -->
-</head>
-<body>
-    <!-- Navbar, header, etc. here -->
-
-    <div class="container">
-        @yield('content')
-    </div>
-
-    <!-- Footer, scripts, etc. here -->
-</body>
-</html>
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">

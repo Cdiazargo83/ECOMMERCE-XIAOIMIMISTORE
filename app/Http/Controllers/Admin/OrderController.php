@@ -6,13 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Barryvdh\DomPDF\Facade\PDF;
-use Barryvdh\DomPDF\PDF as DomPDFPDF;
+use Barryvdh\DomPDF\Facade\Pdf;
+//use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Dompdf\Dompdf;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use PhpParser\Node\Stmt\Return_;
+
+
 
 class OrderController extends Controller
 {
@@ -42,7 +44,7 @@ class OrderController extends Controller
 
         $items = json_decode($order->content);
         //$order = Order::all('content');
-        // dd($order);
+        //dd($order);
 
       // return view('admin.orders.pdf', compact('order','items'));
 
