@@ -18,21 +18,15 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('sku');
-            $table->json('bodega');
             $table->integer('stock_flex')->nullable();
-            $table->json('bodega')->default(json_encode([
-                '03-LIM-JOCKEYPZ-MIST' => null,
-                '03-LIM-ATOCONG-MISTR' => null,
-                'campo3' => null,
-                'campo4' => null,
-                'campo5' => null,
-                'campo6' => null,
-                'campo7' => null,
-                'campo8' => null,
-                'campo9' => null,
-                'campo10' => null,
-            ]))->change();
 
+                $table->string ('03-LIM-ATOCONG-MISTR');
+                $table->string ('03-LIM-JOCKEYPZ-MIST');
+                $table->string ('03-LIM-MEGAPLZ-MISTR');
+                $table->string ('03-LIM-HUAYLAS-MISTR');
+                $table->string ('03-LIM-PURUCHU-MISTR');
+
+            $table->string('bodega');
             $table->string('slug');
             $table->text('description');
             $table->float('price');

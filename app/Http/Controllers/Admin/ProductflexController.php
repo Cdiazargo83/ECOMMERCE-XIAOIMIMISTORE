@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use SoapClient;
 use App\Models\Product;
 use App\Models\Image;
@@ -45,37 +44,50 @@ class ProductflexController extends Controller
                 $sku = (string) $productData->CodProducto;
                 $existingProduct = Product::where('sku', $sku)->first();
 
-                // Crear un arreglo con los datos que deseas almacenar en 'bodega'
-                $bodegaData = [
-                    '03-LIM-ATOCONG-MISTR' => (string) $productData->Bodega->Cantidad,
-                    '03-LIM-JOCKEYPZ-MIST' => (string) $productData->Bodega->Cantidad,
-                    '03-LIM-MEGAPLZ-MISTR' => (string) $productData->Bodega->Cantidad,
-                    '03-LIM-HUAYLAS-MISTR' => (string) $productData->Bodega->Cantidad,
-                    '03-LIM-PURUCHU-MISTR' => (string) $productData->Bodega->Cantidad,
-
-                    // Agrega más campos según sea necesario
-                ];
-
-                // Convertir el arreglo a formato JSON
-                $bodegaDataJSON = json_encode($bodegaData);
-
                 if ($existingProduct) {
                     // Actualizar los campos del producto existente
                     $existingProduct->update([
                         'name' => (string) $productData->Descripcion,
-                        'quantity' => intval($productData->Bodega->Cantidad),
                         'description' => (string) $productData->Descripcion,
-                        'bodega' => $bodegaDataJSON, // Asignar el valor JSON
+                        'quantity' => intval($productData->Bodega->Cantidad),
+                        'bodega' => (string) $productData->Bodega->Descripcion,
                         // Actualiza otros campos según sea necesario
                     ]);
+
+                    // Verificar el valor de 'bodega' y asignar 'quantity' según corresponda
+                    switch ($existingProduct->bodega) {
+                        case '03-LIM-ATOCONG-MISTR':
+                            $existingProduct->{'03-LIM-ATOCONG-MISTR'} = intval($productData->Bodega->Cantidad);
+                            break;
+                        case '03-LIM-JOCKEYPZ-MIST':
+                            $existingProduct->{'03-LIM-JOCKEYPZ-MIST'} = intval($productData->Bodega->Cantidad);
+                            break;
+                        case '03-LIM-MEGAPLZ-MISTR':
+                            $existingProduct->{'03-LIM-MEGAPLZ-MISTR'} = intval($productData->Bodega->Cantidad);
+                            break;
+                        case '03-LIM-HUAYLAS-MISTR':
+                            $existingProduct->{'03-LIM-HUAYLAS-MISTR'} = intval($productData->Bodega->Cantidad);
+                            break;
+                        case '03-LIM-PURUCHU-MISTR':
+                            $existingProduct->{'03-LIM-PURUCHU-MISTR'} = intval($productData->Bodega->Cantidad);
+                            break;
+                    }
+
+                    $existingProduct->save();
                 } else {
                     // El producto no existe, crea uno nuevo
                     $newProduct = Product::create([
                         'sku' => $sku,
                         'name' => (string) $productData->Descripcion,
-                        'quantity' => intval($productData->Bodega->Cantidad),
                         'description' => (string) $productData->Descripcion,
-                        'bodega' => $bodegaDataJSON, // Asignar el valor JSON
+                        'quantity' => intval($productData->Bodega->Cantidad),
+                        'bodega' => (string) $productData->Bodega->Descripcion,
+                        // Asigna un valor predeterminado a las columnas correspondientes
+                        '03-LIM-ATOCONG-MISTR' => 0,
+                        '03-LIM-JOCKEYPZ-MIST' => 0,
+                        '03-LIM-MEGAPLZ-MISTR' => 0,
+                        '03-LIM-HUAYLAS-MISTR' => 0,
+                        '03-LIM-PURUCHU-MISTR' => 0,
                         'subcategory_id' => 3,
                         'brand_id' => 3,
                         'slug' => (string) $productData->Descripcion,
@@ -86,6 +98,27 @@ class ProductflexController extends Controller
                         'quantity_partner' => 0,
                         // Agrega otros campos según sea necesario
                     ]);
+
+                    // Verificar el valor de 'bodega' y asignar 'quantity' según corresponda
+                    switch ($newProduct->bodega) {
+                        case '03-LIM-ATOCONG-MISTR':
+                            $newProduct->{'03-LIM-ATOCONG-MISTR'} = intval($productData->Bodega->Cantidad);
+                            break;
+                        case '03-LIM-JOCKEYPZ-MIST':
+                            $newProduct->{'03-LIM-JOCKEYPZ-MIST'} = intval($productData->Bodega->Cantidad);
+                            break;
+                        case '03-LIM-MEGAPLZ-MISTR':
+                            $newProduct->{'03-LIM-MEGAPLZ-MISTR'} = intval($productData->Bodega->Cantidad);
+                            break;
+                        case '03-LIM-HUAYLAS-MISTR':
+                            $newProduct->{'03-LIM-HUAYLAS-MISTR'} = intval($productData->Bodega->Cantidad);
+                            break;
+                        case '03-LIM-PURUCHU-MISTR':
+                            $newProduct->{'03-LIM-PURUCHU-MISTR'} = intval($productData->Bodega->Cantidad);
+                            break;
+                    }
+
+                    $newProduct->save();
 
                     // Agregar lógica para asociar una imagen con datos falsos a los productos aquí
                     $this->associateImageWithFakerData($newProduct, $faker);

@@ -5,78 +5,57 @@ namespace Database\Factories;
 use App\Models\Product;
 use App\Models\Subcategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
-
 use Illuminate\Support\Str;
 
 class ProductFactory extends Factory
 {
+    protected $model = Product::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @var string
-     */
-
-     protected $model = Product::class;
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
-
         $name = $this->faker->sentence(2);
-        $sku  = $this->faker->sentence(1);
-        $bodega  = $this->faker->sentence(1);
+        $sku = $this->faker->unique()->word;
 
-        $subcategory = Subcategory::all()->random();
+
+        $ATOCONG = $this->faker->sentence(2);
+        $JOCKEYPZ = $this->faker->sentence(2);
+        $MEGAPLZ = $this->faker->sentence(2);
+        $HUAYLAS = $this->faker->sentence(2);
+        $PURUCHU = $this->faker->sentence(2);
+
+
+        $subcategory = Subcategory::inRandomOrder()->first();
         $category = $subcategory->category;
-
         $brand = $category->brands->random();
 
-        if($subcategory->color){
-            $quantity = null;
-            $quantity_partner = null;
-            $stock_flex = null;
 
-
-
-        }else{
-            $quantity = 2;
-            $quantity_partner = 2;
-            $stock_flex = 2;
-
-        }
+        $quantity = $subcategory->color ? null : 2;
+        $quantity_partner = $subcategory->color ? null : 2;
+        $stock_flex = $subcategory->color ? null : 2;
 
         return [
-
             'name' => $name,
-            'sku'  => $sku,
-            'slug'=> Str::slug($name),
-            'description'=> $this->faker->text(),
-            'bodega' => json_encode([
-                '03-LIM-JOCKEYPZ-MIST' => null,
-                '03-LIM-ATOCONG-MISTR' => null,
-                'campo3' => null,
-                'campo4' => null,
-                'campo5' => null,
-                'campo6' => null,
-                'campo7' => null,
-                'campo8' => null,
-                'campo9' => null,
-                'campo10' => null,
-            ]),
-            'price'=> $this->faker->randomElement([19.99, 49.99, 99.99]),
-            'price_tachado'=> $this->faker->randomElement([100.99, 149.99, 199.99]),
-            'price_partner'=> $this->faker->randomElement([10.99, 9.99, 15.99]),
-            'subcategory_id'=> $subcategory->id,
+            'sku' => $sku,
+            'slug' => Str::slug($name),
+            'description' => $this->faker->text(),
+
+            '03-LIM-ATOCONG-MISTR' => $ATOCONG,
+            '03-LIM-JOCKEYPZ-MIST' => $JOCKEYPZ,
+            '03-LIM-MEGAPLZ-MISTR' => $MEGAPLZ,
+            '03-LIM-HUAYLAS-MISTR' => $HUAYLAS,
+            '03-LIM-PURUCHU-MISTR' => $PURUCHU,
+            'bodega' => $this->faker->randomElement([2]),
+
+            'price' => $this->faker->randomElement([19.99, 49.99, 99.99]),
+            'price_tachado' => $this->faker->randomElement([100.99, 149.99, 199.99]),
+            'price_partner' => $this->faker->randomElement([10.99, 9.99, 15.99]),
+            'subcategory_id' => $subcategory->id,
             'brand_id' => $brand->id,
-            'quantity'=> $quantity,
-            'quantity_partner'=> $quantity_partner,
+            'quantity' => $quantity,
+            'quantity_partner' => $quantity_partner,
             'stock_flex' => $stock_flex,
-            'status' =>2,
-            'destacado' =>1
+            'status' => 2,
+            'destacado' => 1,
         ];
     }
 }

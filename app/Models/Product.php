@@ -10,7 +10,21 @@ class Product extends Model
 {
 
     protected $fillable = ['sku','name','bodega','stock_flex','slug','description','price','price_tachado','price_partner','subcategory_id','brand_id',
-                            'quantity','quantity_partner','status','destacado'  ];
+                            'quantity','quantity_partner','status','destacado',
+                            '03-LIM-ATOCONG-MISTR',
+                            '03-LIM-JOCKEYPZ-MIST',
+                            '03-LIM-MEGAPLZ-MISTR',
+                            '03-LIM-HUAYLAS-MISTR',
+                            '03-LIM-PURUCHU-MISTR'];
+
+
+                            protected $bodegaColumns = [
+                                '03-LIM-ATOCONG-MISTR',
+                                '03-LIM-JOCKEYPZ-MIST',
+                                '03-LIM-MEGAPLZ-MISTR',
+                                '03-LIM-HUAYLAS-MISTR',
+                                '03-LIM-PURUCHU-MISTR',
+                            ];
 
 
     use HasFactory;
@@ -104,5 +118,26 @@ class Product extends Model
                   ]);
               }
         }
+
+
+         // Utiliza el método mágico __get para acceder a las propiedades de bodega de manera dinámica
+    public function __get($key)
+    {
+        if (in_array($key, $this->bodegaColumns)) {
+            return $this->attributes[$key];
+        }
+
+        return parent::__get($key);
+    }
+
+    // Utiliza el método mágico __set para actualizar las propiedades de bodega de manera dinámica
+    public function __set($key, $value)
+    {
+        if (in_array($key, $this->bodegaColumns)) {
+            $this->attributes[$key] = $value;
+        } else {
+            parent::__set($key, $value);
+        }
+    }
       }
 
