@@ -70,8 +70,8 @@ class ConsultaPrecioController extends Controller
                 // Si el producto ya existe, actualiza sus datos si es necesario
                 $existingProduct->name = (string)$producto->GLOSA;
                 $existingProduct->price = (float)$producto->PRECIOLISTA;
-                $existingProduct->price_tachado = (float)$producto->PRECIOLISTA;
-                $existingProduct->price_partner = (float)$producto->PRECIOLISTA;
+                $existingProduct->price_tachado = 0;
+                $existingProduct->price_partner = 0;
                 // Actualiza otros campos si es necesario
 
                 $existingProduct->save(); // Guarda los cambios en la base de datos
