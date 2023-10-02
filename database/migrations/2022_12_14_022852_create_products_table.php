@@ -20,11 +20,11 @@ class CreateProductsTable extends Migration
             $table->string('sku');
             $table->integer('stock_flex')->nullable();
 
-                $table->string ('03-LIM-ATOCONG-MISTR');
-                $table->string ('03-LIM-JOCKEYPZ-MIST');
-                $table->string ('03-LIM-MEGAPLZ-MISTR');
-                $table->string ('03-LIM-HUAYLAS-MISTR');
-                $table->string ('03-LIM-PURUCHU-MISTR');
+                $table->string ('atocong');
+                $table->string ('jockeypz');
+                $table->string ('megaplz');
+                $table->string ('huaylas');
+                $table->string ('puruchu');
 
             $table->string('bodega');
             $table->string('slug');

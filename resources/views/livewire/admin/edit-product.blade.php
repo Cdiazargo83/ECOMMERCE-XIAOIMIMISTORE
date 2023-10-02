@@ -100,13 +100,13 @@
 
 
                             <div class="mb-4">
-                            <x-jet-label value="Slug" />
-                            <x-jet-input type="text" class="w-full bg-gray-200"
+                                <x-jet-label value="Slug" />
+                                <x-jet-input type="text" class="w-full bg-gray-200"
                                         disabled
                                         wire:model="slug"
                                         placeholder="Ingrese el slug del producto"/>
                                         <x-jet-input-error for="slug" />
-                </div>
+                            </div>
 
                 <div class="mb-4">
 
@@ -144,14 +144,14 @@
                 <x-jet-input-error for="product.brand_id" />
                 </div>
 
-                <div>
-                <x-jet-label value="Precio"/>
-                <x-jet-input
-                wire:model="product.price"
-                type="number"
-                class="w-full"
-                step=".001" />
-                <x-jet-input-error for="product.price" />
+
+                <div class="mb-4">
+                    <x-jet-label value="Precio" />
+                    <x-jet-input type="text" class="w-full bg-gray-200"
+                            disabled
+                            wire:model="product.price"
+                           />
+                            <x-jet-input-error for="product.price" />
                 </div>
 
                 <div>
@@ -163,8 +163,7 @@
                     step=".001" />
                     <x-jet-input-error for="product.price_tachado" />
                 </div>
-
-                <div>
+                 {{--<div>
                     <x-jet-label value="Precio Partner"/>
                     <x-jet-input
                     wire:model="product.price_partner"
@@ -172,32 +171,86 @@
                     class="w-full"
                     step=".001" />
                     <x-jet-input-error for="product.price_partner" />
-                </div>
+                    </div>
+                --}}
 
                   @if ($this->subcategory)
 
                         @if (!$this->subcategory->color && !$this->subcategory->size)
-                                <div>
-                                    <x-jet-label value="Cantidad"/>
-                                    <x-jet-input
-                                    wire:model="product.quantity"
-                                    type="number"
-                                    class="w-full" />
-                                    <x-jet-input-error for="product.quantity" />
+
+
+                                <div class="mb-4">
+                                    <x-jet-label value="Catidad Tota" />
+                                    <x-jet-input type="text" class="w-full bg-gray-200"
+                                            disabled
+                                            wire:model="product.quantity"
+                                           />
+                                            <x-jet-input-error for="product.quantity" />
                                 </div>
 
-                                <div>
-                                    <x-jet-label value="Cantidad Partner"/>
-                                    <x-jet-input
-                                    wire:model="product.quantity_partner"
-                                    type="number"
-                                    class="w-full" />
-                                    <x-jet-input-error for="product.quantity_partner" />
+                                     {{-- <div>
+                                        <x-jet-label value="Cantidad Partner"/>
+                                        <x-jet-input
+                                        wire:model="product.quantity_partner"
+                                        type="number"
+                                        class="w-full" />
+                                        <x-jet-input-error for="product.quantity_partner" />
+                                        </div>
+                                     --}}
+
+
+                                {{--Bodegas de Tienda Xiaomi --}}
+
+                                <div class="mb-4">
+                                    <x-jet-label value="03-LIM-ATOCONG-MISTR" />
+                                    <x-jet-input type="text" class="w-full bg-gray-200"
+                                            disabled
+                                            wire:model="product.atocong"
+                                           />
+                                            <x-jet-input-error for="product.atocong" />
                                 </div>
+
+                                <div class="mb-4">
+                                    <x-jet-label value="03-LIM-JOCKEYPZ-MIST" />
+                                    <x-jet-input type="text" class="w-full bg-gray-200"
+                                            disabled
+                                            wire:model="product.jockeypz"
+                                           />
+                                            <x-jet-input-error for="product.jockeypz" />
+                                </div>
+
+                                <div class="mb-4">
+                                    <x-jet-label value="03-LIM-MEGAPLZ-MISTR" />
+                                    <x-jet-input type="text" class="w-full bg-gray-200"
+                                            disabled
+                                            wire:model="product.megaplz"
+                                           />
+                                            <x-jet-input-error for="product.megaplz" />
+                                </div>
+
+                                <div class="mb-4">
+                                    <x-jet-label value="03-LIM-HUAYLAS-MISTR" />
+                                    <x-jet-input type="text" class="w-full bg-gray-200"
+                                            disabled
+                                            wire:model="product.huaylas"
+                                           />
+                                            <x-jet-input-error for="product.huaylas" />
+                                </div>
+
+                                <div class="mb-4">
+                                    <x-jet-label value="03-LIM-PURUCHU-MISTR" />
+                                    <x-jet-input type="text" class="w-full bg-gray-200"
+                                            disabled
+                                            wire:model="product.puruchu"
+                                           />
+                                            <x-jet-input-error for="product.puruchu" />
+                                </div>
+
                         @endif
 
                   @endif
 
+                    <br>
                 <div class="flex justify-end items-center mt-4">
 
                                 <x-jet-action-message class="mr-3" on="saved">

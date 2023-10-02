@@ -17,11 +17,11 @@ class ProductFactory extends Factory
         $sku = $this->faker->unique()->word;
 
 
-        $ATOCONG = $this->faker->sentence(2);
-        $JOCKEYPZ = $this->faker->sentence(2);
-        $MEGAPLZ = $this->faker->sentence(2);
-        $HUAYLAS = $this->faker->sentence(2);
-        $PURUCHU = $this->faker->sentence(2);
+        $atocong = $this->faker->sentence(2);
+        $jockeypz = $this->faker->sentence(2);
+        $megaplz = $this->faker->sentence(2);
+        $huaylas = $this->faker->sentence(2);
+        $puruchu = $this->faker->sentence(2);
 
 
         $subcategory = Subcategory::inRandomOrder()->first();
@@ -39,11 +39,12 @@ class ProductFactory extends Factory
             'slug' => Str::slug($name),
             'description' => $this->faker->text(),
 
-            '03-LIM-ATOCONG-MISTR' => $ATOCONG,
-            '03-LIM-JOCKEYPZ-MIST' => $JOCKEYPZ,
-            '03-LIM-MEGAPLZ-MISTR' => $MEGAPLZ,
-            '03-LIM-HUAYLAS-MISTR' => $HUAYLAS,
-            '03-LIM-PURUCHU-MISTR' => $PURUCHU,
+            'atocong' => $atocong,
+            'jockeypz' => $jockeypz,
+            'megaplz' => $megaplz,
+            'huaylas' => $huaylas,
+            'puruchu' => $puruchu,
+
             'bodega' => $this->faker->randomElement([2]),
 
             'price' => $this->faker->randomElement([19.99, 49.99, 99.99]),

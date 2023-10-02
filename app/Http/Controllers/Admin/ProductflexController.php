@@ -37,7 +37,7 @@ class ProductflexController extends Controller
             $xmlResponse = $response->ConsultaStock_BodegaLPreciosResult;
             $responseData = simplexml_load_string($xmlResponse);
 
-            // Crear una instancia de Faker
+
             $faker = Faker::create();
 
             foreach ($responseData->Producto as $productData) {
@@ -45,33 +45,41 @@ class ProductflexController extends Controller
                 $existingProduct = Product::where('sku', $sku)->first();
 
                 if ($existingProduct) {
-                    // Actualizar los campos del producto existente
+
                     $existingProduct->update([
                         'name' => (string) $productData->Descripcion,
                         'description' => (string) $productData->Descripcion,
                         'quantity' => intval($productData->Bodega->Cantidad),
                         'bodega' => (string) $productData->Bodega->Descripcion,
-                        // Actualiza otros campos según sea necesario
+
                     ]);
 
-                    // Verificar el valor de 'bodega' y asignar 'quantity' según corresponda
+
                     switch ($existingProduct->bodega) {
                         case '03-LIM-ATOCONG-MISTR':
-                            $existingProduct->{'03-LIM-ATOCONG-MISTR'} = intval($productData->Bodega->Cantidad);
+                            $existingProduct->{'atocong'} = intval($productData->Bodega->Cantidad);
                             break;
                         case '03-LIM-JOCKEYPZ-MIST':
-                            $existingProduct->{'03-LIM-JOCKEYPZ-MIST'} = intval($productData->Bodega->Cantidad);
+                            $existingProduct->{'jockeypz'} = intval($productData->Bodega->Cantidad);
                             break;
                         case '03-LIM-MEGAPLZ-MISTR':
-                            $existingProduct->{'03-LIM-MEGAPLZ-MISTR'} = intval($productData->Bodega->Cantidad);
+                            $existingProduct->{'megaplz'} = intval($productData->Bodega->Cantidad);
                             break;
                         case '03-LIM-HUAYLAS-MISTR':
-                            $existingProduct->{'03-LIM-HUAYLAS-MISTR'} = intval($productData->Bodega->Cantidad);
+                            $existingProduct->{'huaylas'} = intval($productData->Bodega->Cantidad);
                             break;
                         case '03-LIM-PURUCHU-MISTR':
-                            $existingProduct->{'03-LIM-PURUCHU-MISTR'} = intval($productData->Bodega->Cantidad);
+                            $existingProduct->{'puruchu'} = intval($productData->Bodega->Cantidad);
                             break;
                     }
+
+                    // Calcular y actualizar el campo 'stock_flex'
+                    $existingProduct->quantity =
+                        $existingProduct->atocong +
+                        $existingProduct->jockeypz +
+                        $existingProduct->megaplz +
+                        $existingProduct->huaylas +
+                        $existingProduct->puruchu;
 
                     $existingProduct->save();
                 } else {
@@ -80,18 +88,19 @@ class ProductflexController extends Controller
                         'sku' => $sku,
                         'name' => (string) $productData->Descripcion,
                         'description' => (string) $productData->Descripcion,
-                        'quantity' => intval($productData->Bodega->Cantidad),
+                        'quantity' => 0,
                         'bodega' => (string) $productData->Bodega->Descripcion,
                         // Asigna un valor predeterminado a las columnas correspondientes
-                        '03-LIM-ATOCONG-MISTR' => 0,
-                        '03-LIM-JOCKEYPZ-MIST' => 0,
-                        '03-LIM-MEGAPLZ-MISTR' => 0,
-                        '03-LIM-HUAYLAS-MISTR' => 0,
-                        '03-LIM-PURUCHU-MISTR' => 0,
+                        'atocong' => 0,
+                        'jockeypz' => 0,
+                        'megaplz' => 0,
+                        'huaylas' => 0,
+                        'puruchu' => 0,
+
                         'subcategory_id' => 3,
                         'brand_id' => 3,
                         'slug' => (string) $productData->Descripcion,
-                        'stock_flex' => intval($productData->Bodega->Cantidad),
+                        'stock_flex' => 0, // Inicializa 'stock_flex' en 0
                         'price' => 0,
                         'price_tachado' => 0,
                         'price_partner' => 0,
@@ -102,21 +111,29 @@ class ProductflexController extends Controller
                     // Verificar el valor de 'bodega' y asignar 'quantity' según corresponda
                     switch ($newProduct->bodega) {
                         case '03-LIM-ATOCONG-MISTR':
-                            $newProduct->{'03-LIM-ATOCONG-MISTR'} = intval($productData->Bodega->Cantidad);
+                            $newProduct->{'atocong'} = intval($productData->Bodega->Cantidad);
                             break;
                         case '03-LIM-JOCKEYPZ-MIST':
-                            $newProduct->{'03-LIM-JOCKEYPZ-MIST'} = intval($productData->Bodega->Cantidad);
+                            $newProduct->{'megaplz'} = intval($productData->Bodega->Cantidad);
                             break;
                         case '03-LIM-MEGAPLZ-MISTR':
-                            $newProduct->{'03-LIM-MEGAPLZ-MISTR'} = intval($productData->Bodega->Cantidad);
+                            $newProduct->{'megaplz'} = intval($productData->Bodega->Cantidad);
                             break;
                         case '03-LIM-HUAYLAS-MISTR':
-                            $newProduct->{'03-LIM-HUAYLAS-MISTR'} = intval($productData->Bodega->Cantidad);
+                            $newProduct->{'huaylas'} = intval($productData->Bodega->Cantidad);
                             break;
                         case '03-LIM-PURUCHU-MISTR':
-                            $newProduct->{'03-LIM-PURUCHU-MISTR'} = intval($productData->Bodega->Cantidad);
+                            $newProduct->{'puruchu'} = intval($productData->Bodega->Cantidad);
                             break;
                     }
+
+                    // Calcular y asignar el campo 'stock_flex'
+                    $newProduct->quantity =
+                        $newProduct->atocong +
+                        $newProduct->jockeypz +
+                        $newProduct->megaplz +
+                        $newProduct->huaylas +
+                        $newProduct->puruchu;
 
                     $newProduct->save();
 

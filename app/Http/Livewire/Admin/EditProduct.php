@@ -34,6 +34,11 @@ class EditProduct extends Component
         'product.price_partner' => 'required',
         'product.quantity' => 'numeric',
         'product.quantity_partner' => 'numeric',
+        'product.atocong'=>'numeric',
+        'product.jockeypz'=>'numeric',
+        'product.megaplz'=>'numeric',
+        'product.huaylas'=>'numeric',
+        'product.puruchu'=>'numeric'
     ];
 
     protected $listeners = ['refreshProduct', 'delete'];

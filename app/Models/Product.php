@@ -11,19 +11,18 @@ class Product extends Model
 
     protected $fillable = ['sku','name','bodega','stock_flex','slug','description','price','price_tachado','price_partner','subcategory_id','brand_id',
                             'quantity','quantity_partner','status','destacado',
-                            '03-LIM-ATOCONG-MISTR',
-                            '03-LIM-JOCKEYPZ-MIST',
-                            '03-LIM-MEGAPLZ-MISTR',
-                            '03-LIM-HUAYLAS-MISTR',
-                            '03-LIM-PURUCHU-MISTR'];
-
+                            'atocong',
+                            'jockeypz',
+                            'megaplz',
+                            'huaylas',
+                            'puruchu'];
 
                             protected $bodegaColumns = [
-                                '03-LIM-ATOCONG-MISTR',
-                                '03-LIM-JOCKEYPZ-MIST',
-                                '03-LIM-MEGAPLZ-MISTR',
-                                '03-LIM-HUAYLAS-MISTR',
-                                '03-LIM-PURUCHU-MISTR',
+                                'atocong',
+                                'jockeypz',
+                                'megaplz',
+                                'huaylas',
+                                'puruchu'
                             ];
 
 
