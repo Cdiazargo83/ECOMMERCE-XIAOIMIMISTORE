@@ -180,7 +180,7 @@
 
 
                                 <div class="mb-4">
-                                    <x-jet-label value="Catidad Tota" />
+                                    <x-jet-label value="Stock Total" />
                                     <x-jet-input type="text" class="w-full bg-gray-200"
                                             disabled
                                             wire:model="product.quantity"

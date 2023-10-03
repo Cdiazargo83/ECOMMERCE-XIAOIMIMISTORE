@@ -8,7 +8,9 @@ use App\Models\Department;
 use App\Models\District;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Tienda;
 
 class CreateOrder extends Component
 {
@@ -27,8 +29,25 @@ class CreateOrder extends Component
         'dni' => 'required'
     ];
 
+    public $selectedStore;
+    public $itemQty;
+    public $stores;
+
     public function mount(){
         $this->departments = Department::all();
+
+
+
+        $this->itemQty = Cart::count(); // Igualar al total de elementos en el carrito
+        $this->stores = Product::where('atocong', '>', $this->itemQty)
+            ->orWhere('jockeypz', '>', $this->itemQty)
+            ->orWhere('megaplz', '>', $this->itemQty)
+            ->orWhere('huaylas', '>', $this->itemQty)
+            ->orWhere('puruchu', '>', $this->itemQty)
+            ->get();
+
+            //dd($this->stores);
+
 
     }
 
@@ -108,6 +127,8 @@ class CreateOrder extends Component
         return redirect()->route('order.payment', $order);
 
     }
+
+
 
     public function render()
     {

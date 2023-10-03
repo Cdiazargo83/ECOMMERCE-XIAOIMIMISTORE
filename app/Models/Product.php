@@ -26,6 +26,10 @@ class Product extends Model
                             ];
 
 
+    protected $table = 'products';
+
+
+
     use HasFactory;
 
     const BORRADOR = 1;
