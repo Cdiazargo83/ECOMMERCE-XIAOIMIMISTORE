@@ -10,17 +10,15 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Support\Facades\Redirect;
-use App\Models\Tienda;
+
 
 class CreateOrder extends Component
 {
-
-    public $envio_type =1;
-
-    public $contact,$phone ,$address, $references, $shipping_cost = 0, $dni ;
-
+    public $envio_type = 1;
+    public $contact, $phone, $address, $references, $shipping_cost = 0, $dni;
     public $departments, $cities = [], $districts = [];
-    public $department_id ="", $city_id = "", $district_id = "";
+    public $department_id = "", $city_id = "", $district_id = "";
+    public  $atocong, $jockeypz, $megaplz, $huaylas, $puruchu ;
 
     public $rules = [
         'contact' => 'required',
@@ -29,30 +27,24 @@ class CreateOrder extends Component
         'dni' => 'required'
     ];
 
-    public $selectedStore;
-    public $itemQty;
+    public $item;
     public $stores;
 
-    public function mount(){
+    public $selectedStore = '';
+    public $filteredStores = [];
+
+
+
+
+    public function mount()
+    {
         $this->departments = Department::all();
-
-
-
-        $this->itemQty = Cart::count(); // Igualar al total de elementos en el carrito
-        $this->stores = Product::where('atocong', '>', $this->itemQty)
-            ->orWhere('jockeypz', '>', $this->itemQty)
-            ->orWhere('megaplz', '>', $this->itemQty)
-            ->orWhere('huaylas', '>', $this->itemQty)
-            ->orWhere('puruchu', '>', $this->itemQty)
-            ->get();
-
-            //dd($this->stores);
-
 
     }
 
-    public function updatedEnvioType($value){
-        if ($value == 1){
+    public function updatedEnvioType($value)
+    {
+        if ($value == 1) {
             $this->resetValidation([
                 'department_id',
                 'city_id',
@@ -61,39 +53,37 @@ class CreateOrder extends Component
                 'references',
             ]);
         }
-
-    }
-    public function updatedDepartmentId($value){
-            $this->cities = City::where('department_id', $value)->get();
     }
 
-    public function updatedCityId($value){
-
-            $city = City::find($value);
-
-            $this->shipping_cost = $city->cost;
-            $this->districts = District::where('city_id', $value)->get();
-            $this->reset('district_id');
-
+    public function updatedDepartmentId($value)
+    {
+        $this->cities = City::where('department_id', $value)->get();
     }
 
-    public function create_order(){
-        $rules= $this->rules;
+    public function updatedCityId($value)
+    {
+        $city = City::find($value);
 
-        if($this->envio_type == 2){
+        $this->shipping_cost = $city->cost;
+        $this->districts = District::where('city_id', $value)->get();
+        $this->reset('district_id');
+    }
+
+    public function create_order()
+    {
+        $rules = $this->rules;
+
+        if ($this->envio_type == 2) {
             $rules['department_id'] = 'required';
             $rules['city_id'] = 'required';
             $rules['district_id'] = 'required';
             $rules['address'] = 'required';
             $rules['references'] = 'required';
-
-
         }
 
         $this->validate($rules);
 
         $order = new Order();
-        //dd($order);
 
         $order->user_id = auth()->user()->id;
         $order->contact = $this->contact;
@@ -101,20 +91,28 @@ class CreateOrder extends Component
         $order->dni = $this->dni;
         $order->envio_type = $this->envio_type;
         $order->shipping_cost = 0;
-        $order->total = $this->shipping_cost + Cart::subtotal(2,'.','');
-        //dd($order->total);
+        $order->total = $this->shipping_cost + Cart::subtotal(2, '.', '');
+
         $order->content = Cart::content();
 
-
         if ($this->envio_type == 2) {
-
             $order->shipping_cost = $this->shipping_cost;
             $order->department_id = $this->department_id;
             $order->city_id = $this->city_id;
             $order->district_id = $this->district_id;
             $order->address = $this->address;
             $order->references = $this->references;
+
+
+        } elseif ($this->envio_type == 1) {
+            // Si envio_type es igual a 1, asigna valores predeterminados
+            $order->atocong = 0;
+            $order->jockeypz = 0;
+            $order->megaplz = 0;
+            $order->huaylas = 0;
+            $order->puruchu = 0;
         }
+
 
         $order->save();
 
@@ -124,14 +122,42 @@ class CreateOrder extends Component
 
         Cart::destroy();
 
+
         return redirect()->route('order.payment', $order);
-
     }
-
-
 
     public function render()
     {
-        return view('livewire.create-order');
-    }
+        $this->filteredStores = [];
+
+        $products = Product::all();
+
+
+        $index = 0;
+
+        foreach (['atocong', 'jockeypz', 'megaplz', 'huaylas', 'puruchu'] as $storeColumn) {
+            $storeName = 'Tienda ' . ($index + 1); // Nombre de tienda
+            $showOption = true; // Inicialmente, mostrar la opción
+
+            foreach (Cart::content() as $item) {
+                // Verificar si el producto del carrito tiene un valor mayor que $item->qty en la columna de tienda actual
+                if ($item->options->has($storeColumn) && $item->options->$storeColumn > $item->qty) {
+                    $showOption = false; // No mostrar la opción si el valor es mayor
+                    break; // Salir del bucle si no se cumple la condición
+                }
+            }
+
+            if ($showOption) {
+                $this->filteredStores[$storeColumn] = $storeName;
+            }
+
+            $index++; // Incrementamos el contador
+        }
+
+        // Renderiza la vista con las tiendas filtradas
+
+
+    return view('livewire.create-order',compact('products','item'));
+}
+
 }

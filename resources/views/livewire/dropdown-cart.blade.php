@@ -25,6 +25,7 @@
                             <h1 class="font-bold text-red-600">{{$item->sku}}</h1>
 
 
+
                             <div class="flex">
                                 <p>Cant: {{$item->qty}}</p>
                                 @isset($item->options['color'])

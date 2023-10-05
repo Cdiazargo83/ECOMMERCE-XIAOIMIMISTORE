@@ -8,6 +8,7 @@ use App\Http\Controllers\PayController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SearchController;
 use App\Http\Livewire\CreateOrder;
+use App\Http\Livewire\FormTienda;
 use App\Http\Livewire\ShoppingCart;
 use GuzzleHttp\Promise\Create;
 use App\Http\Controllers\PaidController;
@@ -40,6 +41,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
 
     Route::get('orders/create', CreateOrder::class)->name('orders.create');
+
+    //Route::get('orders/formulario', [CreateOrder::class, 'mostrarFormulario'])->name('orders.create');
 
     Route::get('orders/{order}/payment', [OrderController::class,'payment'])->name('order.payment');
 

@@ -39,6 +39,19 @@ class CreateOrdersTable extends Migration
             $table->enum('status', [Order::RESERVADO,Order::PAGADO, Order::DESPACHADO, Order::ENTREGADO, Order::ANULADO])->default(Order::RESERVADO);
             $table->enum('envio_type', [1, 2]);
 
+            $table->string('atocong');
+            $table->string('jockeypz');
+            $table->string('megaplz');
+            $table->string('huaylas');
+            $table->string('puruchu');
+
+
+
+
+
+
+
+
             $table->float('shipping_cost');
 
             $table->float('total');

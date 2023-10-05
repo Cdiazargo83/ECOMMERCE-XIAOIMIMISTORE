@@ -36,12 +36,24 @@
                 <input x-model="envio_type" type="radio" value="1" name="envio_type" class="text-gray-700">
                 <span class="ml-2 text-gray-700">Recojo en Tienda</span>
                 <x-jet-label value="" />
+
                 <select wire:model="selectedStore" name="store" class="form-control w-full">
                     <option value="">Seleccione una tienda</option>
-                    @foreach ($stores as $store)
-                        <option value="{{ $store->id }}">{{ $store->nombre }}</option>
+                    @foreach ([
+                        'atocong' => 'Tienda Atocong',
+                        'jockeypz' => 'Tienda Jockeypz',
+                        'megaplz' => 'Tienda Megaplz',
+                        'huaylas' => 'Tienda Huaylas',
+                        'puruchu' => 'Tienda Puruchu',
+                    ] as $storeColumn => $storeAlias)
+                        <option value="{{ $storeColumn }}">
+                            {{ $storeAlias }}
+                        </option>
                     @endforeach
+                    <!-- Agregar una opción especial para "Todos los campos" -->
+
                 </select>
+
             </label>
 
             <div class="bg-white rounded-lg shadow">
