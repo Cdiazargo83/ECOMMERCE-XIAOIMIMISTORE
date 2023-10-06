@@ -27,7 +27,7 @@ class CreateOrder extends Component
         'dni' => 'required'
     ];
 
-    public $item;
+    public $itemQty;
     public $stores;
 
     public $selectedStore = '';
@@ -105,13 +105,13 @@ class CreateOrder extends Component
 
 
         } elseif ($this->envio_type == 1) {
-            // Si envio_type es igual a 1, asigna valores predeterminados
-            $order->atocong = 0;
-            $order->jockeypz = 0;
-            $order->megaplz = 0;
-            $order->huaylas = 0;
-            $order->puruchu = 0;
-        }
+        // Si envio_type es igual a 1, asigna valores predeterminados
+        $order->atocong = 0;
+        $order->jockeypz = 0;
+        $order->megaplz = 0;
+        $order->huaylas = 0;
+        $order->puruchu = 0;
+    }
 
 
         $order->save();

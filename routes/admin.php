@@ -20,6 +20,7 @@ use App\Http\Livewire\Admin\ShowBanner;
 use App\Http\Livewire\Admin\ShowPromocion;
 use App\Http\Controllers\Admin\ProductflexController;
 use App\Http\Controllers\Admin\ConsultaPrecioController;
+use App\Http\Controllers\Admin\InyectaDocumentoController;
 
 
 
@@ -70,13 +71,14 @@ Route::middleware(['auth'])->group(function () {
     //Route::post('/consulta-productos', [ProductflexController::class, 'consultaProductos'])->name('livewire.admin.consulta-productos');
     Route::match(['get', 'post'], '/consulta-productos', [ProductflexController::class, 'consultaProductos'])->name('livewire.admin.consulta-productos');
     Route::match(['get', 'post'], '/consulta-precio', [ConsultaPrecioController::class, 'consultaPrecio'])->name('livewire.admin.consulta-precio');
+    //Inyectar documento
+
+    //Route::get('/inyecta-documento', [InyectaDocumentoController::class, 'editarXmlForm'])->name('livewire.admin.inyecta-documento');
+    //Route::match(['get', 'post'],'/inyecta-editar', [InyectaDocumentoController::class, 'enviarXmlASoap'])->name('livewire.admin.inyecta-editar');
+    Route::match(['get', 'post'],'/editar-xml', [InyectaDocumentoController::class, 'editarXmlForm'])->name('livewire.admin.editar-xml');
+    Route::match(['get', 'post'],'/enviar-xml', [InyectaDocumentoController::class, 'enviarXmlASoap'])->name('livewire.admin.enviar-xml');
 
 
-
-
-
-
-    //Route::get('/consulta-productosview', [ProductflexController::class, 'consultaProductosView'])->name('livewire.admin.consultaproductosview');
 });
 
 
