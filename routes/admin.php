@@ -21,8 +21,9 @@ use App\Http\Livewire\Admin\ShowPromocion;
 use App\Http\Controllers\Admin\ProductflexController;
 use App\Http\Controllers\Admin\ConsultaPrecioController;
 use App\Http\Controllers\Admin\InyectaDocumentoController;
-
-
+use App\Http\Controllers\facturacion\DatosController;
+use App\Models\Company;
+use Illuminate\Support\Facades\Storage;
 
 //ruta para PDF
 
@@ -60,6 +61,12 @@ Route::get('banners/{banner}', ShowBanner::class)->name('admin.banners.show');
 Route::get('promocions', [PromocionController::class, 'index'])->name('admin.promocions.index');
 Route::get('promocions/{promocion}', ShowPromocion::class)->name('admin.promocions.show');
 
+//Invoice
+Route::get('Invoice', function(){
+    $company = Company::first();
+
+    return Storage::get($company->logo_path);
+});
 
 
 Route::middleware(['auth'])->group(function () {
@@ -78,7 +85,8 @@ Route::middleware(['auth'])->group(function () {
     Route::match(['get', 'post'],'/editar-xml', [InyectaDocumentoController::class, 'editarXmlForm'])->name('livewire.admin.editar-xml');
     Route::match(['get', 'post'],'/enviar-xml', [InyectaDocumentoController::class, 'enviarXmlASoap'])->name('livewire.admin.enviar-xml');
 
-
+    Route::get('/formulario', [DatosController::class, 'formulario'])->name('admin.facturacion.formulario');
+    Route::post('/mostrar-datos', [DatosController::class, 'mostrarDatos'])->name('admin.facturacion.guardar-datos');
 });
 
 
