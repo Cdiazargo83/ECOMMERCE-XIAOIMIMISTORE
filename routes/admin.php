@@ -24,14 +24,15 @@ use App\Http\Controllers\Admin\InyectaDocumentoController;
 use App\Http\Controllers\facturacion\DatosController;
 use App\Models\Company;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Facturacion\RegisterController;
 
 //ruta para PDF
 
-Route::get('orders/{order}/pdf',[OrderController::class, 'pdf'])->name('admin.orders.pdf');
+Route::get('orders/{order}/pdf', [OrderController::class, 'pdf'])->name('admin.orders.pdf');
 
 
 //ruta vista de productos
-Route::get('/',ShowProducts::class)->name('admin.index');
+Route::get('/', ShowProducts::class)->name('admin.index');
 Route::get('product/flexproduct', [ShowProducts::class, 'flexproduct'])->name('livewire.admin.show-products');
 
 Route::get('products/create', CreateProduct::class)->name('admin.products.create');
@@ -43,10 +44,10 @@ Route::get('categories/{category}', ShowCategory::class)->name('admin.categories
 
 Route::get('brands', BrandComponent::class)->name('admin.brands.index');
 
-Route::get('orders',[OrderController::class, 'index'])->name('admin.orders.index');
-Route::get('orders/{order}',[OrderController::class, 'show'])->name('admin.orders.show');
+Route::get('orders', [OrderController::class, 'index'])->name('admin.orders.index');
+Route::get('orders/{order}', [OrderController::class, 'show'])->name('admin.orders.show');
 
-Route::post('orders/{order}/files',[StatusOrder::class, 'files'])->name('admin.orders.files');
+Route::post('orders/{order}/files', [StatusOrder::class, 'files'])->name('admin.orders.files');
 
 
 Route::get('departments', DepartmentComponent::class)->name('admin.departments.index');
@@ -62,7 +63,7 @@ Route::get('promocions', [PromocionController::class, 'index'])->name('admin.pro
 Route::get('promocions/{promocion}', ShowPromocion::class)->name('admin.promocions.show');
 
 //Invoice
-Route::get('Invoice', function(){
+Route::get('Invoice', function () {
     $company = Company::first();
 
     return Storage::get($company->logo_path);
@@ -82,12 +83,20 @@ Route::middleware(['auth'])->group(function () {
 
     //Route::get('/inyecta-documento', [InyectaDocumentoController::class, 'editarXmlForm'])->name('livewire.admin.inyecta-documento');
     //Route::match(['get', 'post'],'/inyecta-editar', [InyectaDocumentoController::class, 'enviarXmlASoap'])->name('livewire.admin.inyecta-editar');
-    Route::match(['get', 'post'],'/editar-xml', [InyectaDocumentoController::class, 'editarXmlForm'])->name('livewire.admin.editar-xml');
-    Route::match(['get', 'post'],'/enviar-xml', [InyectaDocumentoController::class, 'enviarXmlASoap'])->name('livewire.admin.enviar-xml');
+    Route::match(['get', 'post'], '/editar-xml', [InyectaDocumentoController::class, 'editarXmlForm'])->name('livewire.admin.editar-xml');
+    Route::match(['get', 'post'], '/enviar-xml', [InyectaDocumentoController::class, 'enviarXmlASoap'])->name('livewire.admin.enviar-xml');
 
     Route::get('/formulario', [DatosController::class, 'formulario'])->name('admin.facturacion.formulario');
-    Route::post('/mostrar-datos', [DatosController::class, 'mostrarDatos'])->name('admin.facturacion.guardar-datos');
+    Route::match(['get', 'post'], '/mostrar-datos', [DatosController::class, 'mostrarDatos'])->name('admin.facturacion.mostrar-datos');
+    Route::match(['get', 'post'], '/guardar-datos', [DatosController::class, 'guardarDatos'])->name('admin.facturacion.guardar-datos');
+
+    //Route::get('/register', function () {
+      //  return view('admin.facturacion.register');
+    //});
+
+    //Route::match([ 'post'],'/register', [RegisterController::class, 'store'])->name('admin.facturacion.register');
+
+
+
+
 });
-
-
-

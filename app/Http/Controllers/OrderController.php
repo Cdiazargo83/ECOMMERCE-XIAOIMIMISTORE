@@ -32,7 +32,7 @@ class OrderController extends Controller
     {
         $this->authorize('author', $order);
         $items = json_decode($order->content);
-        //dd($order->content);
+        //dd($order);
         return view('orders.show', compact('order', 'items'));
     }
 

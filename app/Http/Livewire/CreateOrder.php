@@ -18,7 +18,7 @@ class CreateOrder extends Component
     public $contact, $phone, $address, $references, $shipping_cost = 0, $dni;
     public $departments, $cities = [], $districts = [];
     public $department_id = "", $city_id = "", $district_id = "";
-    public  $atocong, $jockeypz, $megaplz, $huaylas, $puruchu ;
+    public  $atocong, $jockeypz, $megaplz, $huaylas, $puruchu;
 
     public $rules = [
         'contact' => 'required',
@@ -34,12 +34,9 @@ class CreateOrder extends Component
     public $filteredStores = [];
 
 
-
-
     public function mount()
     {
         $this->departments = Department::all();
-
     }
 
     public function updatedEnvioType($value)
@@ -103,16 +100,24 @@ class CreateOrder extends Component
             $order->address = $this->address;
             $order->references = $this->references;
 
-
         } elseif ($this->envio_type == 1) {
-        // Si envio_type es igual a 1, asigna valores predeterminados
-        $order->atocong = 0;
-        $order->jockeypz = 0;
-        $order->megaplz = 0;
-        $order->huaylas = 0;
-        $order->puruchu = 0;
-    }
+            // Si envio_type es igual a 1, almacenar la selección en el array
+            $selection = [
+                'atocong' => 1,
+                'jockeypz' => 2,
+                'megaplz' => 3,
+                'huaylas' => 4,
+                'puruchu' => 5,
+            ];
+            // Asegúrate de establecer valores para cada campo en el objeto $order
+            $order->atocong = $selection['atocong'];
+            $order->jockeypz = $selection['jockeypz'];
+            $order->megaplz = $selection['megaplz'];
+            $order->huaylas = $selection['huaylas'];
+            $order->puruchu = $selection['puruchu'];
+        }
 
+        $order->content = json_encode($selection);
 
         $order->save();
 
@@ -156,8 +161,6 @@ class CreateOrder extends Component
 
         // Renderiza la vista con las tiendas filtradas
 
-
-    return view('livewire.create-order',compact('products','item'));
-}
-
+        return view('livewire.create-order', compact('products', 'item'));
+    }
 }

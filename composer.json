@@ -15,7 +15,7 @@
         "greenter/htmltopdf": "^5.0",
         "greenter/lite": "^5.0",
         "greenter/report": "^5.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.8",
         "hardevine/shoppingcart": "^3.1",
         "jenssegers/date": "^4.0",
         "laravel/framework": "^8.75",

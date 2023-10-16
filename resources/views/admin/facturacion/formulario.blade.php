@@ -1,45 +1,51 @@
 @extends('layouts.flex')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Formulario de Datos</div>
 
-                <div class="card-body">
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            Formulario
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    @if ($message = Session::get('success'))
+                        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
+
+                    @if ($message = Session::get('error'))
+                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
+
+                    <x-jet-validation-errors class="mb-4" />
+
                     <form method="POST" action="{{ route('admin.facturacion.guardar-datos') }}">
                         @csrf
-
-                        <div class="form-group row">
-                            <label for="nombre" class="col-md-4 col-form-label text-md-right">Nombre</label>
-
-                            <div class="col-md-6">
-                                <input id="nombre" type="text" class="form-control" name="nombre" required autofocus>
-                            </div>
+                        <div>
+                            <x-jet-label for="nombre" value="Nombre" />
+                            <x-jet-input id="nombre" class="block mt-1 w-full" type="text" name="nombre" :value="old('nombre')" required autofocus />
                         </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" required>
-                            </div>
+                        <div class="mt-4">
+                            <x-jet-label for="email" value="Email" />
+                            <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
                         </div>
 
-                        <!-- Agrega más campos según tus necesidades -->
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Guardar
-                                </button>
-                            </div>
+                        <div class="mt-4">
+                            <x-jet-button>
+                                Guardar
+                            </x-jet-button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
+

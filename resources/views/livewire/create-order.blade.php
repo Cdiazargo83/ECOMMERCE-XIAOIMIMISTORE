@@ -38,21 +38,22 @@
                 <x-jet-label value="" />
 
                 <select wire:model="selectedStore" name="store" class="form-control w-full">
-                    <option value="">Seleccione una tienda</option>
+                    <option value="1">Seleccione una tienda</option>
                     @foreach ([
-                        'atocong' => 'Tienda Atocong',
-                        'jockeypz' => 'Tienda Jockeypz',
-                        'megaplz' => 'Tienda Megaplz',
-                        'huaylas' => 'Tienda Huaylas',
-                        'puruchu' => 'Tienda Puruchu',
+                        'atocong' => 'Tienda Open Plaza Atocongo',
+                        'jockeypz' => 'Tienda Tottus Jockey Plaza',
+                        'megaplz' => 'Tienda Tottus Mega plaza',
+                        'huaylas' => 'Tienda Tottus Huaylas',
+                        'puruchu' => 'Tienda Real Plaza Tottus Puruchuco',
                     ] as $storeColumn => $storeAlias)
                         <option value="{{ $storeColumn }}">
                             {{ $storeAlias }}
                         </option>
                     @endforeach
-                    <!-- Agregar una opción especial para "Todos los campos" -->
-
                 </select>
+
+
+
 
             </label>
 

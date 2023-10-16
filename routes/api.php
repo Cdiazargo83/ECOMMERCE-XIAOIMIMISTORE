@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\InvoiceController;
+use App\Http\Controllers\Api\NoteController;
 use App\Http\Controllers\Api\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,14 +19,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-    Route::post('register', [RegisterController::class, 'store']);
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::post('me', [AuthController::class, 'me']);
+    Route::post('saco//register', [RegisterController::class, 'store']);
 
-    Route::apiResource('companies', CompanyController::class)->middleware('auth:api');
+    Route::post('saco/login', [AuthController::class, 'login']);
+    Route::post('saco/logout', [AuthController::class, 'logout']);
+    Route::post('saco/refresh', [AuthController::class, 'refresh']);
+    Route::post('saco/me', [AuthController::class, 'me']);
 
-    Route::post('invoices/send', [InvoiceController::class, 'send'])->middleware('auth:api');
-    Route::post('invoices/xml', [InvoiceController::class, 'xml'])->middleware('auth:api');
-    Route::post('invoices/pdf', [InvoiceController::class, 'pdf'])->middleware('auth:api');
+    Route::apiResource('saco/companies', CompanyController::class)->middleware('auth:api');
+
+    Route::post('saco/invoices/send', [InvoiceController::class, 'send'])->middleware('auth:api');
+    Route::post('saco/invoices/xml', [InvoiceController::class, 'xml'])->middleware('auth:api');
+    Route::post('saco/invoices/pdf', [InvoiceController::class, 'pdf'])->middleware('auth:api');
+
+    Route::post('saco/notes/send', [NoteController::class, 'send'])->middleware('auth:api');
+    Route::post('saco/notes/xml', [NoteController::class, 'xml'])->middleware('auth:api');
+    Route::post('saco/notes/pdf', [NoteController::class, 'pdf'])->middleware('auth:api');
+
