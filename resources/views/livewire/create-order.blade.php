@@ -28,6 +28,39 @@
                 <x-jet-input-error for="dni"/>
             </div>
         </div>
+        <br>
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="mb-4">
+                <x-jet-label value="RUC / Documento de Identidad" />
+                <x-jet-input type="text"
+                            wire:model.defer="contact"
+                            placeholder="Ingrese el nombre de la persona que lo va a recoger"
+                            class="w-full" />
+                <x-jet-input-error for="contact"/>
+            </div>
+
+            <div class="mb-4">
+                <x-jet-label value="Razon Social" />
+                <x-jet-input type="text"
+                            wire:model.defer="phone"
+                            placeholder="Ingrese numero de telefono de contacto"
+                            class="w-full" />
+                <x-jet-input-error for="phone"/>
+            </div>
+
+            <div>
+                <x-jet-label value="Direccion Fiscal" />
+                <x-jet-input type="text"
+                            wire:model.defer="dni"
+                            placeholder="Ingrese su documento de Identidad"
+                            class="w-full" />
+                <x-jet-input-error for="dni"/>
+            </div>
+        </div>
+
+
+
+
 
         <div x-data="{envio_type: @entangle('envio_type')}">
             <p class="mt-6 mb-3 text-lg text-gray-700 text-semibold">Envios</p>
@@ -51,9 +84,6 @@
                         </option>
                     @endforeach
                 </select>
-
-
-
 
             </label>
 

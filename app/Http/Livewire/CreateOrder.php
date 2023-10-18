@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Redirect;
 class CreateOrder extends Component
 {
     public $envio_type = 1;
-    public $contact, $phone, $address, $references, $shipping_cost = 0, $dni;
+    public $tipo_doc = 2;
+    public $contact, $phone, $address, $references, $shipping_cost = 0, $dni, $ruc, $razon_social, $direccion_fiscal;
     public $departments, $cities = [], $districts = [];
     public $department_id = "", $city_id = "", $district_id = "";
     public  $atocong, $jockeypz, $megaplz, $huaylas, $puruchu;
@@ -24,7 +25,12 @@ class CreateOrder extends Component
         'contact' => 'required',
         'phone' => 'required',
         'envio_type' => 'required',
-        'dni' => 'required'
+        'dni' => 'required',
+        'tipo_doc' => 'required',
+        'ruc' => 'required',
+        'razon_social' => 'required',
+        'direccion_fiscal' => 'required'
+
     ];
 
     public $itemQty;
@@ -86,6 +92,10 @@ class CreateOrder extends Component
         $order->contact = $this->contact;
         $order->phone = $this->phone;
         $order->dni = $this->dni;
+        $order->tipo_doc =  $this->tipo_doc;
+        $order->ruc = $this->ruc;
+        $order->razon_social = $this->razon_social;
+        $order->direccion_fiscal = $this->direccion_fiscal;
         $order->envio_type = $this->envio_type;
         $order->shipping_cost = 0;
         $order->total = $this->shipping_cost + Cart::subtotal(2, '.', '');

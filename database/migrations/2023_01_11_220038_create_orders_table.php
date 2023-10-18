@@ -21,8 +21,18 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
+            //ppersona que recogera el pedido o lo reccionara
             $table->string('contact');
             $table->string('dni');
+            $table->string('phone',9);
+
+            //facturacion
+            $table->enum('tipo_doc',[1,2]); //1 factura y 2 boleta
+            $table->string('ruc');
+            $table->string('razon_social');
+            $table->string('direccion_fiscal')->nullable;
+
+
 
             $table->string('courrier')->nullable();
             $table->string('tracking_number')->nullable();
@@ -34,8 +44,6 @@ class CreateOrdersTable extends Migration
             $table->float('peso_paquete')->nullable();
             $table->string('observacion')->nullable();
 
-            $table->string('phone',9);
-
             $table->enum('status', [Order::RESERVADO,Order::PAGADO, Order::DESPACHADO, Order::ENTREGADO, Order::ANULADO])->default(Order::RESERVADO);
             $table->enum('envio_type', [1, 2]);
 
@@ -44,12 +52,6 @@ class CreateOrdersTable extends Migration
             $table->string('megaplz');
             $table->string('huaylas');
             $table->string('puruchu');
-
-
-
-
-
-
 
 
             $table->float('shipping_cost');

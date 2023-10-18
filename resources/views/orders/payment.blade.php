@@ -51,6 +51,7 @@
                         <p class="text-sm">Telefono de contacto: {{$order->phone}}</p>
                         <p class="text-sm">Documento de Identidad: {{$order->dni}}</p>
                     </div>
+
             </div>
 
         </div>
