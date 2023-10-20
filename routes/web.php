@@ -44,10 +44,10 @@ Route::middleware(['auth'])->group(function(){
 
     //Route::get('orders/formulario', [CreateOrder::class, 'mostrarFormulario'])->name('orders.create');
 
-    Route::get('orders/{order}/payment', [OrderController::class,'payment'])->name('order.payment');
+    Route::get('orders/{order}/payment', [OrderController::class,'payment'])->name('orders.payment');
 
 
-    Route::get('orders/{vista}',[OrderController::class, 'vista'])->name('.orders.vista');
+    Route::get('orders/{vista}',[OrderController::class, 'vista'])->name('orders.vista');
 
    //IZIPAY
 

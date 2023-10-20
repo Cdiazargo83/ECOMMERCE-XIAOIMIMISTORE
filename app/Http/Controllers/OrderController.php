@@ -6,12 +6,15 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use PhpParser\Node\Stmt\Return_;
+
 
 class OrderController extends Controller
 {
-    public function index()
-    {
-        $orders = Order::query()->where('user_id', auth()->user()->id);
+
+    public function index(){
+
+        $orders = Order::query()->where('user_id',auth()->user()->id);
 
         if (request('status')) {
             $orders->where('status', request('status'));
@@ -19,58 +22,49 @@ class OrderController extends Controller
 
         $orders = $orders->get();
 
-        $reservado = Order::where('status', 1)->where('user_id', auth()->user()->id)->count();
-        $pagado = Order::where('status', 2)->where('user_id', auth()->user()->id)->count();
-        $despachado = Order::where('status', 3)->where('user_id', auth()->user()->id)->count();
-        $entregado = Order::where('status', 4)->where('user_id', auth()->user()->id)->count();
-        $anulado = Order::where('status', 5)->where('user_id', auth()->user()->id)->count();
+        $reservado =       Order::where('status', 1)->where('user_id',auth()->user()->id)->count();
+        $pagado        =   Order::where('status', 2)->where('user_id',auth()->user()->id)->count();
+        $despachado   =    Order::where('status', 3)->where('user_id',auth()->user()->id)->count();
+        $entregado   =     Order::where('status', 4)->where('user_id',auth()->user()->id)->count();
+        $anulado   =       Order::where('status', 5)->where('user_id',auth()->user()->id)->count();
 
-        return view('orders.index', compact('orders', 'reservado', 'pagado', 'despachado', 'entregado', 'anulado'));
+            return view('orders.index',compact('orders','reservado','pagado','despachado','entregado','anulado'));
+
     }
+    public function show(Order $order){
 
-    public function show(Order $order)
-    {
         $this->authorize('author', $order);
         $items = json_decode($order->content);
-        //dd($order);
-        return view('orders.show', compact('order', 'items'));
+       // $order = Order::all('id');
+      // dd($order);
+           return view('orders.show', compact('order','items'));
     }
-
     public function payment(Order $order)
     {
         $this->authorize('author', $order);
 
-        try {
-            $authorization = base64_encode(config('services.izipay.client_id') . ':' . config('services.izipay.client_secret'));
+        // Ruta al certificado SSL descargado desde el servidor
+        $certPath = storage_path('app/certificates/server.crt');
 
-            $response = Http::withHeaders([
-                'Authorization' => 'Basic ' . $authorization,
-                'Accept' => 'application/json',
-            ])->post(config('services.izipay.url'), [
-                'amount' => $order->total * 100,
-                'currency' => 'USD',
-                'orderId' => $order->id,
-                'customer' => [
-                    'reference' => auth()->id(),
-                    'email' => auth()->user()->email,
-                    'billingDetails' => [
-                        'firstName' => auth()->user()->name,
-                    ],
-                ],
-            ])->json();
+        $authorization = base64_encode(config('services.izipay.client_id') . ':' . config('services.izipay.client_secret'));
 
-            // Verificar si 'formToken' está presente en la respuesta
-            if (isset($response['answer']['formToken'])) {
-                $formToken = $response['answer']['formToken'];
-            } else {
-                // Manejo de errores si 'formToken' no está presente
-                return redirect()->back()->with('error', 'Error al obtener el formToken');
-            }
-        } catch (\Exception $e) {
-            // Manejo de excepciones: Registro de errores, redirección o respuesta de error al usuario.
-            // Puedes agregar código para manejar la excepción aquí.
-            return redirect()->back()->with('error', 'Error en la solicitud HTTP');
-        }
+        $formToken = Http::withHeaders([
+            'Authorization' => 'Basic ' . $authorization,
+            'Accept' => 'application/json',
+        ])->withOptions([
+            'verify' => $certPath
+        ])->post(config('services.izipay.url'), [
+            'amount' => $order->total * 100,
+            'currency' => 'USD',
+            'orderId' => $order->id,
+            'customer' => [
+                'reference' => auth()->id(),
+                'email' => auth()->user()->email,
+                'billingDetails' => [
+                    'firstName' => auth()->user()->name,
+                ]
+            ]
+        ])->object()->answer->formToken;
 
         $items = json_decode($order->content);
 

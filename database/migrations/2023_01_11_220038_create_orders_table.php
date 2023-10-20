@@ -27,11 +27,10 @@ class CreateOrdersTable extends Migration
             $table->string('phone',9);
 
             //facturacion
-            $table->enum('tipo_doc',[1,2]); //1 factura y 2 boleta
-            $table->string('ruc');
-            $table->string('razon_social');
-            $table->string('direccion_fiscal')->nullable;
-
+            $table->enum('tipo_doc',[1,3]); //1 factura y 3 boleta
+            $table->string('ruc')->nullable();
+            $table->string('razon_social')->nullable();
+            $table->string('direccion_fiscal')->default('')->nullable();
 
 
             $table->string('courrier')->nullable();
@@ -47,17 +46,15 @@ class CreateOrdersTable extends Migration
             $table->enum('status', [Order::RESERVADO,Order::PAGADO, Order::DESPACHADO, Order::ENTREGADO, Order::ANULADO])->default(Order::RESERVADO);
             $table->enum('envio_type', [1, 2]);
 
-            $table->string('atocong');
-            $table->string('jockeypz');
-            $table->string('megaplz');
-            $table->string('huaylas');
-            $table->string('puruchu');
+            $table->string('atocong')->nullable();
+            $table->string('jockeypz')->nullable();
+            $table->string('megaplz')->nullable();
+            $table->string('huaylas')->nullable();
+            $table->string('puruchu')->nullable();
 
 
             $table->float('shipping_cost');
-
             $table->float('total');
-
             $table->json('content');
 
             $table->unsignedBigInteger('department_id')->nullable();

@@ -1,5 +1,6 @@
 <div class="container py-8 grid grid-cols-5 gap-6">
     <div class="col-span-3">
+        <p class="mt-6 mb-3 text-lg text-gray-700 text-semibold">Recepcion de Pedido</p>
         <div class="bg-white rounded-lg shadow p-6">
             <div class="mb-4">
                 <x-jet-label value="Nombre de Contacto" />
@@ -28,39 +29,76 @@
                 <x-jet-input-error for="dni"/>
             </div>
         </div>
-        <br>
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="mb-4">
-                <x-jet-label value="RUC / Documento de Identidad" />
-                <x-jet-input type="text"
-                            wire:model.defer="contact"
-                            placeholder="Ingrese el nombre de la persona que lo va a recoger"
-                            class="w-full" />
-                <x-jet-input-error for="contact"/>
-            </div>
 
-            <div class="mb-4">
-                <x-jet-label value="Razon Social" />
-                <x-jet-input type="text"
-                            wire:model.defer="phone"
-                            placeholder="Ingrese numero de telefono de contacto"
-                            class="w-full" />
-                <x-jet-input-error for="phone"/>
-            </div>
+        <div x-data="{tipo_doc: @entangle('tipo_doc')}">
+            <p class="mt-6 mb-3 text-lg text-gray-700 text-semibold">Datos de Factura-Boleta</p>
 
-            <div>
-                <x-jet-label value="Direccion Fiscal" />
-                <x-jet-input type="text"
-                            wire:model.defer="dni"
-                            placeholder="Ingrese su documento de Identidad"
-                            class="w-full" />
-                <x-jet-input-error for="dni"/>
-            </div>
+                <div class="bg-white rounded-lg shadow">
+                    <label class=" px-6 py-4 flex items-center">
+                        <input x-model="tipo_doc" type="radio" value="1" name="tipo_doc" class="text-gray-700">
+                            <span class="font-semibold text-gray-700 ml-2">
+                                Factura
+                            </span>
+                    </label>
+
+                    <div class="px-6 pb-6 grid grid-cols-2 gap-6" :class="{'hidden': tipo_doc != 1}">
+
+                        <div>
+                            <div class="col-span-2">
+                                <x-jet-label value="RUC"/>
+                                <x-jet-input class="w-full" wire:model="ruc" type="text"/>
+                                <x-jet-input-error for="ruc"/>
+                            </div>
+
+                            <div class="col-span-2">
+                                <x-jet-label value="Razon Social"/>
+                                <x-jet-input class="w-full" wire:model="razon_social" type="text"/>
+                                <x-jet-input-error for="razon_social"/>
+                            </div>
+
+                            <div class="col-span-2">
+                                <x-jet-label value="Direccion Fiscal"/>
+                                <x-jet-input class="w-full" wire:model="direccion_fiscal" type="text"/>
+                                <x-jet-input-error for="direccion_fiscal"/>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="bg-white rounded-lg shadow">
+                    <label class=" px-6 py-4 flex items-center">
+                        <input x-model="tipo_doc" type="radio" value="3" name="tipo_doc" class="text-gray-700">
+                            <span class="font-semibold text-gray-700 ml-2">
+                                Boleta
+                            </span>
+                    </label>
+
+                    <div class="px-6 pb-6 grid grid-cols-2 gap-6" :class="{'hidden': tipo_doc != 3}">
+
+                        <div>
+
+                            <div class="col-span-2">
+                                <x-jet-label value="Nombre y Apellido"/>
+                                <x-jet-input class="w-full" wire:model="razon_social" type="text"/>
+                                <x-jet-input-error for="razon_social"/>
+                            </div>
+
+                            <div class="col-span-2">
+                                <x-jet-label value="DNI"/>
+                                <x-jet-input class="w-full" wire:model="dni" type="text"/>
+                                <x-jet-input-error for="dni"/>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
         </div>
-
-
-
-
 
         <div x-data="{envio_type: @entangle('envio_type')}">
             <p class="mt-6 mb-3 text-lg text-gray-700 text-semibold">Envios</p>
@@ -71,21 +109,15 @@
                 <x-jet-label value="" />
 
                 <select wire:model="selectedStore" name="store" class="form-control w-full">
-                    <option value="1">Seleccione una tienda</option>
-                    @foreach ([
-                        'atocong' => 'Tienda Open Plaza Atocongo',
-                        'jockeypz' => 'Tienda Tottus Jockey Plaza',
-                        'megaplz' => 'Tienda Tottus Mega plaza',
-                        'huaylas' => 'Tienda Tottus Huaylas',
-                        'puruchu' => 'Tienda Real Plaza Tottus Puruchuco',
-                    ] as $storeColumn => $storeAlias)
-                        <option value="{{ $storeColumn }}">
-                            {{ $storeAlias }}
-                        </option>
-                    @endforeach
+                    <option value="" disabled selected>Seleccione una tienda</option>
+                    <option value="Atocongo">Tienda Open Plaza Atocongo</option>
+                    <option value="Jockey Plaza">Tienda Tottus Jockey Plaza</option>
+                    <option value="Mega plaza">Tienda Tottus Mega plaza</option>
+                    <option value="Huaylas">Tienda Tottus Huaylas</option>
+                    <option value="Puruchuco">Tienda Real Plaza Tottus Puruchuco</option>
                 </select>
-
             </label>
+
 
             <div class="bg-white rounded-lg shadow">
                 <label class="px-6 py-4 flex items-center">
