@@ -51,6 +51,7 @@ class CreateOrdersTable extends Migration
             $table->string('megaplz')->nullable();
             $table->string('huaylas')->nullable();
             $table->string('puruchu')->nullable();
+            $table->string('selected_store')->nullable();
 
 
             $table->float('shipping_cost');

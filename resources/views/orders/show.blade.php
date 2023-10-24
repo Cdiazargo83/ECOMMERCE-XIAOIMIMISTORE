@@ -1,9 +1,10 @@
 <x-app-layout>
-    <div  class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         <div class="bg-white rounded-lg shadow-lg px-6 py-8 mb-6 flex items-center">
             <div class="relative">
-                <div class="{{($order->status >= 2 && $order->status != 5) ? 'bg-blue-400' : ' bg-gray-400 '}} rounded-full h-12 w-12 flex items-center justify-center">
+                <div
+                    class="{{ $order->status >= 2 && $order->status != 5 ? 'bg-blue-400' : ' bg-gray-400 ' }} rounded-full h-12 w-12 flex items-center justify-center">
                     <i class="fas fa-check text-white"></i>
                 </div>
                 <div class="absolute -left-1.5 mt-0.5">
@@ -11,10 +12,13 @@
                 </div>
             </div>
 
-            <div class="h-1 flex-1 {{($order->status >= 3 && $order->status != 5) ? 'bg-blue-400' : ' bg-gray-400 '}} mx-2"></div>
+            <div
+                class="h-1 flex-1 {{ $order->status >= 3 && $order->status != 5 ? 'bg-blue-400' : ' bg-gray-400 ' }} mx-2">
+            </div>
 
             <div class="relative">
-                <div class="rounded-full h-12 w-12 {{($order->status >= 3 && $order->status != 5) ? 'bg-blue-400' : ' bg-gray-400 '}} flex items-center justify-center">
+                <div
+                    class="rounded-full h-12 w-12 {{ $order->status >= 3 && $order->status != 5 ? 'bg-blue-400' : ' bg-gray-400 ' }} flex items-center justify-center">
                     <i class="fas fa-truck text-white"></i>
                 </div>
                 <div class="absolute -left-3.5 mt-0.5">
@@ -22,10 +26,13 @@
                 </div>
             </div>
 
-            <div class="h-1 flex-1 {{($order->status >= 4 && $order->status != 5) ? 'bg-blue-400' : ' bg-gray-400 '}} mx-2"></div>
+            <div
+                class="h-1 flex-1 {{ $order->status >= 4 && $order->status != 5 ? 'bg-blue-400' : ' bg-gray-400 ' }} mx-2">
+            </div>
 
             <div class="relative">
-                <div class="rounded-full h-12 w-12 {{($order->status >= 4 && $order->status != 5) ? 'bg-blue-400' : ' bg-gray-400 '}} flex items-center justify-center">
+                <div
+                    class="rounded-full h-12 w-12 {{ $order->status >= 4 && $order->status != 5 ? 'bg-blue-400' : ' bg-gray-400 ' }} flex items-center justify-center">
                     <i class="fas fa-check text-white"></i>
                 </div>
                 <div class="absolute -left-3.5 mt-0.5">
@@ -34,46 +41,70 @@
             </div>
         </div>
 
-<div>
+        <div>
         </div>
 
         <div class="bg-white rounded-lg shadow-lg px-6 py-4 mb-6 flex items-center">
 
             <p class="text-gray-700 uppercase"> <span class="font-semibold">Numero de orden :</span>
-            Orden - 000{{$order->id}}</p>
+                Orden - 000{{ $order->id }}</p>
 
-            @if ($order->status==1)
-
-            <x-button-enlace class=" ml-auto" href="{{route('orders.payment', $order)}}">
-                Ir a Pagar
-            </x-button-enlace>
-
+            @if ($order->status == 1)
+                <x-button-enlace class=" ml-auto" href="{{ route('orders.payment', $order) }}">
+                    Ir a Pagar
+                </x-button-enlace>
             @endif
 
         </div>
 
         <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
             <div class="grid grid-cols-2 gap-6 text-gray-700">
-                    <div>
+                <div>
+
+                    @if ($order->envio_type == 1)
+                        <p class="text-lg fond-semibold uppercase">RECOJO EN :</p>
+                        <p class="text-sm">{{$order->selected_store}}</p>
+
+                    @else
                         <p class="text-lg fond-semibold uppercase">Envio</p>
-                        @if ($order->envio_type == 1)
-                            <p  class="text-sm">Los productos deben ser recogidos en tienda</p>
-                            <p  class="text-sm">Calle falsa</p
+                        <p class="text-sm">Los productos seran enviados a: </p>
+                        <p class="text-sm">{{ $order->address }}</p>
+                        <p>{{ $order->department->name }} - {{ $order->city->name }} - {{ $order->district->name }}</p>
+                        <p class="text-sm ">Ubigeo: {{ $order->district_id }}</p>
+                    @endif
+                </div>
+
+                <div>
+                    <p class="text-lg fond-semibold uppercase">Datos de Contacto</p>
+                    <p class="text-sm">Persona que recibira el pedido: {{ $order->contact }}</p>
+                    <p class="text-sm">Telefono de contacto: {{ $order->phone }}</p>
+                    <p class="text-sm">Documento de Identidad: {{ $order->dni }}</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <div class="grid grid-cols-2 gap-6 text-gray-700">
+                <div>
+                    @if ($order->tipo_doc == 3)
+                    <p class="text-lg fond-semibold uppercase">Boleta</p>
+                    @else
+                    <p class="text-lg fond-semibold uppercase">Factura</p>
+                    @endif
 
 
-                        @else
-                            <p  class="text-sm">Los productos seran enviados a: </p>
-                            <p  class="text-sm">{{$order->address}}</p>
-                            <p>{{$order->department->name}} - {{$order->city->name}} - {{$order->district->name}}</p>
-                            <p  class="text-sm ">Ubigeo: {{$order->district_id}}</p>
-                        @endif
-                    </div>
+                    @if ($order->tipo_doc == 3)
+                        <p>DNI :{{$order->dni}}</p>
+                        <p>NOMBRE :{{$order->razon_social}}</p>
 
-                    <div>
-                        <p class="text-lg fond-semibold uppercase">Datos de Contacto</p>
-                        <p class="text-sm">Persona que recibira el pedido: {{$order->contact}}</p>
-                        <p class="text-sm">Telefono de contacto: {{$order->phone}}</p>
-                    </div>
+                    @else
+                        <p>RUC :{{$order->ruc}}</p>
+                        <p>RAZON SOCIAL :{{$order->razon_social}}</p>
+                        <p>DIRECCION FISCAL :{{$order->direccion_fiscal}}</p>
+                    @endif
+                </div>
 
             </div>
 
@@ -93,38 +124,51 @@
                 </thead>
 
                 <tbody class="divide-y divide-gray-200">
-                       @foreach ($items as $item )
-                    <tr>
-                        <td>
-                            <div class="flex">
-                                <img class=" h-15 w-20 object-cover mr-4" src="{{$item->options->image}}" alt="">
-                                <article>
-                                    <h1 class="font-bold">{{$item->name}}</h1>
-                                </article>
-                            </div>
-                        </td>
-                        <td class="text-center">
-                               S/ {{$item->price}}
-                        </td>
-                        <td class="text-center">
-                                {{$item->qty}}
-                        </td>
-                        <td class="text-center">
-                            S/ {{$item->price * $item->qty}}
-                        </td>
-                    </tr>
-                       @endforeach
+                    @foreach ($items as $item)
+                        <tr>
+                            <td>
+                                <div class="flex">
+                                    <img class=" h-15 w-20 object-cover mr-4" src="{{ $item->options->image }}"
+                                        alt="">
+                                    <article>
+                                        <h1 class="font-bold">{{ $item->name }}</h1>
+
+
+                                        <div class="flex text-xs">
+                                            @isset($item->options->color)
+                                                Color: {{ __($item->options->color) }}
+                                            @endisset
+
+                                            @isset($item->options->size)
+                                                Color: {{ __($item->options->size) }}
+                                            @endisset
+
+                                        </div>
+                                    </article>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                S/ {{ $item->price }}
+                            </td>
+                            <td class="text-center">
+                                {{ $item->qty }}
+                            </td>
+                            <td class="text-center">
+                                S/ {{ $item->price * $item->qty }}
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
             <br>
-                         <div class="text-right">
-                            <p class="flex">Envio</p>
-                            <p class="text-red-700">{{$order->shipping_cost}}</p>
-                         </div>
-                         <div class="text-right">
-                            <p class="flex">Total</p>
-                            <p class="text-red-700">S/ {{$order->total}}</p>
-                         </div>
+            <div class="text-right">
+                <p class="flex">Envio</p>
+                <p class="text-red-700">{{ $order->shipping_cost }}</p>
+            </div>
+            <div class="text-right">
+                <p class="flex">Total</p>
+                <p class="text-red-700">S/ {{ $order->total }}</p>
+            </div>
         </div>
     </div>
 

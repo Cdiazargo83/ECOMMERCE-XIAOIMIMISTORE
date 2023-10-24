@@ -110,11 +110,11 @@
 
                 <select wire:model="selectedStore" name="store" class="form-control w-full">
                     <option value="" disabled selected>Seleccione una tienda</option>
-                    <option value="Atocongo">Tienda Open Plaza Atocongo</option>
-                    <option value="Jockey Plaza">Tienda Tottus Jockey Plaza</option>
-                    <option value="Mega plaza">Tienda Tottus Mega plaza</option>
-                    <option value="Huaylas">Tienda Tottus Huaylas</option>
-                    <option value="Puruchuco">Tienda Real Plaza Tottus Puruchuco</option>
+                    <option value="Tienda Open Plaza Atocongo">Tienda Open Plaza Atocongo</option>
+                    <option value="Tienda Tottus Jockey Plaza">Tienda Tottus Jockey Plaza</option>
+                    <option value="Tienda Tottus Mega plaza">Tienda Tottus Mega plaza</option>
+                    <option value="Tienda Tottus Huaylas">Tienda Tottus Huaylas</option>
+                    <option value="Tienda Real Plaza Tottus Puruchuco">Tienda Real Plaza Tottus Puruchuco</option>
                 </select>
             </label>
 

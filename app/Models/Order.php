@@ -10,7 +10,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id','total','created_at','update_at','status','content'];
+    protected $guarded = ['id','total','created_at','update_at','status','content','selected_store'];
     protected $fillable = ['total'];
 
 

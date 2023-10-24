@@ -47,6 +47,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('orders/{order}/payment', [OrderController::class,'payment'])->name('orders.payment');
 
 
+
+
     Route::get('orders/{vista}',[OrderController::class, 'vista'])->name('orders.vista');
 
    //IZIPAY
@@ -54,6 +56,8 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/paid/izipay',[PaidController::class,'izipay'])->name('paid.izipay');
 
     Route::get('orders/{order}/show', [OrderController::class,'show'])->name('orders.show');
+
+
 
 });
 

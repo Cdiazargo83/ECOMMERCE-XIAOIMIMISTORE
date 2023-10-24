@@ -82,8 +82,8 @@ class CreateOrder extends Component
         $order->tipo_doc =  $this->tipo_doc;
         $order->ruc = $this->ruc;
         $order->razon_social = $this->razon_social;
-
         $order->envio_type = $this->envio_type;
+        $order->direccion_fiscal = $this->direccion_fiscal;
         $order->shipping_cost = 0;
         $order->total = $this->shipping_cost + Cart::subtotal(2, '.', '');
 
@@ -98,9 +98,8 @@ class CreateOrder extends Component
             $order->district_id = $this->district_id;
             $order->address = $this->address;
             $order->references = $this->references;
-        } elseif ($this->envio_type == 1) {
-            // Código específico para envío_type igual a 1
 
+        } elseif ($this->envio_type == 1) {
             // Agrega tu lógica específica para envío_type igual a 1 aquí
             $order->atocong = $this->atocong;
             $order->jockeypz = $this->jockeypz;
@@ -109,6 +108,8 @@ class CreateOrder extends Component
             $order->puruchu = $this->puruchu;
         }
 
+        $order->selected_store = $this->selectedStore;
+
         $order->save();
 
         foreach (Cart::content() as $item) {
@@ -116,7 +117,6 @@ class CreateOrder extends Component
         }
 
         Cart::destroy();
-
         //dd($order);
 
         return redirect()->route('orders.payment', $order);

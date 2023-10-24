@@ -20,11 +20,11 @@ class CreateProductsTable extends Migration
             $table->string('sku');
             $table->integer('stock_flex')->nullable();
 
-                $table->string ('atocong');
-                $table->string ('jockeypz');
-                $table->string ('megaplz');
-                $table->string ('huaylas');
-                $table->string ('puruchu');
+                $table->string ('atocong')->nullable;
+                $table->string ('jockeypz')->nullable;
+                $table->string ('megaplz')->nullable;
+                $table->string ('huaylas')->nullable;
+                $table->string ('puruchu')->nullable;
 
             $table->string('bodega');
             $table->string('slug');
