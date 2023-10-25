@@ -184,10 +184,9 @@
         <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
             <div class="grid grid-cols-2 gap-6 text-gray-700">
                     <div>
-                        <p class="text-lg font-bold uppercase">Envio</p>
                         @if ($order->envio_type == 1)
-                            <p  class="text-sm">Los productos deben ser recogidos en tienda</p>
-                            <p  class="text-sm">Calle falsa</p>
+                        <p class="text-lg fond-semibold uppercase">RECOJO EN :</p>
+                        <p class="text-sm">{{$order->selected_store}}</p>
 
                         @else
                             <p  class="text-sm">Los productos seran enviados a: </p>

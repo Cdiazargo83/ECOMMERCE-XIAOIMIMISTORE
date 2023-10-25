@@ -131,7 +131,7 @@
 </head>
 <body>
     <div class="center-content">
-        <div class="table max-w-5xl mx-auto px-6 py-12 first-box">
+        <div class="table max-w-5xl mx-auto px-6 py-10 first-box">
             <div class="bg-white rounded-lg shadow-lg px-6 py-4 mb-6">
                 <h1 class="text-gray-700 uppercase centrado text-5xl font-extrabold">PEDIDO N° 000{{ $order->id }}</h1>
                 <p class="centrado">Fecha de Emisión: {{ $order->created_at }}</p>
@@ -149,18 +149,52 @@
                                 </thead>
                     <tbody class="divide-y divide-gray-200 centrado2">
                         <tr>
-                            <td class="font-semibold">Envío</td>
-                            <td>
+
                                 @if ($order->envio_type == 1)
-                                    <p class="text-sm">Los productos deben ser recogidos en tienda</p>
-                                    <p class="text-sm">Calle falsa</p>
+                                <td class="font-semibold">RECOJO EN :</td>
+
+                                <td class="text-sm">{{$order->selected_store}}</td>
                                 @else
                                     <p class="text-sm font-semibold">Los productos serán enviados a:</p>
                                     <p class="text-sm">{{ $order->address }}</p>
                                    <p>{{ $order->department->name }} - {{ $order->city->name }} - {{ $order->district->name }}</p>
                                     <p class="text-sm">Ubigeo: {{ $order->district_id }}</p>
                                 @endif
-                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            @if ($order->tipo_doc == 3)
+                                        <th class="text-lg fond-semibold uppercase">Boleta</th>
+                                        @else
+                                        <th class="text-lg fond-semibold uppercase">Factura</th>
+                                        @endif
+                        </tr>
+                                </thead>
+                    <tbody class="divide-y divide-gray-200 centrado2">
+                        <tr>
+                            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                                <div class="grid grid-cols-2 gap-6 text-gray-700">
+                                    <div>
+
+                                        @if ($order->tipo_doc == 3)
+                                            <p>DNI :{{$order->dni}}</p>
+                                            <p>NOMBRE :{{$order->razon_social}}</p>
+
+                                        @else
+                                            <p>RUC :{{$order->ruc}}</p>
+                                            <p>RAZON SOCIAL :{{$order->razon_social}}</p>
+                                            <p>DIRECCION FISCAL :{{$order->direccion_fiscal}}</p>
+                                        @endif
+                                    </div>
+
+                                </div>
+
+                            </div>
                         </tr>
                     </tbody>
                 </table>
