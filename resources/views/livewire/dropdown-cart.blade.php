@@ -17,21 +17,17 @@
 
             <ul>
                 @forelse (Cart::content() as $item)
-                    <li class="flex p-2 border-b border-yellow-300">
+                    <li class="flex p-2 border-b border-orange-300">
                         <img class="h-15 w-20 object-cover mr-4" src="{{$item->options->image}}" alt="">
 
                         <article class="flex-1">
                             <h1 class="font-bold text-red-600">{{$item->name}}</h1>
-                            <h1 class="font-bold text-red-600">{{$item->sku}}</h1>
-
-
-
+                            <h1 class="font-bold text-blue-400">{{$item->options->sku}}</h1>
                             <div class="flex">
                                 <p>Cant: {{$item->qty}}</p>
                                 @isset($item->options['color'])
                                     <p class="mx-2">- Color: {{__($item->options['color'])}}</p>
                                 @endisset
-
                                 @isset($item->options['size'])
                                     <p>{{$item->options['size']}}</p>
                                 @endisset

@@ -14,7 +14,7 @@ class CreateOrder extends Component
 {
 
     public $envio_type = 1;
-    public $tipo_doc = 3;
+    public $tipo_doc = '';
     public $contact, $phone, $address, $references, $shipping_cost = 0, $dni, $ruc, $razon_social, $direccion_fiscal;
     public $departments, $cities = [], $districts = [];
     public $department_id = "", $city_id = "", $district_id = "";

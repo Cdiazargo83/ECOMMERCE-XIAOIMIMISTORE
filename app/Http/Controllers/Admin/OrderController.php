@@ -50,12 +50,13 @@ class OrderController extends Controller
 
        // view()->share('orders',$orders);
         $pdf = Pdf::loadView('admin.orders.pdf', compact('order','items'));
-        return $pdf->download('PEDIDO.pdf');
+        return $pdf->download('pedido_' . $order->id . '.pdf');
 
     }
 
     public function show(Order $order){
 
+       //dd($order);
         return view('admin.orders.show', compact('order'));
 
     }

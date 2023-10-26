@@ -185,12 +185,18 @@
                 wire:click="create_order">
                 Continuar con la compra
             </x-jet-button>
-            <hr>
-            <input type="checkbox" name="envio" class="form-check-input text-gray-700">
-            <label class="text-sm text-gray-700 mt-2">
-                Acepto <a href="" class="font-semibold text-red-700 inline-block cursor-pointer hover:underline">términos y condiciones</a> y la
-                <a href="" class="font-semibold text-red-700 inline-block cursor-pointer hover:underline">Política de Privacidad y Tratamiento de Datos Personales</a>
-            </label>
+        </div>
+        <div>
+            <form>
+                <label for="envio" class="text-gray-700"></label>
+                <input type="checkbox" name="envio" id="envio" class="form-check-input text-gray-700" required aria-invalid="true">
+                <label class="text-sm text-gray-700 mt-2">
+                    Acepto <a href="" class="font-semibold text-red-700 inline-block cursor-pointer hover:underline">términos y condiciones</a> y la
+                    <a href="" class="font-semibold text-red-700 inline-block cursor-pointer hover:underline">Política de Privacidad y Tratamiento de Datos Personales</a>
+                </label>
+                <div role="alert" style="color: red;">Por favor, acepte los terminos y condiciones</div>
+                <button type="submit"></button>
+              </form>
         </div>
     </div>
     <div class="col-span-2">
@@ -201,7 +207,7 @@
                         <img class="h-15 w-20 object-cover mr-4" src="{{$item->options->image}}" alt="">
                         <article class="flex-1">
                             <h1 class="font-bold text-red-600">{{$item->name}}</h1>
-                            <h1 class="font-bold text-red-600">{{$item->sku}}</h1>
+                            <h1 class="font-bold text-blue-400">{{$item->options->sku}}</h1>
                             <div class="flex">
                                 <p>Cant: {{$item->qty}}</p>
                                 @isset($item->options['color'])

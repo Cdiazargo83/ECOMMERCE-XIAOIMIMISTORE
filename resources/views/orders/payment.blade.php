@@ -77,6 +77,7 @@
                                 <img class=" h-15 w-20 object-cover mr-4" src="{{$item->options->image}}" alt="">
                                 <article>
                                     <h1 class="font-bold">{{$item->name}}</h1>
+                                    <h1 class="font-bold">{{$item->options->sku}}</h1>
                                     <div class="flex text-xs">
                                             @isset ($item->options->color)
                                                Color: {{__($item->options->color)}}

@@ -36,7 +36,7 @@
         }
 
         .shadow-lg {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(61, 61, 61, 0.1);
         }
 
         .px-6 {
@@ -127,17 +127,18 @@
         .first-box {
             margin: 0 auto; /* Esto centrará el primer cuadro horizontalmente */
         }
+
     </style>
 </head>
 <body>
     <div class="center-content">
         <div class="table max-w-5xl mx-auto px-6 py-10 first-box">
-            <div class="bg-white rounded-lg shadow-lg px-6 py-4 mb-6">
-                <h1 class="text-gray-700 uppercase centrado text-5xl font-extrabold">PEDIDO N° 000{{ $order->id }}</h1>
-                <p class="centrado">Fecha de Emisión: {{ $order->created_at }}</p>
+            <div class="bg-white rounded-lg shadow-lg px-6 py-2 mb-6">
+                <div class="text-gray-700 uppercase centrado text-5xl font-extrabold">PEDIDO N° 000{{ $order->id }}</div>
+                <div class="centrado">Fecha de Emisión: {{ $order->created_at->format('d-m-Y') }}</div>
             </div>
             <div class="bg-white rounded-lg shadow-lg p-6 text-gray-700 mb-6">
-                <h2 class="text-lg font-semibold mb-4 centrado">DATOS DE ENVIO</h2>
+                <div class="text-lg font-semibold mb-4 centrado">DATOS DE ENVIO</div>
                 <div class="grid grid-cols-2 gap-4 text-gray-800">
                     <!-- Add a new table for "Envío" -->
                 <table class="table">
@@ -149,7 +150,6 @@
                                 </thead>
                     <tbody class="divide-y divide-gray-200 centrado2">
                         <tr>
-
                                 @if ($order->envio_type == 1)
                                 <td class="font-semibold">RECOJO EN :</td>
 
@@ -165,44 +165,8 @@
                     </tbody>
                 </table>
 
-                <table class="table">
-                    <thead>
-                        <tr>
-                            @if ($order->tipo_doc == 3)
-                                        <th class="text-lg fond-semibold uppercase">Boleta</th>
-                                        @else
-                                        <th class="text-lg fond-semibold uppercase">Factura</th>
-                                        @endif
-                        </tr>
-                                </thead>
-                    <tbody class="divide-y divide-gray-200 centrado2">
-                        <tr>
-                            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
-                                <div class="grid grid-cols-2 gap-6 text-gray-700">
-                                    <div>
-
-                                        @if ($order->tipo_doc == 3)
-                                            <p>DNI :{{$order->dni}}</p>
-                                            <p>NOMBRE :{{$order->razon_social}}</p>
-
-                                        @else
-                                            <p>RUC :{{$order->ruc}}</p>
-                                            <p>RAZON SOCIAL :{{$order->razon_social}}</p>
-                                            <p>DIRECCION FISCAL :{{$order->direccion_fiscal}}</p>
-                                        @endif
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </tr>
-                    </tbody>
-                </table>
-
-
                 <div class="bg-white rounded-lg shadow-lg p-6 text-gray-700 mb-6">
-                    <h2 class="text-lg font-semibold mb-4 centrado">DATOS DE CONTACTO</h2>
-
+                    <div class="text-lg font-semibold mb-4 centrado">DATOS DE CONTACTO</div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -228,10 +192,11 @@
                 </div>
             </div>
             <div class="bg-white rounded-lg shadow-lg p-6 text-gray-700 mb-6">
-                <h2 class="text-lg font-semibold mb-4 centrado">DETALLES DEL PEDIDO</h2>
+                <div class="text-lg font-semibold mb-4 centrado">DETALLES DEL PEDIDO</div>
                 <table class="table">
                     <thead>
                         <tr>
+                            <th>Sku</th>
                             <th>Producto</th>
                             <th>Precio</th>
                             <th>Cantidad</th>
@@ -244,9 +209,14 @@
                                 <td>
                                     <div class="flex">
                                         <article>
-
+                                            <div class="flex text-xs">{{ $item->options->sku}}</div>
+                                        </article>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex">
+                                        <article>
                                             <div class="flex text-xs">{{ $item->name }}</div>
-
                                         </article>
                                     </div>
                                 </td>

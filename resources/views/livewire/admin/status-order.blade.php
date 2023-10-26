@@ -207,6 +207,29 @@
 
         </div>
 
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <div class="grid grid-cols-2 gap-6 text-gray-700">
+                <div>
+                    @if ($order->tipo_doc == 3)
+                    <p class="text-lg fond-semibold uppercase">Boleta</p>
+                    @else
+                    <p class="text-lg fond-semibold uppercase">Factura</p>
+                    @endif
+
+
+                    @if ($order->tipo_doc == 3)
+                        <p>DNI :{{$order->dni}}</p>
+                        <p>NOMBRE :{{$order->razon_social}}</p>
+
+                    @else
+                        <p>RUC :{{$order->ruc}}</p>
+                        <p>RAZON SOCIAL :{{$order->razon_social}}</p>
+                        <p>DIRECCION FISCAL :{{$order->direccion_fiscal}}</p>
+                    @endif
+                </div>
+            </div>
+        </div>
+
         <div class="bg-white rounded-lg shadow-lg p-6 text-gray-700 mb-6">
             <p class="text-lg font-bold mb-4">Resumen</p>
 
@@ -227,7 +250,8 @@
                             <div class="flex">
                                 <img class=" h-15 w-20 object-cover mr-4" src="{{$item->options->image}}" alt="">
                                 <article>
-                                    <h1 class="font-bold">{{$item->name}}</h1>
+                                    <div class="font-bold">{{$item->options->sku}}</div>
+                                    <div class="font-bold">{{$item->name}}</div>
                                     <div class="flex text-xs">
                                             @isset ($item->options->color)
                                                Color: {{__($item->options->color)}}
