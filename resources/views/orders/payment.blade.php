@@ -19,9 +19,9 @@
 
     @endpush
 
-<div class="grid grid-cols-5 gap-6 container py-8">
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-6 container py-8">
 
-    <div  class="col-span-3">
+    <div class="xl:col-span-3 ">
         <div class="bg-white rounded-lg shadow-lg px-6 py-4 mb-6">
 
             <p class="text-gray-700 uppercase"> <span class="font-semibold">Numero de orden :</span> Orden - 000{{$order->id}}</p>
@@ -109,7 +109,7 @@
 
     </div>
 
-    <div class="col-span-2">
+    <div class="xl:col-span-2 ">
 
         <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
             <div class="flex justify-between items-center">

@@ -3,7 +3,7 @@
         <div class="px-6 py-2 flex justify-between items-center">
              <h1 class="font-semibold text-gray-700 uppercase">{{$category->name}}</h1>
 
-                 <div class="grid grid-cols-2 border border-gray-200 divide-x divide-gray-200 text-black">
+                 <div class="md:block grid grid-cols-2 border border-gray-200 divide-x divide-gray-200 text-black">
                 <i class="fas fa-border-all p-3 cursor-pointer {{ $view == 'grid' ? 'text-red-600' : ''}}" wire:click="$set('view', 'grid')"></i>
                 <i class="fas fa-th-list p-3 cursor-pointer    {{$view == 'list' ? 'text-red-600' : ''}}"     wire:click="$set('view', 'list')"></i>
                  </div>
@@ -66,6 +66,7 @@
                                     {{-- Activar para mostrar el nombre completo de los productos {{$product->name}} --}}
                                     {{Str::limit($product->name, 20)}}
                                     </a>
+                                    <p class="font-bold text-xs text-blue-400">{{$product->sku}}</p>
                                 </h1>
 
                                 <p class="font-bold text-truegray-700">S/ {{$product->price}}</p>

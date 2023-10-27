@@ -168,8 +168,6 @@
             @livewire('search')
         </div>
 
-
-
         <ul>
             @foreach ($categories as $category)
                 <li class="text-trueGray-500 hover:bg-orange-500 hover:text-white">
