@@ -107,6 +107,22 @@
 
         </div>
 
+
+
+        <div>
+            <p class="text-sm font-semibold">
+                Subtotal: S/ {{$order->total - $order->shipping_cost}}
+            </p>
+
+            <p class="text-sm font-semibold">
+                Envio: S/ {{$order->shipping_cost}}
+            </p>
+
+            <p class="text-lg font-semibold uppercase text-red-600">
+                Total: S/ {{$order->total}}
+            </p>
+        </div>
+
     </div>
 
     <div class="xl:col-span-2 ">
