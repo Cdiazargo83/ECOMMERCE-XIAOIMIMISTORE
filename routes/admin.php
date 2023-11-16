@@ -25,11 +25,22 @@ use App\Http\Controllers\facturacion\DatosController;
 use App\Models\Company;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Facturacion\RegisterController;
+use App\Http\Livewire\Admin\CanalSubcanal;
+use App\Http\Livewire\Admin\PaisMoneda;
+use App\Http\Livewire\Admin\EmpresaCanal;
+use App\Http\Livewire\Admin\Parametrizacion;
+
+
+Route::get('administrar/paismoneda', PaisMoneda::class)->name('livewire.admin.pais-moneda');
+Route::get('administrar/empresacanal', EmpresaCanal::class)->name('livewire.admin.empresa-canal');
+Route::get('administrar/canalsubcanal', CanalSubcanal::class)->name('livewire.admin.canal-subcanal');
+Route::get('administrar/parametrizacion', Parametrizacion::class)->name('livewire.admin.parametrizacion');
 
 //ruta para PDF
 
 Route::get('orders/{order}/pdf', [OrderController::class, 'pdf'])->name('admin.orders.pdf');
 
+Route::get('users', UserComponent::class)->name('admin.users.index');
 
 //ruta vista de productos
 Route::get('/', ShowProducts::class)->name('admin.index');
@@ -53,8 +64,6 @@ Route::post('orders/{order}/files', [StatusOrder::class, 'files'])->name('admin.
 Route::get('departments', DepartmentComponent::class)->name('admin.departments.index');
 Route::get('departments/{department}', ShowDepartment::class)->name('admin.departments.show');
 
-Route::get('users', UserComponent::class)->name('admin.users.index');
-
 
 Route::get('banners', [BannerController::class, 'index'])->name('admin.banners.index');
 Route::get('banners/{banner}', ShowBanner::class)->name('admin.banners.show');
@@ -71,30 +80,11 @@ Route::get('Invoice', function () {
 
 
 Route::middleware(['auth'])->group(function () {
-    // Otras rutas de administración
 
-    // Ruta para consultar productos usando el método POST
-    //Route::get('/consulta-productos', [ProductflexController::class, 'consultaProductos'])->name('livewire.admin.consulta-productos');
-
-    //Route::post('/consulta-productos', [ProductflexController::class, 'consultaProductos'])->name('livewire.admin.consulta-productos');
+   //CONSULTA FLEXLINE
     Route::match(['get', 'post'], '/consulta-productos', [ProductflexController::class, 'consultaProductos'])->name('livewire.admin.consulta-productos');
     Route::match(['get', 'post'], '/consulta-precio', [ConsultaPrecioController::class, 'consultaPrecio'])->name('livewire.admin.consulta-precio');
-    //Inyectar documento
 
-    //Route::get('/inyecta-documento', [InyectaDocumentoController::class, 'editarXmlForm'])->name('livewire.admin.inyecta-documento');
-    //Route::match(['get', 'post'],'/inyecta-editar', [InyectaDocumentoController::class, 'enviarXmlASoap'])->name('livewire.admin.inyecta-editar');
-    Route::match(['get', 'post'], '/editar-xml', [InyectaDocumentoController::class, 'editarXmlForm'])->name('livewire.admin.editar-xml');
-    Route::match(['get', 'post'], '/enviar-xml', [InyectaDocumentoController::class, 'enviarXmlASoap'])->name('livewire.admin.enviar-xml');
-
-    Route::get('/formulario', [DatosController::class, 'formulario'])->name('admin.facturacion.formulario');
-    Route::match(['get', 'post'], '/mostrar-datos', [DatosController::class, 'mostrarDatos'])->name('admin.facturacion.mostrar-datos');
-    Route::match(['get', 'post'], '/guardar-datos', [DatosController::class, 'guardarDatos'])->name('admin.facturacion.guardar-datos');
-
-    //Route::get('/register', function () {
-      //  return view('admin.facturacion.register');
-    //});
-
-    //Route::match([ 'post'],'/register', [RegisterController::class, 'store'])->name('admin.facturacion.register');
 
 
 
