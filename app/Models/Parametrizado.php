@@ -12,17 +12,6 @@ class Parametrizado extends Model
     protected $table = 'parametrizado';
 
     protected $fillable = [
-        'canal',
-        'desc_canal',
-        'subcanal',
-        'desc_subcanal',
-        'modelo_negocio',
-        'bodega',
-        'tipo_distribucion',
-        'lp_visual',
-        'desc_lp_visual',
-        'lp_neto',
-        'desc_lp_neto',
         'empresa_id',
         'desc_empresa_id',
         'canal_id',
@@ -31,6 +20,12 @@ class Parametrizado extends Model
         'desc_subcanal_id',
         'modelo_negocio_id',
         'bodega_id',
+
+        'tipo_distribucion_id',
+        'lp_visual_id',
+        'desc_lp_visual_id',
+        'lp_neto_id',
+        'desc_lp_neto_id',
     ];
 
     public function empresa()
@@ -72,4 +67,31 @@ class Parametrizado extends Model
     {
         return $this->belongsTo(CanalSubcanal::class, 'bodega_id');
     }
+
+    public function tipo_distribucion()
+    {
+        return $this->belongsTo(CanalSubcanal::class, 'tipo_distribucion_id');
+    }
+
+    public function lp_visual()
+    {
+        return $this->belongsTo(CanalSubcanal::class, 'lp_visual_id');
+    }
+
+    public function desc_lp_visual()
+    {
+        return $this->belongsTo(CanalSubcanal::class, 'desc_lp_visual_id');
+    }
+
+    public function lp_neto()
+    {
+        return $this->belongsTo(CanalSubcanal::class, 'lp_neto_id');
+    }
+
+    public function desc_lp_neto()
+    {
+        return $this->belongsTo(CanalSubcanal::class, 'desc_lp_neto_id');
+    }
+
+    // Agrega más relaciones según sea necesario
 }

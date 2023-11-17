@@ -1,25 +1,16 @@
 <?php
 
+// app/Http/Livewire/Admin/Parametrizacion.php
+
 namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
-use App\Models\Parametrizado as ModelsParametrizado;
+use App\Models\Parametrizado;
 use App\Models\EmpresaCanal;
 use App\Models\CanalSubcanal;
 
 class Parametrizacion extends Component
 {
-    public $canal;
-    public $desc_canal;
-    public $subcanal;
-    public $desc_subcanal;
-    public $modelo_negocio;
-    public $bodega;
-    public $tipo_distribucion;
-    public $lp_visual;
-    public $desc_lp_visual;
-    public $lp_neto;
-    public $desc_lp_neto;
     public $empresa_id;
     public $desc_empresa_id;
     public $canal_id;
@@ -28,21 +19,15 @@ class Parametrizacion extends Component
     public $desc_subcanal_id;
     public $modelo_negocio_id;
     public $bodega_id;
+    public $tipo_distribucion_id;
+    public $lp_visual_id;
+    public $desc_lp_visual_id;
+    public $lp_neto_id;
+    public $desc_lp_neto_id;
 
     public function guardar()
     {
         $this->validate([
-            'canal' => 'required',
-            'desc_canal' => 'required',
-            'subcanal' => 'required',
-            'desc_subcanal' => 'required',
-            'modelo_negocio' => 'required',
-            'bodega' => 'required',
-            'tipo_distribucion' => 'required',
-            'lp_visual' => 'required',
-            'desc_lp_visual' => 'required',
-            'lp_neto' => 'required',
-            'desc_lp_neto' => 'required',
             'empresa_id' => 'required',
             'desc_empresa_id' => 'required',
             'canal_id' => 'required',
@@ -51,20 +36,14 @@ class Parametrizacion extends Component
             'desc_subcanal_id' => 'required',
             'modelo_negocio_id' => 'required',
             'bodega_id' => 'required',
+            'tipo_distribucion_id' => 'required',
+            'lp_visual_id' => 'required',
+            'desc_lp_visual_id' => 'required',
+            'lp_neto_id' => 'required',
+            'desc_lp_neto_id' => 'required',
         ]);
 
-        ModelsParametrizado::create([
-            'canal' => $this->canal,
-            'desc_canal' => $this->desc_canal,
-            'subcanal' => $this->subcanal,
-            'desc_subcanal' => $this->desc_subcanal,
-            'modelo_negocio' => $this->modelo_negocio,
-            'bodega' => $this->bodega,
-            'tipo_distribucion' => $this->tipo_distribucion,
-            'lp_visual' => $this->lp_visual,
-            'desc_lp_visual' => $this->desc_lp_visual,
-            'lp_neto' => $this->lp_neto,
-            'desc_lp_neto' => $this->desc_lp_neto,
+        Parametrizado::create([
             'empresa_id' => $this->empresa_id,
             'desc_empresa_id' => $this->desc_empresa_id,
             'canal_id' => $this->canal_id,
@@ -73,6 +52,11 @@ class Parametrizacion extends Component
             'desc_subcanal_id' => $this->desc_subcanal_id,
             'modelo_negocio_id' => $this->modelo_negocio_id,
             'bodega_id' => $this->bodega_id,
+            'tipo_distribucion_id' => $this->tipo_distribucion_id,
+            'lp_visual_id' => $this->lp_visual_id,
+            'desc_lp_visual_id' => $this->desc_lp_visual_id,
+            'lp_neto_id' => $this->lp_neto_id,
+            'desc_lp_neto_id' => $this->desc_lp_neto_id,
         ]);
 
         $this->resetInputFields();
@@ -80,35 +64,30 @@ class Parametrizacion extends Component
 
     private function resetInputFields()
     {
-        // Restablecer todos los campos a sus valores iniciales
-        $this->canal = '';
-        $this->desc_canal = '';
-        $this->subcanal = '';
-        $this->desc_subcanal = '';
-        $this->modelo_negocio = '';
-        $this->bodega = '';
-        $this->tipo_distribucion = '';
-        $this->lp_visual = '';
-        $this->desc_lp_visual = '';
-        $this->lp_neto = '';
-        $this->desc_lp_neto = '';
-        $this->empresa_id = '';
-        $this->desc_empresa_id = '';
-        $this->canal_id = '';
-        $this->desc_canal_id = '';
-        $this->subcanal_id = '';
-        $this->desc_subcanal_id = '';
-        $this->modelo_negocio_id = '';
-        $this->bodega_id = '';
+        $this->empresa_id = null;
+        $this->desc_empresa_id = null;
+        $this->canal_id = null;
+        $this->desc_canal_id = null;
+        $this->subcanal_id = null;
+        $this->desc_subcanal_id = null;
+        $this->modelo_negocio_id = null;
+        $this->bodega_id = null;
+        $this->tipo_distribucion_id = null;
+        $this->lp_visual_id = null;
+        $this->desc_lp_visual_id = null;
+        $this->lp_neto_id = null;
+        $this->desc_lp_neto_id = null;
+    }
+
+    public function submit()
+    {
+        $this->guardar();
     }
 
     public function render()
     {
-        $parametrizados = ModelsParametrizado::with([
-            'empresa', 'desc_empresa', 'canal', 'desc_canal', 'subcanal', 'desc_subcanal',
-            'modelo_negocio', 'bodega'
-        ])->get();
-
+        // Recupera las relaciones necesarias para la vista
+        $parametrizados = Parametrizado::with(['empresa', 'canal'])->get();
         $empresas = EmpresaCanal::all();
         $canales = CanalSubcanal::all();
 

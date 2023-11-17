@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-
+use App\Http\Livewire\Admin\EmpresaCanal;
 use App\Models\Banner;
 use App\Models\OrderPartner;
 use App\Models\Subcategory;
@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         Storage::deleteDirectory('orderspartner');
         Storage::deleteDirectory('banners');
         Storage::deleteDirectory('promocions');
+        Storage::deleteDirectory('logo_path');
 
         Storage::makeDirectory('categories');
         Storage::makeDirectory('subcategories');
@@ -34,6 +35,7 @@ class DatabaseSeeder extends Seeder
         Storage::makeDirectory('orderspartner');
         Storage::makeDirectory('banners');
         Storage::makeDirectory('promocions');
+        Storage::makeDirectory('logo_path');
 
 
 
@@ -51,6 +53,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ColorSizeSeeder::class);
         $this->call(BannerSeeder::class);
         $this->call(PromocionSeeder::class);
+
 
 
     }

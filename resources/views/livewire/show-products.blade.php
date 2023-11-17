@@ -1,6 +1,5 @@
 <div>
     <!-- ... (header and other content) ... -->
-
     <div class="container py-12">
         <x-table-responsive>
             <table class="min-w-full divide-y divide-gray-200">

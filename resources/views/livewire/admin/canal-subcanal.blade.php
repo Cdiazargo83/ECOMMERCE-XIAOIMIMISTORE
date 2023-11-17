@@ -1,74 +1,148 @@
 <!-- resources/views/livewire/canal-subcanal.blade.php -->
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-gray-700">
+    <div class="bg-white shadow-xl rounded-lg p-6">
+        <form wire:submit.prevent="guardar" class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-<div>
-    <form wire:submit.prevent="guardar">
-        <label for="canal">Canal:</label>
-        <input wire:model="canal" type="text" id="canal" name="canal" required>
+            <!-- First Column -->
+            <div class="mb-4">
+                <x-jet-label value="Canal:" />
+                <x-jet-input type="text" class="w-full" wire:model="canal" placeholder="Ingrese el Canal" />
+                <x-jet-input-error for="canal" />
+            </div>
 
-        <label for="desc_canal">Descripción del Canal:</label>
-        <input wire:model="desc_canal" type="text" id="desc_canal" name="desc_canal" required>
+            <div class="mb-4">
+                <x-jet-label value="Descripción del Canal:" />
+                <x-jet-input type="text" class="w-full" wire:model="desc_canal"
+                    placeholder="Ingrese el Desc. Canal" />
+                <x-jet-input-error for="desc_canal" />
+            </div>
 
-        <label for="subcanal">Subcanal:</label>
-        <input wire:model="subcanal" type="text" id="subcanal" name="subcanal" required>
+            <!-- Add more fields for the first column as needed -->
 
-        <label for="desc_subcanal">Descripción del Subcanal:</label>
-        <input wire:model="desc_subcanal" type="text" id="desc_subcanal" name="desc_subcanal" required>
+            <!-- Second Column -->
+            <div class="mb-4">
+                <x-jet-label value="Subcanal:" />
+                <x-jet-input type="text" class="w-full" wire:model="subcanal" placeholder="Ingrese el SubCanal" />
+                <x-jet-input-error for="subcanal" />
+            </div>
 
-        <label for="modelo_negocio">Modelo de Negocio:</label>
-        <input wire:model="modelo_negocio" type="text" id="modelo_negocio" name="modelo_negocio" required>
+            <div class="mb-4">
+                <x-jet-label value="Desc. Subcanal:" />
+                <x-jet-input type="text" class="w-full" wire:model="desc_subcanal"
+                    placeholder="Ingrese el Desc. SubCanal" />
+                <x-jet-input-error for="desc_subcanal" />
+            </div>
 
-        <label for="bodega">Bodega:</label>
-        <input wire:model="bodega" type="text" id="bodega" name="bodega" required>
+            <!-- Add more fields for the second column as needed -->
 
-        <label for="tipo_distribucion">Tipo de Distribución:</label>
-        <input wire:model="tipo_distribucion" type="text" id="tipo_distribucion" name="tipo_distribucion" required>
+            <!-- Third Column -->
+            <div class="mb-4">
+                <x-jet-label value="Modelo de Negocio:" />
+                <x-jet-input type="text" class="w-full" wire:model="modelo_negocio"
+                    placeholder="Ingrese Modelo de Negocio" />
+                <x-jet-input-error for="modelo_negocio" />
+            </div>
 
-        <label for="lp_visual">LP Visual:</label>
-        <input wire:model="lp_visual" type="text" id="lp_visual" name="lp_visual" required>
+            <!-- Add more fields for the third column as needed -->
 
-        <label for="desc_lp_visual">Descripción LP Visual:</label>
-        <input wire:model="desc_lp_visual" type="text" id="desc_lp_visual" name="desc_lp_visual" required>
+            <!-- Fourth Column -->
+            <div class="mb-4">
+                <x-jet-label value="Bodega:" />
+                <x-jet-input type="text" class="w-full" wire:model="bodega" placeholder="Ingrese el Bodega" />
+                <x-jet-input-error for="bodega" />
+            </div>
 
-        <label for="lp_neto">LP Neto:</label>
-        <input wire:model="lp_neto" type="text" id="lp_neto" name="lp_neto" required>
+            <!-- Add more fields for the fourth column as needed -->
 
-        <label for="desc_lp_neto">Descripción LP Neto:</label>
-        <input wire:model="desc_lp_neto" type="text" id="desc_lp_neto" name="desc_lp_neto" required>
+            <!-- Fifth Column -->
+            <div class="mb-4">
+                <x-jet-label value="Tipo de Distribucion:" />
+                <x-jet-input type="text" class="w-full" wire:model="tipo_distribucion"
+                    placeholder="Tipo de Distribucion" />
+                <x-jet-input-error for="tipo_distribucion" />
+            </div>
 
-        <button type="submit">Guardar</button>
-    </form>
+            <!-- Add more fields for the fifth column as needed -->
 
-    <h2>Lista de Canales y Subcanales:</h2>
-    <table>
+            <!-- Sixth Column -->
+            <div class="mb-4">
+                <x-jet-label value="Lista de Precios Visual:" />
+                <x-jet-input type="text" class="w-full" wire:model="lp_visual"
+                    placeholder="Lista de Precios Visual" />
+                <x-jet-input-error for="lp_visual" />
+            </div>
+
+            <!-- Add more fields for the sixth column as needed -->
+
+            <!-- Seventh Column -->
+            <div class="mb-4">
+                <x-jet-label value="Descripción LP Visual:" />
+                <x-jet-input type="text" class="w-full" wire:model="desc_lp_visual" placeholder="Desc. LP Visual" />
+                <x-jet-input-error for="desc_lp_visual" />
+            </div>
+
+            <!-- Add more fields for the seventh column as needed -->
+
+            <!-- Eighth Column -->
+            <div class="mb-4">
+                <x-jet-label value="Lista de Precios Neto:" />
+                <x-jet-input type="text" class="w-full" wire:model="lp_neto" placeholder="Lista de Precios Neto" />
+                <x-jet-input-error for="lp_neto" />
+            </div>
+
+            <!-- Add more fields for the eighth column as needed -->
+
+            <!-- Ninth Column -->
+            <div class="mb-4">
+                <x-jet-label value="Lista de Precios Visual:" />
+                <x-jet-input type="text" class="w-full" wire:model="desc_lp_neto" placeholder="Desc. LP Visual" />
+                <x-jet-input-error for="desc_lp_neto" />
+            </div>
+
+            <!-- Add more fields for the ninth column as needed -->
+
+            <!-- Submit Button -->
+            <div class="flex mt-4 col-span-2">
+                <x-jet-button wire:loading.attr="disabled" wire:target="guardar" wire:click="guardar" class="ml-auto">
+                    Guardar
+                </x-jet-button>
+            </div>
+        </form>
+    </div>
+</div>
+<br>
+<div class="flex items-center container py-10">
+
+    <table style="width:100%; border-collapse: collapse; margin-top: 10px;">
         <thead>
             <tr>
-                <th>Canal</th>
-                <th>Descripción del Canal</th>
-                <th>Subcanal</th>
-                <th>Descripción del Subcanal</th>
-                <th>Modelo de Negocio</th>
-                <th>Bodega</th>
-                <th>Tipo de Distribución</th>
-                <th>LP Visual</th>
-                <th>Descripción LP Visual</th>
-                <th>LP Neto</th>
-                <th>Descripción LP Neto</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Canal</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Descripción del Canal</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Subcanal</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Descripción del Subcanal</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Modelo de Negocio</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Bodega</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Tipo de Distribución</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">LP Visual</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Descripción LP Visual</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">LP Neto</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Descripción LP Neto</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($canalSubcanales as $canalSubcanal)
                 <tr>
-                    <td>{{ $canalSubcanal->canal }}</td>
-                    <td>{{ $canalSubcanal->desc_canal }}</td>
-                    <td>{{ $canalSubcanal->subcanal }}</td>
-                    <td>{{ $canalSubcanal->desc_subcanal }}</td>
-                    <td>{{ $canalSubcanal->modelo_negocio }}</td>
-                    <td>{{ $canalSubcanal->bodega }}</td>
-                    <td>{{ $canalSubcanal->tipo_distribucion }}</td>
-                    <td>{{ $canalSubcanal->lp_visual }}</td>
-                    <td>{{ $canalSubcanal->desc_lp_visual }}</td>
-                    <td>{{ $canalSubcanal->lp_neto }}</td>
-                    <td>{{ $canalSubcanal->desc_lp_neto }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->canal }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->desc_canal }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->subcanal }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->desc_subcanal }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->modelo_negocio }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->bodega }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->tipo_distribucion }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->lp_visual }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->desc_lp_visual }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->lp_neto }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->desc_lp_neto }}</td>
                 </tr>
             @endforeach
         </tbody>
