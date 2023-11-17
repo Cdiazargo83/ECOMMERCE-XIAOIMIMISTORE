@@ -29,14 +29,25 @@ class CreateParametrizadoTable extends Migration
             $table->foreign('bodega_id')->references('id')->on('canal_subcanal');
             $table->unsignedBigInteger('tipo_distribucion_id')->nullable();
             $table->foreign('tipo_distribucion_id')->references('id')->on('canal_subcanal');
+
             $table->unsignedBigInteger('lp_visual_id')->nullable();
             $table->foreign('lp_visual_id')->references('id')->on('canal_subcanal');
             $table->unsignedBigInteger('desc_lp_visual_id')->nullable();
             $table->foreign('desc_lp_visual_id')->references('id')->on('canal_subcanal');
+
+            $table->unsignedBigInteger('idflexline_visual_id')->nullable();
+            $table->foreign('idflexline_visual_id')->references('id')->on('canal_subcanal');
+
+
+            $table->unsignedBigInteger('idflexline_neto_id')->nullable();
+            $table->foreign('idflexline_neto_id')->references('id')->on('canal_subcanal');
+
             $table->unsignedBigInteger('lp_neto_id')->nullable();
             $table->foreign('lp_neto_id')->references('id')->on('canal_subcanal');
-            $table->unsignedBigInteger('desc_lp_neto')->nullable();
-            $table->foreign('desc_lp_neto')->references('id')->on('canal_subcanal');
+            $table->unsignedBigInteger('desc_lp_neto_id')->nullable();
+            $table->foreign('desc_lp_neto_id')->references('id')->on('canal_subcanal');
+
+
             $table->timestamps();
         });
     }

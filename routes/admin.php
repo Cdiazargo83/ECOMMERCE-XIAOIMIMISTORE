@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdministrationController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Livewire\Admin\ShowProducts;
 use Illuminate\Support\Facades\Route;
@@ -31,9 +32,9 @@ use App\Http\Livewire\Admin\EmpresaCanal;
 use App\Http\Livewire\Admin\Parametrizacion;
 
 
-
 //Adminstrador
 
+Route::get('administraciones', [AdministrationController::class, 'index'])->name('admin.administraciones.index');
 Route::get('administrar/paismoneda', PaisMoneda::class)->name('livewire.admin.pais-moneda');
 Route::get('administrar/empresacanal', EmpresaCanal::class)->name('livewire.admin.empresa-canal');
 Route::get('administrar/canalsubcanal', CanalSubcanal::class)->name('livewire.admin.canal-subcanal');

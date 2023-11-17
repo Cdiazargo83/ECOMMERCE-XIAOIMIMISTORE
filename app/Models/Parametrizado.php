@@ -20,10 +20,13 @@ class Parametrizado extends Model
         'desc_subcanal_id',
         'modelo_negocio_id',
         'bodega_id',
-
         'tipo_distribucion_id',
+
+        'idflexline_visual_id',
         'lp_visual_id',
         'desc_lp_visual_id',
+
+        'idflexline_neto_id',
         'lp_neto_id',
         'desc_lp_neto_id',
     ];
@@ -73,6 +76,13 @@ class Parametrizado extends Model
         return $this->belongsTo(CanalSubcanal::class, 'tipo_distribucion_id');
     }
 
+
+
+    public function idflexline_visual()
+    {
+        return $this->belongsTo(CanalSubcanal::class, 'idflexline_visual_id');
+    }
+
     public function lp_visual()
     {
         return $this->belongsTo(CanalSubcanal::class, 'lp_visual_id');
@@ -81,6 +91,13 @@ class Parametrizado extends Model
     public function desc_lp_visual()
     {
         return $this->belongsTo(CanalSubcanal::class, 'desc_lp_visual_id');
+    }
+
+
+
+    public function idflexline_neto()
+    {
+        return $this->belongsTo(CanalSubcanal::class, 'idflexline_neto_id');
     }
 
     public function lp_neto()

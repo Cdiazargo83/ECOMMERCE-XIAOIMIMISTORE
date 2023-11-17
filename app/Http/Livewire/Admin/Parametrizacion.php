@@ -11,19 +11,21 @@ use App\Models\CanalSubcanal;
 
 class Parametrizacion extends Component
 {
-    public $empresa_id;
-    public $desc_empresa_id;
-    public $canal_id;
-    public $desc_canal_id;
-    public $subcanal_id;
-    public $desc_subcanal_id;
-    public $modelo_negocio_id;
-    public $bodega_id;
-    public $tipo_distribucion_id;
-    public $lp_visual_id;
-    public $desc_lp_visual_id;
-    public $lp_neto_id;
-    public $desc_lp_neto_id;
+    public $empresa_id = '';
+    public $desc_empresa_id = '';
+    public $canal_id = '';
+    public $desc_canal_id = '';
+    public $subcanal_id = '';
+    public $desc_subcanal_id = '';
+    public $modelo_negocio_id = '';
+    public $bodega_id = '';
+    public $tipo_distribucion_id = '';
+    public $lp_visual_id = '';
+    public $desc_lp_visual_id = '';
+    public $lp_neto_id = '';
+    public $desc_lp_neto_id = '';
+    public $idflexline_visual_id = '' ;
+    public $idflexline_neto_id = '' ;
 
     public function guardar()
     {
@@ -41,6 +43,9 @@ class Parametrizacion extends Component
             'desc_lp_visual_id' => 'required',
             'lp_neto_id' => 'required',
             'desc_lp_neto_id' => 'required',
+
+            'idflexline_visual_id' => 'required',
+            'idflexline_neto_id' => 'required',
         ]);
 
         Parametrizado::create([
@@ -57,6 +62,9 @@ class Parametrizacion extends Component
             'desc_lp_visual_id' => $this->desc_lp_visual_id,
             'lp_neto_id' => $this->lp_neto_id,
             'desc_lp_neto_id' => $this->desc_lp_neto_id,
+
+            'idflexline_visual_id' => $this->idflexline_visual_id,
+            'idflexline_neto_id' => $this->idflexline_neto_id,
         ]);
 
         $this->resetInputFields();
@@ -77,6 +85,9 @@ class Parametrizacion extends Component
         $this->desc_lp_visual_id = null;
         $this->lp_neto_id = null;
         $this->desc_lp_neto_id = null;
+
+        $this->idflexline_visual_id = null;
+        $this->idflexline_neto_id = null;
     }
 
     public function submit()

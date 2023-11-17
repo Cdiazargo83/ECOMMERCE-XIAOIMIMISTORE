@@ -18,6 +18,8 @@ class CanalSubcanal extends Component
     public $desc_lp_visual;
     public $lp_neto;
     public $desc_lp_neto;
+    public $idflexline_visual;
+    public $idflexline_neto;
 
     public function guardar()
     {
@@ -33,6 +35,9 @@ class CanalSubcanal extends Component
             'desc_lp_visual' => 'required',
             'lp_neto' => 'required',
             'desc_lp_neto' => 'required',
+            'idflexline_visual' => 'required',
+            'idflexline_neto' => 'required',
+
         ]);
 
         ModelsCanalSubcanal::create([
@@ -47,6 +52,9 @@ class CanalSubcanal extends Component
             'desc_lp_visual' => $this->desc_lp_visual,
             'lp_neto' => $this->lp_neto,
             'desc_lp_neto' => $this->desc_lp_neto,
+
+            'idflexline_visual' => $this->idflexline_visual,
+            'idflexline_neto' => $this->idflexline_neto,
         ]);
 
         $this->resetInputFields();
@@ -66,6 +74,8 @@ class CanalSubcanal extends Component
         $this->desc_lp_visual = '';
         $this->lp_neto = '';
         $this->desc_lp_neto = '';
+        $this->idflexline_visual = '';
+        $this->idflexline_neto = '';
     }
 
     public function render()

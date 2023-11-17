@@ -23,8 +23,14 @@ class CreateCanalSubcanalTable extends Migration
             $table->string('modelo_negocio')->nullable();
             $table->string('bodega')->nullable();
             $table->string('tipo_distribucion')->nullable();
+
+
+            $table->string('idflexline_visual')->nullable();
             $table->string('lp_visual')->nullable();
             $table->string('desc_lp_visual')->nullable();
+
+
+            $table->string('idflexline_neto')->nullable();
             $table->string('lp_neto')->nullable();
             $table->string('desc_lp_neto')->nullable();
 

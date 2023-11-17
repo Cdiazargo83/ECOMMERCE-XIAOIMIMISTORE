@@ -14,6 +14,10 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
 
+                    <x-jet-nav-link href="{{ route('admin.administraciones.index') }}" :active="request()->routeIs('admin.administraciones.index')">
+                        Administracion
+                    </x-jet-nav-link>
+
                     <x-jet-nav-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.index')">
                         Productos
                     </x-jet-nav-link>
@@ -34,11 +38,11 @@
                         Banners
                     </x-jet-nav-link>
 
-                    <x-jet-nav-link href="{{ route('admin.promocions.index') }}" :active="request()->routeIs('admin.promocions.index')">
+                    <x-jet-nav-link href="{{ route('admin.promocions.index') }}" :active="request()->routeIs('admin.promocions.index.*')">
                         Promociones Banners
                     </x-jet-nav-link>
 
-                    <x-jet-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')">
+                    <x-jet-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index.*')">
                         Usuarios
                     </x-jet-nav-link>
 
@@ -187,7 +191,7 @@
             </x-jet-responsive-nav-link>
 
             <x-jet-responsive-nav-link href="{{ route('admin.orders.index') }}" :active="request()->routeIs('admin.orders.*')">
-                Ordenes
+                Pedidos
             </x-jet-responsive-nav-link>
 
             <x-jet-responsive-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.*')">

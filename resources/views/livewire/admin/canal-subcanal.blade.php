@@ -61,47 +61,59 @@
                     placeholder="Tipo de Distribucion" />
                 <x-jet-input-error for="tipo_distribucion" />
             </div>
+            <br>
+            <div class="  rounded-lg p-6">
 
-            <!-- Add more fields for the fifth column as needed -->
+                <div class="mb-4">
+                    <x-jet-label value="ID flexline LP VISUAL:" />
+                    <x-jet-input type="text" class="w-full" wire:model="idflexline_visual"
+                        placeholder="" />
+                    <x-jet-input-error for="idflexline_visual" />
+                </div>
 
-            <!-- Sixth Column -->
-            <div class="mb-4">
-                <x-jet-label value="Lista de Precios Visual:" />
-                <x-jet-input type="text" class="w-full" wire:model="lp_visual"
-                    placeholder="Lista de Precios Visual" />
-                <x-jet-input-error for="lp_visual" />
+                <div class="mb-4">
+                    <x-jet-label value="Lista de Precios Visual:" />
+                    <x-jet-input type="text" class="w-full" wire:model="lp_visual"
+                        placeholder="Lista de Precios Visual" />
+                    <x-jet-input-error for="lp_visual" />
+                </div>
+
+
+                <div class="mb-4">
+                    <x-jet-label value="Descripción LP Visual:" />
+                    <x-jet-input type="text" class="w-full" wire:model="desc_lp_visual"
+                        placeholder="Desc. LP Visual" />
+                    <x-jet-input-error for="desc_lp_visual" />
+                </div>
+
             </div>
 
-            <!-- Add more fields for the sixth column as needed -->
+            <div class="  rounded-lg p-6">
 
-            <!-- Seventh Column -->
-            <div class="mb-4">
-                <x-jet-label value="Descripción LP Visual:" />
-                <x-jet-input type="text" class="w-full" wire:model="desc_lp_visual" placeholder="Desc. LP Visual" />
-                <x-jet-input-error for="desc_lp_visual" />
+                <div class="mb-4">
+                    <x-jet-label value="ID flexline LP NETO:" />
+                    <x-jet-input type="text" class="w-full" wire:model="idflexline_neto"
+                        placeholder="" />
+                    <x-jet-input-error for="idflexline_neto" />
+                </div>
+
+                <div class="mb-4">
+                    <x-jet-label value="Lista de Precios Neto:" />
+                    <x-jet-input type="text" class="w-full" wire:model="lp_neto"
+                        placeholder="Lista de Precios Neto" />
+                    <x-jet-input-error for="lp_neto" />
+                </div>
+
+
+                <div class="mb-4">
+                    <x-jet-label value="Descripción LP Neto:" />
+                    <x-jet-input type="text" class="w-full" wire:model="desc_lp_neto"
+                        placeholder="Desc. LP Visual" />
+                    <x-jet-input-error for="desc_lp_neto" />
+                </div>
+
             </div>
 
-            <!-- Add more fields for the seventh column as needed -->
-
-            <!-- Eighth Column -->
-            <div class="mb-4">
-                <x-jet-label value="Lista de Precios Neto:" />
-                <x-jet-input type="text" class="w-full" wire:model="lp_neto" placeholder="Lista de Precios Neto" />
-                <x-jet-input-error for="lp_neto" />
-            </div>
-
-            <!-- Add more fields for the eighth column as needed -->
-
-            <!-- Ninth Column -->
-            <div class="mb-4">
-                <x-jet-label value="Lista de Precios Visual:" />
-                <x-jet-input type="text" class="w-full" wire:model="desc_lp_neto" placeholder="Desc. LP Visual" />
-                <x-jet-input-error for="desc_lp_neto" />
-            </div>
-
-            <!-- Add more fields for the ninth column as needed -->
-
-            <!-- Submit Button -->
             <div class="flex mt-4 col-span-2">
                 <x-jet-button wire:loading.attr="disabled" wire:target="guardar" wire:click="guardar" class="ml-auto">
                     Guardar
@@ -123,10 +135,15 @@
                 <th style="padding: 8px; border: 1px solid #ddd;">Modelo de Negocio</th>
                 <th style="padding: 8px; border: 1px solid #ddd;">Bodega</th>
                 <th style="padding: 8px; border: 1px solid #ddd;">Tipo de Distribución</th>
+
+                <th style="padding: 8px; border: 1px solid #ddd;">ID LP Visual</th>
                 <th style="padding: 8px; border: 1px solid #ddd;">LP Visual</th>
                 <th style="padding: 8px; border: 1px solid #ddd;">Descripción LP Visual</th>
+
+                <th style="padding: 8px; border: 1px solid #ddd;">ID LP Neto</th>
                 <th style="padding: 8px; border: 1px solid #ddd;">LP Neto</th>
                 <th style="padding: 8px; border: 1px solid #ddd;">Descripción LP Neto</th>
+
             </tr>
         </thead>
         <tbody>
@@ -139,8 +156,12 @@
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->modelo_negocio }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->bodega }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->tipo_distribucion }}</td>
+
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->idflexline_visual }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->lp_visual }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->desc_lp_visual }}</td>
+
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->idflexline_neto }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->lp_neto }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $canalSubcanal->desc_lp_neto }}</td>
                 </tr>

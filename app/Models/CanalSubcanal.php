@@ -23,6 +23,8 @@ class CanalSubcanal extends Model
         'desc_lp_visual',
         'lp_neto',
         'desc_lp_neto',
+        'idflexline_visual',
+        'idflexline_neto'
 
     ];
 }

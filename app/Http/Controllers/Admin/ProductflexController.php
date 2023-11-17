@@ -38,6 +38,7 @@ class ProductflexController extends Controller
             $responseData = simplexml_load_string($xmlResponse);
 
 
+
             $faker = Faker::create();
 
             foreach ($responseData->Producto as $productData) {
@@ -135,6 +136,9 @@ class ProductflexController extends Controller
                         $newProduct->huaylas +
                         $newProduct->puruchu;
 
+
+
+
                     $newProduct->save();
 
                     // Agregar lógica para asociar una imagen con datos falsos a los productos aquí
@@ -144,7 +148,6 @@ class ProductflexController extends Controller
 
             // Devolver la vista con los datos obtenidos del servicio web
             return view('livewire.admin.consulta-productos', ['responseData' => $responseData]);
-
         } catch (\Exception $e) {
             dd($e->getMessage());
             return view('livewire.error', ['error' => $e->getMessage()]);
