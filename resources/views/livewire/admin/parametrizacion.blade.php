@@ -1,6 +1,4 @@
-<!-- resources/views/livewire/admin/parametrizacion.blade.php -->
-
-<div class="flex items-center container py-10">
+<div class="width:100%; border-collapse: collapse; margin-top: 10px; py-10">
     <div class="bg-white shadow-xl rounded-lg p-6">
         <form wire:submit.prevent="guardar" class="grid grid-cols-1 md:grid-cols-4 gap-4">
 
@@ -183,56 +181,61 @@
         </form>
     </div>
 </div>
-<div>
-    <div class="flex items-center container py-10">
-        <table style="width:100%; border-collapse: collapse; margin-top: 10px;">
-            <thead>
-                <tr style="background-color: #f2f2f2;">
-                    <th style="padding: 8px; border: 1px solid #ddd;">Empresa</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Descripción de la Empresa</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Canal</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Descripción del Canal</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Subcanal</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Descripción del Subcanal</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Modelo de Negocio</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Bodega</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Tipo de Distribución</th>
 
-                    <th style="padding: 8px; border: 1px solid #ddd;">ID LP Visual</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">LP Visual</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Descripción LP Visual</th>
+<div class="flex items-center container py-10">
+    <table style="width:100%; border-collapse: collapse; margin-top: 10px;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th style="padding: 8px; border: 1px solid #ddd;">Empresa</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Descripción de la Empresa</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Canal</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Descripción del Canal</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Subcanal</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Descripción del Subcanal</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Modelo de Negocio</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Bodega</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Tipo de Distribución</th>
 
-                    <th style="padding: 8px; border: 1px solid #ddd;">ID LP Neto</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">LP Neto</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Descripción LP Neto</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">ID LP Visual</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">LP Visual</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Descripción LP Visual</th>
+
+                <th style="padding: 8px; border: 1px solid #ddd;">ID LP Neto</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">LP Neto</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Descripción LP Neto</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($parametrizados as $parametrizado)
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->empresa->empresa }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->empresa->desc_empresa }}
+                    </td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->canal->canal }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->canal->desc_canal }}
+                    </td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->subcanal->subcanal }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->subcanal->desc_subcanal }}
+                    </td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">
+                        {{ $parametrizado->modelo_negocio->modelo_negocio }}
+                    </td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->bodega->bodega }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">
+                        {{ $parametrizado->tipo_distribucion->tipo_distribucion }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">
+                        {{ $parametrizado->idflexline_visual->idflexline_visual }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->lp_visual->lp_visual }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">
+                        {{ $parametrizado->desc_lp_visual->desc_lp_visual }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">
+                        {{ $parametrizado->idflexline_neto->idflexline_neto }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->lp_neto->lp_neto }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->desc_lp_neto->desc_lp_neto }}
+                    </td>
+
                 </tr>
-            </thead>
-            <tbody>
-                @foreach ($parametrizados as $parametrizado)
-                    <tr>
-                       <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->empresa->empresa }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->empresa->desc_empresa }}
-                        </td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->canal->canal }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->canal->desc_canal }}
-                        </td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->subcanal->subcanal }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->subcanal->desc_subcanal }}
-                        </td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->modelo_negocio->modelo_negocio }}
-                        </td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->bodega->bodega }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->tipo_distribucion->tipo_distribucion }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->idflexline_visual->idflexline_visual }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->lp_visual->lp_visual }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->desc_lp_visual->desc_lp_visual }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->idflexline_neto->idflexline_neto }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->lp_neto->lp_neto }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->desc_lp_neto->desc_lp_neto }}</td>
-
-                    </tr>
-                @endforeach
-            </tbody>
-        </table
-    </div>
+            @endforeach
+        </tbody>
+    </table>
 </div>

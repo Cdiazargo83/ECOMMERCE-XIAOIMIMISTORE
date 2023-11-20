@@ -34,7 +34,7 @@ class EmpresaCanal extends Component
             'logo_path' => 'required',
             'pais_id' => 'required',
             'moneda_id' => 'required',
-            // ... otros campos que necesitas validar
+
         ]);
 
         ModelsEmpresaCanal::create([
@@ -79,7 +79,6 @@ class EmpresaCanal extends Component
     {
         $empresasCanales = ModelsEmpresaCanal::with(['pais', 'moneda'])->get();
         $paises = PaisMoneda::all();
-        // Puedes agregar más lógica según tus necesidades
 
         return view('livewire.admin.empresa-canal', compact('empresasCanales', 'paises'))->layout('layouts.admin');
     }

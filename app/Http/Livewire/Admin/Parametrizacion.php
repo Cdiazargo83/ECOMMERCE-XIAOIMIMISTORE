@@ -1,7 +1,5 @@
 <?php
 
-// app/Http/Livewire/Admin/Parametrizacion.php
-
 namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;

@@ -1,4 +1,3 @@
-<!-- resources/views/livewire/canal-subcanal.blade.php -->
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-gray-700">
     <div class="bg-white shadow-xl rounded-lg p-6">
         <form wire:submit.prevent="guardar" class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -66,8 +65,7 @@
 
                 <div class="mb-4">
                     <x-jet-label value="ID flexline LP VISUAL:" />
-                    <x-jet-input type="text" class="w-full" wire:model="idflexline_visual"
-                        placeholder="" />
+                    <x-jet-input type="text" class="w-full" wire:model="idflexline_visual" placeholder="" />
                     <x-jet-input-error for="idflexline_visual" />
                 </div>
 
@@ -92,8 +90,7 @@
 
                 <div class="mb-4">
                     <x-jet-label value="ID flexline LP NETO:" />
-                    <x-jet-input type="text" class="w-full" wire:model="idflexline_neto"
-                        placeholder="" />
+                    <x-jet-input type="text" class="w-full" wire:model="idflexline_neto" placeholder="" />
                     <x-jet-input-error for="idflexline_neto" />
                 </div>
 
@@ -122,7 +119,7 @@
         </form>
     </div>
 </div>
-<br>
+
 <div class="flex items-center container py-10">
 
     <table style="width:100%; border-collapse: collapse; margin-top: 10px;">
