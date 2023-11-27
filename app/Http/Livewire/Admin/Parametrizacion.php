@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Parametrizado;
 use App\Models\EmpresaCanal;
 use App\Models\CanalSubcanal;
+use App\Models\PaisMoneda;
 
 class Parametrizacion extends Component
 {
@@ -24,12 +25,17 @@ class Parametrizacion extends Component
     public $desc_lp_neto_id = '';
     public $idflexline_visual_id = '' ;
     public $idflexline_neto_id = '' ;
+    public $simbolo_moneda_id = '' ;
+
+
+
 
     public function guardar()
     {
         $this->validate([
             'empresa_id' => 'required',
             'desc_empresa_id' => 'required',
+            'simbolo_moneda_id' => 'required',
             'canal_id' => 'required',
             'desc_canal_id' => 'required',
             'subcanal_id' => 'required',
@@ -60,6 +66,7 @@ class Parametrizacion extends Component
             'desc_lp_visual_id' => $this->desc_lp_visual_id,
             'lp_neto_id' => $this->lp_neto_id,
             'desc_lp_neto_id' => $this->desc_lp_neto_id,
+            'simbolo_moneda_id' => $this->simbolo_moneda_id,
 
             'idflexline_visual_id' => $this->idflexline_visual_id,
             'idflexline_neto_id' => $this->idflexline_neto_id,
@@ -83,6 +90,7 @@ class Parametrizacion extends Component
         $this->desc_lp_visual_id = null;
         $this->lp_neto_id = null;
         $this->desc_lp_neto_id = null;
+        $this->simbolo_moneda_id = null;
 
         $this->idflexline_visual_id = null;
         $this->idflexline_neto_id = null;
@@ -96,10 +104,11 @@ class Parametrizacion extends Component
     public function render()
     {
         // Recupera las relaciones necesarias para la vista
-        $parametrizados = Parametrizado::with(['empresa', 'canal'])->get();
+        $parametrizados = Parametrizado::with(['empresa', 'canal','simbolo_moneda'])->get();
         $empresas = EmpresaCanal::all();
         $canales = CanalSubcanal::all();
+        $simbolo_monedas = PaisMoneda::all();
 
-        return view('livewire.admin.parametrizacion', compact('parametrizados', 'empresas', 'canales'))->layout('layouts.admin');
+        return view('livewire.admin.parametrizacion', compact('parametrizados', 'empresas', 'canales','simbolo_monedas'))->layout('layouts.admin');
     }
 }

@@ -37,8 +37,6 @@ class ProductflexController extends Controller
             $xmlResponse = $response->ConsultaStock_BodegaLPreciosResult;
             $responseData = simplexml_load_string($xmlResponse);
 
-
-
             $faker = Faker::create();
 
             foreach ($responseData->Producto as $productData) {
@@ -52,9 +50,7 @@ class ProductflexController extends Controller
                         'description' => (string) $productData->Descripcion,
                         'quantity' => intval($productData->Bodega->Cantidad),
                         'bodega' => (string) $productData->Bodega->Descripcion,
-
                     ]);
-
 
                     switch ($existingProduct->bodega) {
                         case '03-LIM-ATOCONG-MISTR':
@@ -135,10 +131,6 @@ class ProductflexController extends Controller
                         $newProduct->megaplz +
                         $newProduct->huaylas +
                         $newProduct->puruchu;
-
-
-
-
                     $newProduct->save();
 
                     // Agregar lógica para asociar una imagen con datos falsos a los productos aquí

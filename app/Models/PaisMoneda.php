@@ -12,4 +12,8 @@ class PaisMoneda extends Model
     protected $table = 'pais_moneda';
 
     protected $fillable = ['pais', 'desc_pais', 'moneda', 'desc_moneda','simbolo_moneda'];
+
+
+
+
 }

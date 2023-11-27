@@ -29,6 +29,7 @@ class Parametrizado extends Model
         'idflexline_neto_id',
         'lp_neto_id',
         'desc_lp_neto_id',
+        'simbolo_moneda_id'
     ];
 
     public function empresa()
@@ -93,8 +94,6 @@ class Parametrizado extends Model
         return $this->belongsTo(CanalSubcanal::class, 'desc_lp_visual_id');
     }
 
-
-
     public function idflexline_neto()
     {
         return $this->belongsTo(CanalSubcanal::class, 'idflexline_neto_id');
@@ -110,5 +109,8 @@ class Parametrizado extends Model
         return $this->belongsTo(CanalSubcanal::class, 'desc_lp_neto_id');
     }
 
-    // Agrega más relaciones según sea necesario
+    public function simbolo_moneda()
+    {
+        return $this->belongsTo(PaisMoneda::class, 'simbolo_moneda_id');
+    }
 }

@@ -13,6 +13,10 @@ class CreateParametrizadoTable extends Migration
             $table->id();
             $table->unsignedBigInteger('empresa_id')->nullable();
             $table->foreign('empresa_id')->references('id')->on('empresa_canal');
+
+            $table->unsignedBigInteger('simbolo_moneda_id')->nullable();
+            $table->foreign('simbolo_moneda_id')->references('id')->on('pais_moneda');
+
             $table->unsignedBigInteger('desc_empresa_id')->nullable();
             $table->foreign('desc_empresa_id')->references('id')->on('empresa_canal');
             $table->unsignedBigInteger('canal_id')->nullable();

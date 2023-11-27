@@ -169,6 +169,17 @@
                 <x-jet-input-error for="desc_lp_neto_id" />
             </div>
 
+            <div class="mb-4">
+                <x-jet-label value="Simbolo de moneda" />
+                <select class="w-full form-control" wire:model="simbolo_moneda_id">
+                    <option value="" selected disabled></option>
+                    @foreach ($simbolo_monedas as $simbolo_moneda)
+                        <option value="{{ $simbolo_moneda->id }}">{{ $simbolo_moneda->simbolo_moneda }}</option>
+                    @endforeach
+                </select>
+                <x-jet-input-error for="simbolo_moneda_id" />
+            </div>
+
 
             <!-- Repite la estructura anterior para los demás campos -->
 
@@ -188,6 +199,7 @@
             <tr style="background-color: #f2f2f2;">
                 <th style="padding: 8px; border: 1px solid #ddd;">Empresa</th>
                 <th style="padding: 8px; border: 1px solid #ddd;">Descripción de la Empresa</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Simbolo de Modenas</th>
                 <th style="padding: 8px; border: 1px solid #ddd;">Canal</th>
                 <th style="padding: 8px; border: 1px solid #ddd;">Descripción del Canal</th>
                 <th style="padding: 8px; border: 1px solid #ddd;">Subcanal</th>
@@ -210,6 +222,7 @@
                 <tr>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->empresa->empresa }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->empresa->desc_empresa }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->simbolo_moneda->simbolo_moneda }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->canal->canal }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->canal->desc_canal }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->subcanal->subcanal }}</td>
