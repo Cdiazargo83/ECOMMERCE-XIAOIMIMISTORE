@@ -20,11 +20,11 @@ class CreateProductsTable extends Migration
             $table->string('sku');
             $table->integer('stock_flex')->nullable();
 
-                $table->string ('atocong')->nullable;
-                $table->string ('jockeypz')->nullable;
-                $table->string ('megaplz')->nullable;
-                $table->string ('huaylas')->nullable;
-                $table->string ('puruchu')->nullable;
+            $table->string('atocong')->nullable;
+            $table->string('jockeypz')->nullable;
+            $table->string('megaplz')->nullable;
+            $table->string('huaylas')->nullable;
+            $table->string('puruchu')->nullable;
 
             $table->string('bodega');
             $table->string('slug');
@@ -42,9 +42,9 @@ class CreateProductsTable extends Migration
             $table->integer('quantity')->nullable();
             $table->integer('quantity_partner')->nullable();
 
-            $table->enum('status',[Product::BORRADOR, Product::PUBLICADO])->default(Product::BORRADOR);
+            $table->enum('status', [Product::BORRADOR, Product::PUBLICADO])->default(Product::BORRADOR);
 
-            $table->enum('destacado',[Product::NODESTACADO, Product::DESTACADO])->default(Product::NODESTACADO);
+            $table->enum('destacado', [Product::NODESTACADO, Product::DESTACADO])->default(Product::NODESTACADO);
 
             $table->timestamps();
         });

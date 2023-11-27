@@ -22,7 +22,12 @@ class CreateEmpresaCanalTable extends Migration
             $table->string('direccion')->nullable();
             $table->string('telefono01')->nullable();
             $table->string('telefono02')->nullable();
-            $table->string('correo')->nullable();
+
+            $table->string('correo_finanzas')->nullable();
+            $table->string('correo_comercial')->nullable();
+            $table->string('correo_operaciones')->nullable();
+
+
             $table->string('logo_path')->nullable();
 
             $table->unsignedBigInteger('pais_id')->nullable();

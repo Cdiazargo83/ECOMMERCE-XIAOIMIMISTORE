@@ -118,10 +118,10 @@
                 <select class="w-full form-control" wire:model="lp_visual_id">
                     <option value="" selected disabled></option>
                     @foreach ($canales as $canal)
-                        <option value="{{ $canal->id }}">{{ $canal->lp_visual }}</option>
+                        <option value="{{$canal->id}}">{{$canal->lp_visual}}</option>
                     @endforeach
                 </select>
-                <x-jet-input-error for="lp_visual_id" />
+                <x-jet-input-error for="lp_visual_id"/>
             </div>
 
             <div class="mb-4">
@@ -129,7 +129,7 @@
                 <select class="w-full form-control" wire:model="desc_lp_visual_id">
                     <option value="" selected disabled></option>
                     @foreach ($canales as $canal)
-                        <option value="{{ $canal->id }}">{{ $canal->desc_lp_visual }}</option>
+                        <option value="{{$canal->id}}">{{$canal->desc_lp_visual}}</option>
                     @endforeach
                 </select>
                 <x-jet-input-error for="desc_lp_visual_id" />
@@ -140,7 +140,7 @@
                 <select class="w-full form-control" wire:model="idflexline_neto_id">
                     <option value="" selected disabled></option>
                     @foreach ($canales as $canal)
-                        <option value="{{ $canal->id }}">{{ $canal->idflexline_visual }}</option>
+                        <option value="{{ $canal->id }}">{{ $canal->idflexline_neto }}</option>
                     @endforeach
                 </select>
                 <x-jet-input-error for="idflexline_neto_id" />
@@ -209,30 +209,23 @@
             @foreach ($parametrizados as $parametrizado)
                 <tr>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->empresa->empresa }}</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->empresa->desc_empresa }}
-                    </td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->empresa->desc_empresa }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->canal->canal }}</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->canal->desc_canal }}
-                    </td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->canal->desc_canal }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->subcanal->subcanal }}</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->subcanal->desc_subcanal }}
-                    </td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">
-                        {{ $parametrizado->modelo_negocio->modelo_negocio }}
-                    </td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->subcanal->desc_subcanal }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->modelo_negocio->modelo_negocio }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->bodega->bodega }}</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">
-                        {{ $parametrizado->tipo_distribucion->tipo_distribucion }}</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">
-                        {{ $parametrizado->idflexline_visual->idflexline_visual }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->tipo_distribucion->tipo_distribucion }}</td>
+
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->idflexline_visual->idflexline_visual }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->lp_visual->lp_visual }}</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">
-                        {{ $parametrizado->desc_lp_visual->desc_lp_visual }}</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">
-                        {{ $parametrizado->idflexline_neto->idflexline_neto }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->desc_lp_visual->desc_lp_visual }}</td>
+
+
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->idflexline_neto->idflexline_neto }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->lp_neto->lp_neto }}</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->desc_lp_neto->desc_lp_neto }}
-                    </td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $parametrizado->desc_lp_neto->desc_lp_neto }}</td>
 
                 </tr>
             @endforeach

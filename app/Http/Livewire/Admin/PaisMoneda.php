@@ -11,14 +11,17 @@ class PaisMoneda extends Component
     public $desc_pais;
     public $moneda;
     public $desc_moneda;
+    public $simbolo_moneda;
 
     public function guardar()
     {
         $this->validate([
-            'pais' => 'required',
-            'desc_pais' => 'required',
+            'pais' => 'required|in:PE,EC,US',
+            'desc_pais' => 'required|in:Perú,Ecuador,United State',
             'moneda' => 'required|in:PEN,USD',
+            'simbolo_moneda' => 'required|in:$,S/',
             'desc_moneda' => 'required',
+
         ]);
 
         ModelsPaisMoneda::create([
@@ -26,6 +29,7 @@ class PaisMoneda extends Component
             'desc_pais' => $this->desc_pais,
             'moneda' => $this->moneda,
             'desc_moneda' => $this->desc_moneda,
+            'simbolo_moneda' => $this->simbolo_moneda,
         ]);
 
         $this->resetInputFields();
@@ -43,6 +47,7 @@ class PaisMoneda extends Component
         $this->desc_pais = '';
         $this->moneda = '';
         $this->desc_moneda = '';
+        $this->simbolo_moneda = '';
     }
 
     public function render()

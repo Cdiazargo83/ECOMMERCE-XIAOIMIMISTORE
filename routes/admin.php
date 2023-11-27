@@ -36,7 +36,10 @@ use App\Http\Livewire\Admin\Parametrizacion;
 
 Route::get('administraciones', [AdministrationController::class, 'index'])->name('admin.administraciones.index');
 Route::get('administrar/paismoneda', PaisMoneda::class)->name('livewire.admin.pais-moneda');
+
 Route::get('administrar/empresacanal', EmpresaCanal::class)->name('livewire.admin.empresa-canal');
+Route::post('administrar/{logo_path}/files', [EmpresaCanal::class, 'files'])->name('admin.products.files');
+
 Route::get('administrar/canalsubcanal', CanalSubcanal::class)->name('livewire.admin.canal-subcanal');
 Route::get('administrar/parametrizacion', Parametrizacion::class)->name('livewire.admin.parametrizacion');
 

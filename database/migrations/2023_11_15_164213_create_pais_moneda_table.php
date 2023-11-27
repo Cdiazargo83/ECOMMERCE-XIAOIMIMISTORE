@@ -15,10 +15,17 @@ class CreatePaisMonedaTable extends Migration
     {
         Schema::create('pais_moneda', function (Blueprint $table) {
             $table->id();
-            $table->string('pais');
-            $table->string('desc_pais');
-            $table->enum('moneda',["PEN","USD"]);
+
+            $table->enum('desc_pais', ["Perú","Ecuador","United State"]);
+
+            $table->enum('pais', ["PE","EC","US"]);
+
+            $table->enum('moneda', ["PEN", "USD"]);
+            $table->enum('simbolo_moneda', ["$","S/"]);
             $table->string('desc_moneda');
+
+
+
             $table->timestamps();
         });
     }

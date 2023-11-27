@@ -38,7 +38,6 @@ class DatabaseSeeder extends Seeder
         Storage::makeDirectory('logo_path');
 
 
-
         $this->call(UserSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(SubcategorySeeder::class);

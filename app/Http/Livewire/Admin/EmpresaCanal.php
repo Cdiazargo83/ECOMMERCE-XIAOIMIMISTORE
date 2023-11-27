@@ -3,11 +3,15 @@
 namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
+use Livewire\WithFileUploads; // Add this line for the WithFileUploads trait
 use App\Models\EmpresaCanal as ModelsEmpresaCanal;
 use App\Models\PaisMoneda;
+use Illuminate\Support\Facades\Storage;
 
 class EmpresaCanal extends Component
 {
+    use WithFileUploads; // Include the WithFileUploads trait
+
     public $empresa;
     public $desc_empresa;
     public $ruc;
@@ -15,7 +19,9 @@ class EmpresaCanal extends Component
     public $direccion;
     public $telefono01;
     public $telefono02;
-    public $correo;
+    public $correo_finanzas;
+    public $correo_comercial;
+    public $correo_operaciones;
     public $logo_path;
     public $pais_id;
     public $moneda_id;
@@ -26,16 +32,19 @@ class EmpresaCanal extends Component
             'empresa' => 'required',
             'desc_empresa' => 'required',
             'ruc' => 'required',
-            'nombre_comercial' =>'required',
             'direccion' => 'required',
             'telefono01' => 'required',
             'telefono02' => 'required',
-            'correo' => 'required',
-            'logo_path' => 'required',
+            'correo_finanzas' => 'required',
+            'correo_comercial' => 'required',
+            'correo_operaciones' => 'required',
+            'logo_path' => 'required|image|mimes:png|max:2048',
             'pais_id' => 'required',
             'moneda_id' => 'required',
-
         ]);
+
+        // Store the image and get its path
+        $logoPath = $this->logo_path->store('logo_path');
 
         ModelsEmpresaCanal::create([
             'empresa' => $this->empresa,
@@ -45,19 +54,15 @@ class EmpresaCanal extends Component
             'direccion' => $this->direccion,
             'telefono01' => $this->telefono01,
             'telefono02' => $this->telefono02,
-            'correo' => $this->correo,
-            'logo_path' => $this->logo_path,
+            'correo_finanzas' => $this->correo_finanzas,
+            'correo_comercial' => $this->correo_comercial,
+            'correo_operaciones' => $this->correo_operaciones,
+            'logo_path' => $logoPath,
             'pais_id' => $this->pais_id,
             'moneda_id' => $this->moneda_id,
         ]);
 
         $this->resetInputFields();
-    }
-
-    public function submit()
-    {
-        $this->guardar();
-
     }
 
     private function resetInputFields()
@@ -69,8 +74,10 @@ class EmpresaCanal extends Component
         $this->direccion = '';
         $this->telefono01 = '';
         $this->telefono02 = '';
-        $this->correo = '';
-        $this->logo_path = '';
+        $this->correo_finanzas = '';
+        $this->correo_comercial = '';
+        $this->correo_operaciones = '';
+        $this->logo_path = null;
         $this->pais_id = null;
         $this->moneda_id = null;
     }
@@ -82,5 +89,4 @@ class EmpresaCanal extends Component
 
         return view('livewire.admin.empresa-canal', compact('empresasCanales', 'paises'))->layout('layouts.admin');
     }
-
 }

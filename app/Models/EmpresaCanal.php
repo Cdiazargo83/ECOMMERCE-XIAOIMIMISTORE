@@ -11,7 +11,7 @@ class EmpresaCanal extends Model
 
     protected $table = 'empresa_canal';
 
-    protected $fillable = ['empresa', 'desc_empresa', 'ruc', 'nombre_comercial', 'direccion', 'telefono01', 'telefono02', 'correo', 'logo_path', 'pais_id', 'moneda_id'];
+    protected $fillable = ['empresa', 'desc_empresa', 'ruc', 'nombre_comercial', 'direccion', 'telefono01', 'telefono02', 'correo_finanzas','correo_comercial','correo_operaciones','logo_path', 'pais_id', 'moneda_id'];
 
 
     public function pais()

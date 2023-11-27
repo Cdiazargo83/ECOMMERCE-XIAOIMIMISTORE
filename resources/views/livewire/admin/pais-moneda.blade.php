@@ -4,25 +4,32 @@
             <form wire:submit.prevent="guardar">
 
                 <div class="bg-gray-200 shadow-xl rounded-lg p-6">
+
                     <div class="mb-4">
                         <x-jet-label value="Pais" />
-                        <x-jet-input type="text" class="w-full" wire:model="pais" placeholder="Ingrese el Pais" />
+                        <select class="w-full form-control" wire:model="pais">
+                            <option value="" selected disabled></option>
+                            <option value="PE">PE</option>
+                            <option value="EC">EC</option>
+                            <option value="US">US</option>
+
+                        </select>
                         <x-jet-input-error for="pais" />
                     </div>
 
                     <div class="mb-4">
                         <x-jet-label value="Desc. Pais" />
-                        <x-jet-input type="text" class="w-full" wire:model="desc_pais"
-                            placeholder="Ingrese Desc. Pais" />
+                        <select class="w-full form-control" wire:model="desc_pais">
+                            <option value="Perú">Perú</option>
+                            <option value="Ecuador">Ecuador</option>
+                            <option value="United State">United State</option>
+                        </select>
                         <x-jet-input-error for="desc_pais" />
                     </div>
 
                 </div>
-
                 <br>
-
                 <div class="bg-gray-200 shadow-xl rounded-lg p-6">
-
 
                     <div class="mb-4">
                         <x-jet-label value="Moneda" />
@@ -38,6 +45,15 @@
                         <x-jet-input type="text" class="w-full" wire:model="desc_moneda"
                             placeholder="Ingrese Desc. Moneda" />
                         <x-jet-input-error for="desc_moneda" />
+                    </div>
+
+                    <div class="mb-4">
+                        <x-jet-label value="Simbolo de Modena" />
+                        <select class="w-full form-control" wire:model="simbolo_moneda">
+                            <option value="S/">S/</option>
+                            <option value="$">$</option>
+                        </select>
+                        <x-jet-input-error for="simbolo_moneda" />
                     </div>
                 </div>
 
@@ -61,6 +77,7 @@
                             <th style="padding: 8px; border: 1px solid #ddd;">Descripción del País</th>
                             <th style="padding: 8px; border: 1px solid #ddd;">Moneda</th>
                             <th style="padding: 8px; border: 1px solid #ddd;">Descripción de la Moneda</th>
+                            <th style="padding: 8px; border: 1px solid #ddd;">Simbolo de la Moneda</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,6 +87,7 @@
                                 <td style="padding: 8px; border: 1px solid #ddd;">{{ $paisMoneda->desc_pais }}</td>
                                 <td style="padding: 8px; border: 1px solid #ddd;">{{ $paisMoneda->moneda }}</td>
                                 <td style="padding: 8px; border: 1px solid #ddd;">{{ $paisMoneda->desc_moneda }}</td>
+                                <td style="padding: 8px; border: 1px solid #ddd;">{{ $paisMoneda->simbolo_moneda }}</td>
                             </tr>
                         @endforeach
                     </tbody>

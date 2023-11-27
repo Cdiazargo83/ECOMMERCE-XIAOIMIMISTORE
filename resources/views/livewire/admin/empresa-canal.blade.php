@@ -47,15 +47,23 @@
             </div>
 
             <div class="mb-4">
-                <x-jet-label value="Correo" />
-                <x-jet-input type="text" class="w-full" wire:model="correo" placeholder="Ingrese Correo" />
-                <x-jet-input-error for="correo" />
+                <x-jet-label value="correo_finanzas" />
+                <x-jet-input type="text" class="w-full" wire:model="correo_finanzas" placeholder="Ingrese Correo" />
+                <x-jet-input-error for="correo_finanzas" />
             </div>
 
+
             <div class="mb-4">
-                <x-jet-label value="logo_path" />
-                <x-jet-input type="text" class="w-full" wire:model="logo_path" placeholder="Ingrese logo_path" />
-                <x-jet-input-error for="logo_path" />
+                <x-jet-label value="correo_comercial" />
+                <x-jet-input type="text" class="w-full" wire:model="correo_comercial" placeholder="Ingrese Correo" />
+                <x-jet-input-error for="correo_comercial" />
+            </div>
+
+
+            <div class="mb-4">
+                <x-jet-label value="correo_operaciones" />
+                <x-jet-input type="text" class="w-full" wire:model="correo_operaciones" placeholder="Ingrese Correo" />
+                <x-jet-input-error for="correo_operaciones" />
             </div>
 
             <div class="mb-4">
@@ -80,6 +88,12 @@
                 <x-jet-input-error for="moneda_id" />
             </div>
 
+            <div class="mb-4">
+                <x-jet-label value="Logo" />
+                <input type="file" wire:model="logo_path" accept="image/png">
+                <x-jet-input-error for="logo_path" />
+            </div>
+
             <div class="flex mt-4 col-span-2">
                 <x-jet-button wire:loading.attr="disabled" wire:target="guardar" wire:click="guardar" class="ml-auto">
                     Guardar
@@ -100,9 +114,12 @@
                 <th style="padding: 8px; border: 1px solid #ddd;">Dirección</th>
                 <th style="padding: 8px; border: 1px solid #ddd;">Teléfono 01</th>
                 <th style="padding: 8px; border: 1px solid #ddd;">Teléfono 02</th>
-                <th style="padding: 8px; border: 1px solid #ddd;">Correo</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Correo Finanzas</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Correo Comercial</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Correo Operaciones</th>
                 <th style="padding: 8px; border: 1px solid #ddd;">País</th>
                 <th style="padding: 8px; border: 1px solid #ddd;">Moneda</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Logo</th>
             </tr>
         </thead>
         <tbody>
@@ -116,11 +133,21 @@
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $empresaCanal->direccion }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $empresaCanal->telefono01 }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $empresaCanal->telefono02 }}</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $empresaCanal->correo }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $empresaCanal->correo_finanzas }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $empresaCanal->correo_comercial }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $empresaCanal->correo_operaciones }}</td>
 
                     <td style="padding: 8px; border: 1px solid #ddd;">{{ $empresaCanal->pais->desc_pais }}</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $empresaCanal->moneda->desc_moneda }}
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ $empresaCanal->moneda->desc_moneda }}</td>
+
+                    <td style="padding: 8px; border: 1px solid #ddd;">
+                        @if ($empresaCanal->logo_path)
+                            <img src="{{ asset('storage/' . $empresaCanal->logo_path) }}" alt="Logo">
+                        @else
+                            No Image
+                        @endif
                     </td>
+
                 </tr>
             @endforeach
         </tbody>

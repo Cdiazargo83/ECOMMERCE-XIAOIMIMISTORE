@@ -40,7 +40,6 @@
                         @endforeach
                     </ul>
                 </section>
-
             @endif
 
             @livewire('admin.status-product', ['product' => $product], key('status-product-' . $product->id))
