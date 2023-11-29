@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use App\Models\CanalSubcanal as ModelsCanalSubcanal;
+use Illuminate\Support\Facades\DB;
 
 class CanalSubcanal extends Component
 {
@@ -37,7 +38,6 @@ class CanalSubcanal extends Component
             'desc_lp_neto' => 'required',
             'idflexline_visual' => 'required',
             'idflexline_neto' => 'required',
-
         ]);
 
         ModelsCanalSubcanal::create([
@@ -52,13 +52,20 @@ class CanalSubcanal extends Component
             'desc_lp_visual' => $this->desc_lp_visual,
             'lp_neto' => $this->lp_neto,
             'desc_lp_neto' => $this->desc_lp_neto,
-
             'idflexline_visual' => $this->idflexline_visual,
             'idflexline_neto' => $this->idflexline_neto,
         ]);
 
+        $tableName = $this->bodega;
+
+        DB::statement("CREATE TABLE IF NOT EXISTS `$tableName` (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        )");
+
         $this->resetInputFields();
-        //$this->emit('saved');
     }
 
     private function resetInputFields()

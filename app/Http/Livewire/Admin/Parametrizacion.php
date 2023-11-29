@@ -72,6 +72,8 @@ class Parametrizacion extends Component
             'idflexline_neto_id' => $this->idflexline_neto_id,
         ]);
 
+
+
         $this->resetInputFields();
     }
 
