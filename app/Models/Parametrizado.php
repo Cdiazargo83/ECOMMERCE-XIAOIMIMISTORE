@@ -13,6 +13,7 @@ class Parametrizado extends Model
 
     protected $fillable = [
         'empresa_id',
+        'name_modelo',
         'desc_empresa_id',
         'canal_id',
         'desc_canal_id',

@@ -166,6 +166,7 @@ return [
         //Darryldecode\Cart\CartServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Artisaninweb\SoapWrapper\ServiceProvider::class,
+        Livewire\LivewireServiceProvider::class,
 
         /*
          * Package Service Providers...

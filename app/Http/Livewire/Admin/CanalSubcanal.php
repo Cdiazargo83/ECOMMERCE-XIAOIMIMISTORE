@@ -40,8 +40,7 @@ class CanalSubcanal extends Component
             'idflexline_neto' => 'required',
         ]);
 
-        $this->agregarColumna();
-
+        // Guardar en la tabla principal
         ModelsCanalSubcanal::create([
             'canal' => $this->canal,
             'desc_canal' => $this->desc_canal,
@@ -58,23 +57,27 @@ class CanalSubcanal extends Component
             'idflexline_neto' => $this->idflexline_neto,
         ]);
 
+        // Crear la tabla adicional si no existe
+        $tableName = trim($this->bodega);
+
+        DB::statement("
+            CREATE TABLE IF NOT EXISTS `$tableName` (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                sku_saco INT ,
+                sku_bitel INT ,
+                name INT ,
+                desc_product INT ,
+                id_lp_b2b INT ,
+                id_lp_b2c INT ,
+                lp_b2b_price INT ,
+                id_b2c_price INT ,
+                quantity INT ,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            )
+        ");
+
         $this->resetInputFields();
-    }
-
-    private function agregarColumna()
-    {
-        $tableName = 'products'; // Nombre de la tabla "products"
-
-        // Verificar si la columna ya existe antes de intentar agregarla
-        $columnExists = DB::select("SHOW COLUMNS FROM $tableName LIKE 'bodega'");
-
-        if (empty($columnExists)) {
-            // Agregar la nueva columna 'bodega' a la tabla "products"
-            DB::statement("ALTER TABLE `$tableName` ADD COLUMN bodega VARCHAR(255)");
-        }
-
-        // Actualizar los registros existentes con el valor de $bodega
-        DB::table($tableName)->update(['bodega' => $this->bodega]);
     }
 
     private function resetInputFields()

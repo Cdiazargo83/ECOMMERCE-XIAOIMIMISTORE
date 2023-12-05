@@ -11,6 +11,7 @@ class CreateParametrizadoTable extends Migration
         Schema::create('parametrizado', function (Blueprint $table) {
 
             $table->id();
+            $table->string('name_modelo')->nullable();
             $table->unsignedBigInteger('empresa_id')->nullable();
             $table->foreign('empresa_id')->references('id')->on('empresa_canal');
 

@@ -7,6 +7,8 @@ use App\Models\Parametrizado;
 use App\Models\EmpresaCanal;
 use App\Models\CanalSubcanal;
 use App\Models\PaisMoneda;
+use App\Console\Commands\MakeViewCommand;
+use Illuminate\Support\Facades\Artisan;
 
 class Parametrizacion extends Component
 {
@@ -23,12 +25,10 @@ class Parametrizacion extends Component
     public $desc_lp_visual_id = '';
     public $lp_neto_id = '';
     public $desc_lp_neto_id = '';
-    public $idflexline_visual_id = '' ;
-    public $idflexline_neto_id = '' ;
-    public $simbolo_moneda_id = '' ;
-
-
-
+    public $idflexline_visual_id = '';
+    public $idflexline_neto_id = '';
+    public $simbolo_moneda_id = '';
+    public $name_modelo;
 
     public function guardar()
     {
@@ -47,12 +47,12 @@ class Parametrizacion extends Component
             'desc_lp_visual_id' => 'required',
             'lp_neto_id' => 'required',
             'desc_lp_neto_id' => 'required',
-
             'idflexline_visual_id' => 'required',
             'idflexline_neto_id' => 'required',
+            'name_modelo' => 'required'
         ]);
 
-        Parametrizado::create([
+        $parametrizado = Parametrizado::create([
             'empresa_id' => $this->empresa_id,
             'desc_empresa_id' => $this->desc_empresa_id,
             'canal_id' => $this->canal_id,
@@ -67,14 +67,20 @@ class Parametrizacion extends Component
             'lp_neto_id' => $this->lp_neto_id,
             'desc_lp_neto_id' => $this->desc_lp_neto_id,
             'simbolo_moneda_id' => $this->simbolo_moneda_id,
-
             'idflexline_visual_id' => $this->idflexline_visual_id,
             'idflexline_neto_id' => $this->idflexline_neto_id,
+            'name_modelo' => $this->name_modelo
         ]);
 
+        // Guardar el nombre del modelo en la propiedad
+        $this->name_modelo = $parametrizado->name_modelo;
 
+        // Crear la vista dinámicamente
+        $nombreVista = 'livewire.admin.' . $this->name_modelo;
+        Artisan::call(MakeViewCommand::class, ['name' => $nombreVista]);
 
-        $this->resetInputFields();
+        // Redirigir a la nueva vista con el nombre del modelo
+        return redirect()->route('nueva_vista', ['name_modelo' => $this->name_modelo]);
     }
 
     private function resetInputFields()
@@ -93,9 +99,9 @@ class Parametrizacion extends Component
         $this->lp_neto_id = null;
         $this->desc_lp_neto_id = null;
         $this->simbolo_moneda_id = null;
-
         $this->idflexline_visual_id = null;
         $this->idflexline_neto_id = null;
+        $this->name_modelo = null;
     }
 
     public function submit()
@@ -106,11 +112,11 @@ class Parametrizacion extends Component
     public function render()
     {
         // Recupera las relaciones necesarias para la vista
-        $parametrizados = Parametrizado::with(['empresa', 'canal','simbolo_moneda'])->get();
+        $parametrizados = Parametrizado::with(['empresa', 'canal', 'simbolo_moneda'])->get();
         $empresas = EmpresaCanal::all();
         $canales = CanalSubcanal::all();
         $simbolo_monedas = PaisMoneda::all();
 
-        return view('livewire.admin.parametrizacion', compact('parametrizados', 'empresas', 'canales','simbolo_monedas'))->layout('layouts.admin');
+        return view('livewire.admin.parametrizacion', compact('parametrizados', 'empresas', 'canales', 'simbolo_monedas'))->layout('layouts.admin');
     }
 }
