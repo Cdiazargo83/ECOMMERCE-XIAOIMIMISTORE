@@ -68,6 +68,7 @@ class ProductflexController extends Controller
                         case '03-LIM-PURUCHU-MISTR':
                             $existingProduct->{'puruchu'} = intval($productData->Bodega->Cantidad);
                             break;
+
                     }
 
                     // Calcular y actualizar el campo 'stock_flex'
@@ -122,6 +123,7 @@ class ProductflexController extends Controller
                         case '03-LIM-PURUCHU-MISTR':
                             $newProduct->{'puruchu'} = intval($productData->Bodega->Cantidad);
                             break;
+
                     }
 
                     // Calcular y asignar el campo 'stock_flex'
@@ -130,6 +132,7 @@ class ProductflexController extends Controller
                         $newProduct->jockeypz +
                         $newProduct->megaplz +
                         $newProduct->huaylas +
+
                         $newProduct->puruchu;
                     $newProduct->save();
 

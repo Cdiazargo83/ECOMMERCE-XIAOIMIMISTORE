@@ -4,7 +4,8 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use App\Models\CanalSubcanal as ModelsCanalSubcanal;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 
 class CanalSubcanal extends Component
 {
@@ -41,7 +42,7 @@ class CanalSubcanal extends Component
         ]);
 
         // Guardar en la tabla principal
-        ModelsCanalSubcanal::create([
+        $newRecord = ModelsCanalSubcanal::create([
             'canal' => $this->canal,
             'desc_canal' => $this->desc_canal,
             'subcanal' => $this->subcanal,
@@ -57,27 +58,26 @@ class CanalSubcanal extends Component
             'idflexline_neto' => $this->idflexline_neto,
         ]);
 
-        // Crear la tabla adicional si no existe
-        $tableName = trim($this->bodega);
-
-        DB::statement("
-            CREATE TABLE IF NOT EXISTS `$tableName` (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                sku_saco INT ,
-                sku_bitel INT ,
-                name INT ,
-                desc_product INT ,
-                id_lp_b2b INT ,
-                id_lp_b2c INT ,
-                lp_b2b_price INT ,
-                id_b2c_price INT ,
-                quantity INT ,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-            )
-        ");
+        // Add a new column to the 'products' table
+        $this->addNewColumnToProductsTable($this->bodega);
 
         $this->resetInputFields();
+    }
+
+    private function addNewColumnToProductsTable($columnName)
+    {
+        // Clean the column name (remove numbers and signs)
+        $cleanColumnName = preg_replace('/[^a-zA-Z]/', '', $columnName);
+
+        // Convert to lowercase
+        $cleanColumnName = strtolower($cleanColumnName);
+
+        // Assuming you have a 'products' table, update it to add a new column
+        Schema::table('products_saco', function (Blueprint $table) use ($cleanColumnName) {
+            $table->string($cleanColumnName)->nullable();
+        });
+
+        // You might want to update existing records in the 'products' table based on your logic
     }
 
     private function resetInputFields()

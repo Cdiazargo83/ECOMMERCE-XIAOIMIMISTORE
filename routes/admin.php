@@ -21,6 +21,7 @@ use App\Http\Livewire\Admin\ShowBanner;
 use App\Http\Livewire\Admin\ShowPromocion;
 use App\Http\Controllers\Admin\ProductflexController;
 use App\Http\Controllers\Admin\ConsultaPrecioController;
+use App\Http\Controllers\Admin\ConsultaStockController;
 use App\Http\Controllers\Admin\InyectaDocumentoController;
 use App\Http\Controllers\facturacion\DatosController;
 use App\Models\Company;
@@ -45,7 +46,7 @@ Route::get('administrar/parametrizacion', Parametrizacion::class)->name('livewir
 
 //Route::get('/plataforma_saco/{name_modelo}', [NuevaVistaController::class, 'index'])->name('nueva_vista');
 // Ruta para la nueva vista
-Route::get('/plataforma_saco/{name_modelo}', \App\Http\Livewire\Admin\NuevaVistaController::class)->name('nueva_vista');
+//Route::get('/plataforma_saco/{name_modelo}', \App\Http\Livewire\Admin\NuevaVistaController::class)->name('nueva_vista');
 
 //ruta para PDF
 
@@ -95,4 +96,6 @@ Route::middleware(['auth'])->group(function () {
     //CONSULTA FLEXLINE
     Route::match(['get', 'post'], '/consulta-productos', [ProductflexController::class, 'consultaProductos'])->name('livewire.admin.consulta-productos');
     Route::match(['get', 'post'], '/consulta-precio', [ConsultaPrecioController::class, 'consultaPrecio'])->name('livewire.admin.consulta-precio');
+
+    Route::match(['get', 'post'], '/consulta-stock', [ConsultaStockController::class, 'consultaStock'])->name('livewire.admin.consulta-stock');
 });
