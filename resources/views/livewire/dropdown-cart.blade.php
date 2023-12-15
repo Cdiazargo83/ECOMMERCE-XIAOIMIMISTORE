@@ -22,6 +22,7 @@
 
                         <article class="flex-1">
                             <h1 class="font-bold text-red-600">{{$item->name}}</h1>
+                            Hola
                             <h1 class="font-bold text-blue-400">{{$item->options->sku}}</h1>
                             <div class="flex">
                                 <p>Cant: {{$item->qty}}</p>

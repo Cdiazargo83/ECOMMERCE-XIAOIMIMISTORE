@@ -67,6 +67,7 @@
                                     {{Str::limit($product->name, 20)}}
                                     </a>
                                     <p class="font-bold text-xs text-blue-400">{{$product->sku}}</p>
+                                    <a href="">{{$product->description}}</a>
                                 </h1>
 
                                 <p class="font-bold text-truegray-700">S/ {{$product->price}}</p>

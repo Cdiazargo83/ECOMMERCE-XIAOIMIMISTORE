@@ -9,6 +9,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
 
         <!-- Styles -->
           {{-- Dropzone --}}
@@ -38,6 +39,7 @@
         @livewireStyles
         {{-- Scripts --}}
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
 
 
         @stack('head')
@@ -48,6 +50,7 @@
 
 
         <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+        <script src="node_modules/alpinejs/dist/alpine.min.js" defer></script>
 
 
 
