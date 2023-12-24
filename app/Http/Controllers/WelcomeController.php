@@ -8,31 +8,39 @@ use App\Models\Order;
 use App\Models\Banner;
 use App\Models\Product;
 use App\Models\Promocion;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Carbon;
 
 class WelcomeController extends Controller
 {
-    //
     public function __invoke()
     {
-
         if (auth()->user()) {
-            $reservado =   Order::where('status', 1)->where('user_id',auth()->user()->id)->count();
+            $reservado = Order::where('status', 1)
+                ->where('user_id', auth()->user()->id)
+                ->count();
 
             if ($reservado) {
+                $mensaje = "Usted tiene $reservado ordenes reservadas. <a class='font-bold href='" . route('orders.index') . "?status=1'>Ir a pagar</a>";
 
-                $mensaje = "Usted tiene $reservado ordenes reservadas. <a class='font-bold href='" . route('orders.index') ."?status=1'>Ir a pagar</a>";
-
+                // Guardar la fecha y hora actual en la sesión
+                Session::put('flash.banner_time', now());
                 session()->flash('flash.banner', $mensaje);
             }
         }
 
-       // session()->flash('flash.bannerStyle','danger');
+        // Verificar si ha pasado el tiempo especificado (3 minutos) y eliminar el mensaje
+        $bannerTime = Session::get('flash.banner_time');
+        if ($bannerTime && $bannerTime->diffInMinutes(now()) >= 3) {
+            Session::forget('flash.banner_time');
+            Session::forget('flash.banner');
+        }
 
-        $categories = Category::all();
-        $banners = Banner::OrderBy('id','asc')->get();
-        $promocions = Promocion::OrderBy('id','asc')->get();
+        // Resto del código
+        $categories = Category::where('name', '!=', 'default')->get();
+        $banners = Banner::orderBy('id', 'asc')->get();
+        $promocions = Promocion::orderBy('id', 'asc')->get();
 
-
-        return view('welcome', compact('categories','banners','promocions'));
+        return view('welcome', compact('categories', 'banners', 'promocions'));
     }
 }

@@ -11,3 +11,4 @@ class Consultaproductosview extends Component
         return view('livewire.admin.consultaproductosview');
     }
 }
+

@@ -35,28 +35,30 @@ class CategoryFilter extends Component
     public function render()
     {
 
-      /*  $products = $this->category->products()->where('status', 2)->paginate(10);*/
-        $productsQuery = Product::query()->whereHas('subcategory.category', function(Builder $query){
-            $query->where('id', $this->category->id);
-        });
+        /*  $products = $this->category->products()->where('status', 2)->paginate(10);*/
+          $productsQuery = Product::query()->whereHas('subcategory.category', function(Builder $query){
+              $query->where('id', $this->category->id);
+          });
+  
+  
+          if ($this->subcategoria){
+              $productsQuery = $productsQuery->whereHas('subcategory', function(Builder $query){
+                  $query->where('slug', $this->subcategoria);
+              });
+          }
+  
+          if ($this->marca){
+              $productsQuery = $productsQuery->whereHas('brand', function(Builder $query){
+                  $query->where('name', $this->marca);
+              });
+  
+          }
+  
+  
+          $products = $productsQuery->paginate(20);
+  
+          return view('livewire.category-filter', compact('products'));
+      }
+  }
 
-
-        if ($this->subcategoria){
-            $productsQuery = $productsQuery->whereHas('subcategory', function(Builder $query){
-                $query->where('slug', $this->subcategoria);
-            });
-        }
-
-        if ($this->marca){
-            $productsQuery = $productsQuery->whereHas('brand', function(Builder $query){
-                $query->where('name', $this->marca);
-            });
-
-        }
-
-
-        $products = $productsQuery->paginate(20);
-
-        return view('livewire.category-filter', compact('products'));
-    }
-}
+  

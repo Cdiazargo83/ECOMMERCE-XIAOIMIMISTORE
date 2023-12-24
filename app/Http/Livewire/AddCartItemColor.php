@@ -35,7 +35,7 @@ class AddCartItemColor extends Component
     public function decrement(){
         $this->qty = $this->qty - 1;
     }
-
+    
     public function increment(){
         $this->qty = $this->qty + 1;
     }
@@ -62,3 +62,7 @@ class AddCartItemColor extends Component
         return view('livewire.add-cart-item-color');
     }
 }
+
+
+
+

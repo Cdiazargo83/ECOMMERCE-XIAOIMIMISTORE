@@ -79,7 +79,7 @@ class BannerImagen extends Component
 
         $image = $this->createForm['image']->store('banners');
 
-       $banner = Banner::create([
+        $banner = Banner::create([
             'name' => $this->createForm['name'],
             'slug' => $this->createForm['slug'],
             'image' => $image
@@ -146,3 +146,10 @@ class BannerImagen extends Component
         return view('livewire.admin.banner-imagen');
     }
 }
+
+
+
+
+
+
+

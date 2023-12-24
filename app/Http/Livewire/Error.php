@@ -10,4 +10,5 @@ class Error extends Component
     {
         return view('livewire.error');
     }
-}
+} 
+

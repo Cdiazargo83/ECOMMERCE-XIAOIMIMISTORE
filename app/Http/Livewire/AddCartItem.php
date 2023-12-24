@@ -56,3 +56,5 @@ class AddCartItem extends Component
         return view('livewire.add-cart-item');
     }
 }
+
+

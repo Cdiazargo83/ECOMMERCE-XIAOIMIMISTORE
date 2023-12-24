@@ -34,7 +34,6 @@ class AddCartItemSize extends Component
         $this->options['size'] = $size->name;
         $this->options['size_id'] = $size->id;
     }
-
     public function updatedColorId($value)
     {
         $size = Size::find($this->size_id);
@@ -78,3 +77,6 @@ class AddCartItemSize extends Component
         return view('livewire.add-cart-item-size');
     }
 }
+
+
+

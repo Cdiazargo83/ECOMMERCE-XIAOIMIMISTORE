@@ -21,3 +21,4 @@ class Banners extends Component
         return view('livewire.banners');
     }
 }
+

@@ -78,7 +78,6 @@ class CreateCategory extends Component
     public function getBrands(){
         $this->brands = Brand::all();
     }
-
     public function getCategories(){
         $this->categories = Category::all();
     }
@@ -117,6 +116,7 @@ class CreateCategory extends Component
         $this->editForm['name'] = $category->name;
         $this->editForm['slug'] = $category->slug;
         $this->editForm['icon'] = $category->icon;
+        $this->editForm['image'] = $category->image;
         $this->editForm['image'] = $category->image;
         $this->editForm['brands'] = $category->brands->pluck('id');
 
@@ -162,3 +162,11 @@ class CreateCategory extends Component
         return view('livewire.admin.create-category');
     }
 }
+
+
+
+
+
+
+
+                                                                                                                                                          159,0-1       Bot

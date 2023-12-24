@@ -37,7 +37,6 @@ class ColorSize extends Component
 
             $pivot->quantity = $pivot->quantity + $this->quantity;
             $pivot->save();
-
         } else {
 
             $this->product->colors()->attach([
@@ -76,7 +75,6 @@ class ColorSize extends Component
 
         $this->reset('open');
     }
-
     public function delete(Pivot $pivot){
         $pivot->delete();
         $this->size = $this->size->fresh();
@@ -91,3 +89,6 @@ class ColorSize extends Component
         return view('livewire.admin.color-size', compact('size_colors'));
     }
 }
+
+
+

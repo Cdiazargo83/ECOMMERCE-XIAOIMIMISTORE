@@ -38,7 +38,8 @@ class OrderPartnerController extends Controller
         $items = json_decode($order_partner->content);
        // $order = Order::all('id');
       //   dd($order);
-           return view('orderpartners.show', compact('order_partner','items'));
+       
+      return view('orderpartners.show', compact('order_partner','items'));
     }
     public function payment(OrderPartner $order_partner){
 

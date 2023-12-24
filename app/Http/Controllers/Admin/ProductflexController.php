@@ -37,6 +37,8 @@ class ProductflexController extends Controller
             $xmlResponse = $response->ConsultaStock_BodegaLPreciosResult;
             $responseData = simplexml_load_string($xmlResponse);
 
+
+
             $faker = Faker::create();
 
             foreach ($responseData->Producto as $productData) {
@@ -50,7 +52,9 @@ class ProductflexController extends Controller
                         'description' => (string) $productData->Descripcion,
                         'quantity' => intval($productData->Bodega->Cantidad),
                         'bodega' => (string) $productData->Bodega->Descripcion,
+
                     ]);
+
 
                     switch ($existingProduct->bodega) {
                         case '03-LIM-ATOCONG-MISTR':
@@ -68,7 +72,6 @@ class ProductflexController extends Controller
                         case '03-LIM-PURUCHU-MISTR':
                             $existingProduct->{'puruchu'} = intval($productData->Bodega->Cantidad);
                             break;
-
                     }
 
                     // Calcular y actualizar el campo 'stock_flex'
@@ -96,7 +99,7 @@ class ProductflexController extends Controller
                         'puruchu' => 0,
 
                         'subcategory_id' => 3,
-                        'brand_id' => 3,
+                        'brand_id' => 21,
                         'slug' => (string) $productData->Descripcion,
                         'stock_flex' => 0, // Inicializa 'stock_flex' en 0
                         'price' => 0,
@@ -123,7 +126,6 @@ class ProductflexController extends Controller
                         case '03-LIM-PURUCHU-MISTR':
                             $newProduct->{'puruchu'} = intval($productData->Bodega->Cantidad);
                             break;
-
                     }
 
                     // Calcular y asignar el campo 'stock_flex'
@@ -132,8 +134,8 @@ class ProductflexController extends Controller
                         $newProduct->jockeypz +
                         $newProduct->megaplz +
                         $newProduct->huaylas +
-
                         $newProduct->puruchu;
+
                     $newProduct->save();
 
                     // Agregar lógica para asociar una imagen con datos falsos a los productos aquí
@@ -143,6 +145,7 @@ class ProductflexController extends Controller
 
             // Devolver la vista con los datos obtenidos del servicio web
             return view('livewire.admin.consulta-productos', ['responseData' => $responseData]);
+
         } catch (\Exception $e) {
             dd($e->getMessage());
             return view('livewire.error', ['error' => $e->getMessage()]);
@@ -154,9 +157,9 @@ class ProductflexController extends Controller
     {
         // Establecer un valor predeterminado para el campo 'url'
         $defaultImageUrl = 'default_image_url.jpg';
-
-        // Crear un registro de imagen asociado al producto con el valor predeterminado
-        $image = new Image([
+        
+         // Crear un registro de imagen asociado al producto con el valor predeterminado
+         $image = new Image([
             'url' => $defaultImageUrl,
             'imageable_id' => $product->id,
             'imageable_type' => Product::class,
@@ -165,3 +168,6 @@ class ProductflexController extends Controller
         $image->save();
     }
 }
+
+
+

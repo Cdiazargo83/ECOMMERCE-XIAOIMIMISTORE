@@ -41,3 +41,8 @@ class UpdateCartItemColor extends Component
         return view('livewire.update-cart-item-color');
     }
 }
+          
+
+
+
+

@@ -21,3 +21,5 @@ class Promocions extends Component
         return view('livewire.promocions');
     }
 }
+
+

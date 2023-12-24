@@ -26,3 +26,5 @@ class CategoryProducts extends Component
         return view('livewire.category-products');
     }
 }
+
+

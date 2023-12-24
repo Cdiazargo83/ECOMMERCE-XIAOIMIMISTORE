@@ -11,3 +11,5 @@ class ConsultaProductos extends Component
         return view('livewire.admin.consulta-productos')->layout('layouts.admin');
     }
 }
+
+

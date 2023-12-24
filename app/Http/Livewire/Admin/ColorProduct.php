@@ -90,3 +90,4 @@ class ColorProduct extends Component
         return view('livewire.admin.color-product', compact('product_colors'));
     }
 }
+

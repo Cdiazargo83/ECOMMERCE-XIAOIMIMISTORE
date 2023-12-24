@@ -14,3 +14,4 @@ class DropdownCart extends Component
         return view('livewire.dropdown-cart');
     }
 }
+

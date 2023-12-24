@@ -26,3 +26,6 @@ class ShoppingCart extends Component
         return view('livewire.shopping-cart');
     }
 }
+
+
+

@@ -30,3 +30,4 @@ class PaidController extends Controller
         return redirect()->route('orders.show', $order);
         }
     }
+    

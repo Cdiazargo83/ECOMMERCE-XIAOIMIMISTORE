@@ -5,3 +5,4 @@ interface InterfaceInstanceSoap
 {
     public static function init();
 }
+

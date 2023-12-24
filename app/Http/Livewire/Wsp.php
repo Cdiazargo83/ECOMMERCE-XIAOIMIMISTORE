@@ -11,3 +11,4 @@ class Wsp extends Component
         return view('livewire.wsp');
     }
 }
+

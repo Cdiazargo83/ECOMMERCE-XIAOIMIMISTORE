@@ -11,3 +11,5 @@ class PaisIcono extends Component
         return view('livewire.pais-icono');
     }
 }
+
+ 

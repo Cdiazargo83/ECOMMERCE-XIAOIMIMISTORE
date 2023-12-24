@@ -11,3 +11,5 @@ class BannerController extends Controller
         return view('admin.banners.index');
     }
 }
+
+

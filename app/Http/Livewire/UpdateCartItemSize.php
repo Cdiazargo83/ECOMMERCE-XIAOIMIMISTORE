@@ -38,11 +38,12 @@ class UpdateCartItemSize extends Component
 
         $this->emit('render');
     }
-
-
+    
     public function render()
     {
 
         return view('livewire.update-cart-item-size');
     }
 }
+
+

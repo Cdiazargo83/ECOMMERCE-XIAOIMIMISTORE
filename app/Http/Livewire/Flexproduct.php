@@ -11,3 +11,9 @@ class Flexproduct extends Component
         return view('livewire.flexproduct');
     }
 }
+ 
+
+
+
+
+
